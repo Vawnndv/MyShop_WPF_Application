@@ -5,8 +5,17 @@
              xmlns:views="clr-namespace:MyShop_WPF_Application.Views"
              xmlns:viewmodels="clr-namespace:MyShop_WPF_Application.ViewModels"
              xmlns:local="clr-namespace:MyShop_WPF_Application"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Dashboard.xaml">
     <Application.Resources>
+        
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        
         <FontFamily x:Key="Amsterdam One">./Fonts/Amsterdam_One.ttf#Amsterdam One</FontFamily>
 
         <Style x:Key="menuButton" TargetType="Button">
@@ -64,5 +73,7 @@
         <DataTemplate DataType="{x:Type viewmodels:TMSPViewModel}">
             <views:TMSPView/>
         </DataTemplate>
+        </ResourceDictionary>
+
     </Application.Resources>
 </Application>
