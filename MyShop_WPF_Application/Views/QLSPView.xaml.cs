@@ -13,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyShop_WPF_Application
+namespace MyShop_WPF_Application.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for QLSPView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class QLSPView : UserControl
     {
-        public MainWindow()
+        public QLSPView()
         {
             InitializeComponent();
-            Dashboard dashboard = new Dashboard();
-            dashboard.Show();
-            this.Close();
         }
     }
 }

@@ -13,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyShop_WPF_Application
+namespace MyShop_WPF_Application.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TMSPView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TMSPView : UserControl
     {
-        public MainWindow()
+        public TMSPView()
         {
             InitializeComponent();
-            Dashboard dashboard = new Dashboard();
-            dashboard.Show();
-            this.Close();
         }
     }
 }
