@@ -1,4 +1,6 @@
-﻿using MyShop_WPF_Application.ViewModels;
+﻿using MaterialDesignThemes.Wpf;
+using MyShop_WPF_Application.UserControls;
+using MyShop_WPF_Application.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +24,8 @@ namespace MyShop_WPF_Application
     {
         public Dashboard()
         {
-            InitializeComponent();
             DataContext = new MainViewModel();
+            InitializeComponent();
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)

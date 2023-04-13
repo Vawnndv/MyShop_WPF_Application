@@ -5,7 +5,7 @@
              xmlns:views="clr-namespace:MyShop_WPF_Application.Views"
              xmlns:viewmodels="clr-namespace:MyShop_WPF_Application.ViewModels"
              xmlns:local="clr-namespace:MyShop_WPF_Application"
-             StartupUri="Views/LoginView.xaml">
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
         
         <ResourceDictionary>
@@ -15,9 +15,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="Amsterdam One">./Fonts/Amsterdam_One.ttf#Amsterdam One</FontFamily>
         
-        <FontFamily x:Key="Amsterdam One">./Fonts/Amsterdam_One.ttf#Amsterdam One</FontFamily>
-
+            
         <Style x:Key="menuButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="#ffffff"/>
@@ -35,16 +35,22 @@
 
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Tag" Value="Visible"/>
-                    <Setter Property="Background" Value="#FFFFFF"/>
-                    <Setter Property="Foreground" Value="#348F6C"/>
+                        <Setter Property="Tag" Value="Hidden"/>
+                        <Setter Property="Background" Value="#489A7A"/>
+                    <Setter Property="Foreground" Value="#ffffff"/>
                 </Trigger>
 
                 <Trigger Property="IsMouseOver" Value="False">
                     <Setter Property="Tag" Value="Hidden"/>
                 </Trigger>
 
-                <DataTrigger Binding="{Binding ElementName=menuButton, Path=isActive}" Value="True">
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter Property="Tag" Value="Visible"/>
+                        <Setter Property="Background" Value="#FFFFFF"/>
+                        <Setter Property="Foreground" Value="#348F6C"/>
+                    </Trigger>
+
+                    <DataTrigger Binding="{Binding ElementName=menuButton, Path=isActive}" Value="True">
                     <Setter Property="Tag" Value="Visible"/>
                     <Setter Property="Background" Value="#FFFFFF"/>
                     <Setter Property="Foreground" Value="#348F6C"/>
@@ -52,7 +58,7 @@
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="menuButtonIcon" TargetType="Icon:PackIconMaterial" x:Name="icon">
+        <Style x:Key="menuButtonIcon" TargetType="Icon:PackIconMaterial">
             <Setter Property="Margin" Value="10 0 0 0"/>
             <Setter Property="Width" Value="25"/>
             <Setter Property="Height" Value="18"/>
