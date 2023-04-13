@@ -20,11 +20,10 @@ namespace MyShop_WPF_Application
 
         public static void saveToConfig(string password, string username)
         {
-            var config = ConfigurationManager.OpenExeConfiguration(
-                        ConfigurationUserLevel.None);
-
+            
+            
             // save username to config
-            config.AppSettings.Settings["Username"].Value = username;
+            Global.config.AppSettings.Settings["Username"].Value = username;
 
             // encrypt password
             var passwordInBytes = Encoding.UTF8.GetBytes(password);
@@ -43,10 +42,10 @@ namespace MyShop_WPF_Application
             // save encrypted password to config
             string passwordIn64 = Convert.ToBase64String(cypherText);
             string entropyIn64 = Convert.ToBase64String(entropy);
-            config.AppSettings.Settings["Password"].Value = passwordIn64;
-            config.AppSettings.Settings["Entropy"].Value = entropyIn64;
+            Global.config.AppSettings.Settings["Password"].Value = passwordIn64;
+            Global.config.AppSettings.Settings["Entropy"].Value = entropyIn64;
 
-            config.Save(ConfigurationSaveMode.Full);
+            Global.config.Save(ConfigurationSaveMode.Full);
             System.Configuration.ConfigurationManager.RefreshSection("appSettings");
         }
 

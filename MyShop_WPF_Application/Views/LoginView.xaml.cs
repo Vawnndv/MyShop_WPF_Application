@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using MyShop_WPF_Application.Views;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -25,9 +26,6 @@ namespace MyShop_WPF_Application.WindowScreen
     /// </summary>
     public partial class Login : Window
     {
-        SqlConnection? conn;
-        public static int role = -1;
-
         public Login()
         {
 
@@ -81,13 +79,16 @@ namespace MyShop_WPF_Application.WindowScreen
             connectionString = connectionString.Replace("@Username", username);
             connectionString = connectionString.Replace("@Password", password);
 
+            // assign to attribute of global class
+            Global.ConnectionString = connectionString;
+
             // set visibility for progress bar
             progressBar.Visibility = Visibility.Visible;
             loadCanvas.Visibility = Visibility.Visible;
             progressBar.IsIndeterminate = true;
 
             // try connect to DB
-            conn = await Task.Run(() =>
+            Global.Connection = await Task.Run(() =>
             {
                 var connection = new SqlConnection(connectionString);
                 try
@@ -107,7 +108,7 @@ namespace MyShop_WPF_Application.WindowScreen
             progressBar.IsIndeterminate = false;
             loadCanvas.Visibility = Visibility.Hidden;
 
-            if (conn == null)
+            if (Global.Connection == null)
             {
                 MessageBox.Show("Login Unsuccessful");
             }
@@ -118,35 +119,13 @@ namespace MyShop_WPF_Application.WindowScreen
                 // save username, password to App.config
                 if (rememberCheckBox.IsChecked == true)
                 {
-                    
-
                     AppKeyEnum.saveToConfig(password, username);
-                    //var passwordInBytes = Encoding.UTF8.GetBytes(password);
-                    //var entropy = new byte[20];
-                    //using (var rng = RandomNumberGenerator.Create())
-                    //{
-                    //    rng.GetBytes(entropy);
-                    //}
-
-                    //var cypherText = ProtectedData.Protect(
-                    //    passwordInBytes,
-                    //    entropy,
-                    //    DataProtectionScope.CurrentUser
-                    //);
-
-                    //string passwordIn64 = Convert.ToBase64String(cypherText);
-                    //string entropyIn64 = Convert.ToBase64String(entropy);
-                    //config.AppSettings.Settings["Password"].Value = passwordIn64;
-                    //config.AppSettings.Settings["Entropy"].Value = entropyIn64;
-
-                    //config.Save(ConfigurationSaveMode.Full);
-                    //System.Configuration.ConfigurationManager.RefreshSection("appSettings");
                 }
 
                 // query to get user's role
                 string sql = $"select Rolename from Account where Username = @username";
 
-                var command = new SqlCommand(sql, conn);
+                var command = new SqlCommand(sql, Global.Connection);
                 command.Parameters.Add("@username", SqlDbType.NVarChar).Value = username;
 
                 var reader = command.ExecuteReader();
@@ -156,16 +135,18 @@ namespace MyShop_WPF_Application.WindowScreen
 
                 // check to assign static role var
                 if (roleStr == "Admin")
-                    role = 0;
+                    Global.role = 0;
                 else if (roleStr == "Saler")
-                    role = 1;
+                    Global.role = 1;
 
                 reader.Close();
 
+
                 // load dashboard
-                Window win2 = new Dashboard();
+                Window win2 = new QLDHView();
                 win2.Show();
                 this.Close();
+
             }
 
             progressBar.Visibility = Visibility.Hidden;
