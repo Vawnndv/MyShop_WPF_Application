@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using MyShop_WPF_Application.Model;
 using MyShop_WPF_Application.Repositories;
 using MyShop_WPF_Application.ViewModels;
@@ -51,6 +52,23 @@ namespace MyShop_WPF_Application.Views
             }
             
         }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            int i = lst.SelectedIndex;
+
+            // No select, click button
+            if (i == -1)
+                return;
+
+            MessageBox.Show(i.ToString());
+
+            _viewModel.removeOrder(i);
+            lst.Items.RemoveAt(i);
+            lst.Items.Refresh();
+        
+        }
+
     }
 }
 

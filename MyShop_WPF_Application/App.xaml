@@ -5,7 +5,7 @@
              xmlns:views="clr-namespace:MyShop_WPF_Application.Views"
              xmlns:viewmodels="clr-namespace:MyShop_WPF_Application.ViewModels"
              xmlns:local="clr-namespace:MyShop_WPF_Application"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Views/LoginView.xaml">
     <Application.Resources>
         
         <ResourceDictionary>

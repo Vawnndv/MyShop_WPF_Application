@@ -1,5 +1,6 @@
 ﻿using MyShop_WPF_Application.Model;
 using MyShop_WPF_Application.Repositories;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MyShop_WPF_Application.ViewModels
 {
@@ -33,6 +35,7 @@ namespace MyShop_WPF_Application.ViewModels
             set { 
                 _OrderID = value;
                 OnPropertyChanged("OrderID");
+
             }
         }
         public float OrderTotal
@@ -72,5 +75,15 @@ namespace MyShop_WPF_Application.ViewModels
                 OnPropertyChanged("CustomerPhone");
             }
         }
+
+        public void removeOrder(int i)
+        {
+            if(i >= 0 && i < _orderList.Count)
+            {
+                _repository.deleteOrderId(_orderList[i].OrderID);
+                _orderList.RemoveAt(i);
+            }
+        }
+    
     }
 }

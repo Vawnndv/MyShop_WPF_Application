@@ -9,21 +9,20 @@
         Title="QLDHView" Height="450" Width="800"
         Loaded="Window_Loaded"
         >
+    <Canvas>
+        <Button Content="Xóa" x:Name="deleteButton" Click="deleteButton_Click" ></Button>
 
-    <ListView x:Name="lst" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1000" d:ItemsSource="{d:SampleData ItemCount=5}">
-
-        <ListView.View >
-            <GridView>
-                <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding ID}" />
-                <GridViewColumn Header="Trạng thái" Width="150" DisplayMemberBinding="{Binding status}"/>
-                <GridViewColumn Header="Ngày tạo" Width="150" DisplayMemberBinding="{Binding createDate}"/>
-                <GridViewColumn Header="Số điện thoại" Width="150" DisplayMemberBinding="{Binding phoneNumber}"/>
-                <GridViewColumn Header="Tổng giá trị" Width="200" DisplayMemberBinding="{Binding totalValue}"/>
-            </GridView>
-        </ListView.View>
-        
-       
-        
-      
-    </ListView>
+        <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=5}" Canvas.Left="16" Canvas.Top="60">
+            <ListView.View >
+                <GridView>
+                    <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding ID}" />
+                    <GridViewColumn Header="Trạng thái" Width="150" DisplayMemberBinding="{Binding status}"/>
+                    <GridViewColumn Header="Ngày tạo" Width="150" DisplayMemberBinding="{Binding createDate}"/>
+                    <GridViewColumn Header="Số điện thoại" Width="150" DisplayMemberBinding="{Binding phoneNumber}"/>
+                    <GridViewColumn Header="Tổng giá trị" Width="200" DisplayMemberBinding="{Binding totalValue}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Canvas>
+    
 </Window>

@@ -41,5 +41,33 @@ namespace MyShop_WPF_Application.Repositories
 
             return result;
         }
+
+        public Boolean deleteOrderId(int id)
+        {
+            if (Global.Connection != null)
+            {
+                // delete order details first to avoid FK conflict
+                deleteOrderDetails(id);
+                
+                // query to get user's role
+                string sql = $"delete from Purchase where Purchase_ID = @ID";
+
+                var command = new SqlCommand(sql, Global.Connection);
+                command.Parameters.AddWithValue("@ID", id);
+                command.ExecuteNonQuery();
+
+                return true;
+            }
+            return false;
+        }
+
+        private void deleteOrderDetails(int id)
+        {
+            string sql = $"delete from PurchaseDetail where Purchase_ID = @ID";
+
+            var command = new SqlCommand(sql, Global.Connection);
+            command.Parameters.AddWithValue("@ID", id);
+            command.ExecuteNonQuery();
+        }
     }
 }
