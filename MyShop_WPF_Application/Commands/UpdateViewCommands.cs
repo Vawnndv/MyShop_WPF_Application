@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using MyShop_WPF_Application.ViewModels;
+using System.Diagnostics;
 
 namespace MyShop_WPF_Application.Commands
 {
@@ -33,6 +34,7 @@ namespace MyShop_WPF_Application.Commands
 
         public void Execute(object parameter)
         {
+            Trace.WriteLine(parameter.ToString());
 
             if (parameter.ToString() == "QLSP")
             {
