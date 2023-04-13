@@ -15,15 +15,19 @@ namespace MyShop_WPF_Application
 
         public static string getValue(string key)
         {
-            return System.Configuration.ConfigurationManager.AppSettings[key]!;
+            return ConfigurationManager.AppSettings[key]!;
         }
 
-        public static void encryptAndSavePassword(string password)
+        public static void saveToConfig(string password, string username)
         {
-            var passwordInBytes = Encoding.UTF8.GetBytes(password);
-            var config = System.Configuration.ConfigurationManager.OpenExeConfiguration(
+            var config = ConfigurationManager.OpenExeConfiguration(
                         ConfigurationUserLevel.None);
 
+            // save username to config
+            config.AppSettings.Settings["Username"].Value = username;
+
+            // encrypt password
+            var passwordInBytes = Encoding.UTF8.GetBytes(password);
             var entropy = new byte[20];
             using (var rng = RandomNumberGenerator.Create())
             {
@@ -36,15 +40,16 @@ namespace MyShop_WPF_Application
                 DataProtectionScope.CurrentUser
             );
 
+            // save encrypted password to config
             string passwordIn64 = Convert.ToBase64String(cypherText);
             string entropyIn64 = Convert.ToBase64String(entropy);
             config.AppSettings.Settings["Password"].Value = passwordIn64;
             config.AppSettings.Settings["Entropy"].Value = entropyIn64;
 
             config.Save(ConfigurationSaveMode.Full);
-            ConfigurationManager.RefreshSection("appSettings");
+            System.Configuration.ConfigurationManager.RefreshSection("appSettings");
         }
 
-     
+
     }
 }

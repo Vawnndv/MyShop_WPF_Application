@@ -6,15 +6,20 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:MyShop_WPF_Application.WindowScreen"
         mc:Ignorable="d"
-        Title="Login" Height="550" Width="500"
+        Title="Login" Height="530" Width="500"
         Background="{x:Null}"
         WindowStyle="None"
         AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
         >
     <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource ResourceKey=MaterialDesignPaper}" Margin="25" x:Name="loginMaterialCard">
         <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost" >
-            <Canvas>
-                <Canvas x:Name="loadCanvas" Visibility="Hidden" Opacity="0.5" Background="Gray" Height="500" Width="450" Canvas.ZIndex="2"/>
+            <Canvas >
+                <Border x:Name="loadCanvas"  BorderThickness="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="0 0 0 0"
+                        CornerRadius="15,15,15,15" BorderBrush="Black" Opacity="0.5"  Background="Gray" Canvas.ZIndex="2"   
+                        Height="480" Width="450" Visibility="Hidden"/>
+
                 <ProgressBar Width="200" Height="200"  Style="{StaticResource MaterialDesignCircularProgressBar}" x:Name="progressBar" Canvas.ZIndex="3" Canvas.Left="125" Canvas.Top="150" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
 
                 <StackPanel Width="450" Canvas.ZIndex="1" x:Name="loginStackPanel" >
@@ -40,7 +45,7 @@
                     <Button  Margin="0 50 0 0" Width="200" x:Name="loginButton" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Click="loginButton_Click"
                         materialDesign:ShadowAssist.ShadowDepth="Depth2" Height="50" Content="Đăng nhập" FontSize="25" Background="Green" materialDesign:ButtonAssist.CornerRadius="10" />
 
-                    <Border BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="2" Margin="0 92 0 0"
+                    <Border BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="2" Margin="0 43 0 0"
                         CornerRadius="0,0,15,15" BorderBrush="Black" Background="IndianRed">
                         <Button BorderBrush="{x:Null}"  x:Name="closeButton" Style="{StaticResource MaterialDesignFlatDarkBgButton}" 
                         Content="Đóng" FontSize="25" Background="IndianRed" Height="50"  materialDesign:ButtonAssist.CornerRadius="15" Click="closeButton_Click"/>
