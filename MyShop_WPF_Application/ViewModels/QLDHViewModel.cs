@@ -24,10 +24,24 @@ namespace MyShop_WPF_Application.ViewModels
         private string? _OrderDate { get; set; }
         private int _OrderStatus { get; set; }
         private int _CustomerPhone { get; set; }
+        private int _PromotionID { get; set; }  
+        private string _OrderStatusDisplayText { get; set; }
+
 
         public QLDHViewModel()
         {
+            // query and get all orders
             _orderList = _repository.getAllOrder();
+        }
+
+        public int PromotionID
+        {
+            get { return _PromotionID; }
+            set
+            {
+                _PromotionID = value;
+                OnPropertyChanged("PromotionID");
+            }
         }
 
         public int OrderID { 
@@ -76,6 +90,18 @@ namespace MyShop_WPF_Application.ViewModels
             }
         }
 
+        public string OrderStatusDisplayText
+        {
+            get { return _OrderStatusDisplayText; }
+            set
+            {
+                _OrderStatusDisplayText = value;
+                OnPropertyChanged("OrderStatusDisplayText");
+            }
+        }
+
+        // Function
+        // remove order at position i (in the list and in the Database)
         public void removeOrder(int i)
         {
             if(i >= 0 && i < _orderList.Count)
@@ -84,6 +110,5 @@ namespace MyShop_WPF_Application.ViewModels
                 _orderList.RemoveAt(i);
             }
         }
-    
     }
 }

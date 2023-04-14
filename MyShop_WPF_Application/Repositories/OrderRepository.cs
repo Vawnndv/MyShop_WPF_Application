@@ -16,6 +16,8 @@ namespace MyShop_WPF_Application.Repositories
             ObservableCollection<OrderModel> result = new ObservableCollection<OrderModel>();
             if(Global.Connection != null)
             {
+                List<string> statusTypeList = getStatusDisplayTextStringFromDB();
+
                 // query to get user's role
                 string sql = $"select * from Purchase";
 
@@ -25,14 +27,24 @@ namespace MyShop_WPF_Application.Repositories
 
                 while(reader.Read())
                 {
+                    int? pId ;
+
+                    // check null promotion code
+                    if (reader["Promotion_ID"] == DBNull.Value)
+                        pId = null;
+                    else
+                        pId = (int)reader["Promotion_ID"];
+
                     // add orders from DB to collection
                     result.Add(new OrderModel()
                     {
+                        PromotionID = pId,
                         OrderID = (int)reader["Purchase_ID"],
                         OrderDate = (DateTime)reader["Centered_At"],
                         OrderStatus = (int)reader["Status"],
                         OrderTotal = (Double)reader["Total"],
-                        CustomerPhone = (string)reader["Customer_Phone"]
+                        CustomerPhone = (string)reader["Customer_Phone"],
+                        OrderStatusDisplayText = statusTypeList.ElementAt((int)reader["Status"] - 1).ToString()
                     });
                 }
 
@@ -68,6 +80,25 @@ namespace MyShop_WPF_Application.Repositories
             var command = new SqlCommand(sql, Global.Connection);
             command.Parameters.AddWithValue("@ID", id);
             command.ExecuteNonQuery();
+        }
+
+        // query and get status display text from SQL
+        private List<string> getStatusDisplayTextStringFromDB()
+        {
+            string sql = $"select Display_Text from PurchasesStatusEnum";
+            List<string> result = new List<string>();
+            var command = new SqlCommand(sql, Global.Connection);
+            var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                result.Add((string)reader["Display_Text"]);
+            }
+
+            reader.Close();
+
+
+            return result;
         }
     }
 }

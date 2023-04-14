@@ -5,24 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyShop_WPF_Application.Views"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Converter="clr-namespace:MyShop_WPF_Application.Converters"
+        
         mc:Ignorable="d"
-        Title="QLDHView" Height="450" Width="800"
-        Loaded="Window_Loaded"
-        >
-    <Canvas>
-        <Button Content="Xóa" x:Name="deleteButton" Click="deleteButton_Click" ></Button>
+        Title="QLDHView" Height="750" Width="1080"
+        Loaded="Window_Loaded">
+    
+    <Window.Resources>
+        <Converter:OrderStatusColorConverter x:Key="orderConverter"/>
+        <Converter:ToDataRowStringConverter x:Key="toCellConverter"/>
+
+        <Style TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
+
+    <StackPanel>
+        <Button Content="Xóa" x:Name="deleteButton" Click="deleteButton_Click" />
+        <Button Content="Tiếp" x:Name="nextButton" Click="nextButton_Click" />
+        <Button Content="Về" x:Name="prevButton" Click="prevButton_Click" Canvas.Left="78" />
 
         <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=5}" Canvas.Left="16" Canvas.Top="60">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            
             <ListView.View >
-                <GridView>
-                    <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding ID}" />
-                    <GridViewColumn Header="Trạng thái" Width="150" DisplayMemberBinding="{Binding status}"/>
-                    <GridViewColumn Header="Ngày tạo" Width="150" DisplayMemberBinding="{Binding createDate}"/>
-                    <GridViewColumn Header="Số điện thoại" Width="150" DisplayMemberBinding="{Binding phoneNumber}"/>
-                    <GridViewColumn Header="Tổng giá trị" Width="200" DisplayMemberBinding="{Binding totalValue}"/>
+                <GridView >
+                    <GridViewColumn Header="ID" Width="30">
+                        <GridViewColumn.CellTemplate >
+                            <DataTemplate>
+                                <TextBlock Text="{Binding OrderID, Converter={StaticResource toCellConverter}}" TextAlignment="Center" FontWeight="Bold"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Trạng thái" Width="140" x:Name="statusGridColumn" >
+                        <GridViewColumn.CellTemplate >
+                            <DataTemplate>
+                                <TextBlock Text="{Binding OrderStatusDisplayText}" TextAlignment="Center"
+                                            Background="{Binding OrderStatusDisplayText, Converter={StaticResource orderConverter}}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Ngày tạo" Width="150" DisplayMemberBinding="{Binding OrderDate, Converter={StaticResource toCellConverter}}"/>
+
+                    <GridViewColumn Header="Số điện thoại" Width="150" DisplayMemberBinding="{Binding CustomerPhone}"/>
+
+                    <GridViewColumn Header="Tổng giá trị" Width="200" DisplayMemberBinding="{Binding OrderTotal, Converter={StaticResource toCellConverter}}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-    </Canvas>
+    </StackPanel>
     
 </Window>

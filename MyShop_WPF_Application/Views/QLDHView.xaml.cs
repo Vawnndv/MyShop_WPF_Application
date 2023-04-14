@@ -27,9 +27,10 @@ namespace MyShop_WPF_Application.Views
     public partial class QLDHView : Window
     {
         QLDHViewModel _viewModel = new QLDHViewModel();
-        
+        int _currentPage = 1, rowsPerPage = 10;
+        int _totalPage, _listSize;
 
-        public  QLDHView()
+        public QLDHView()
         {
             InitializeComponent();
             base.DataContext = _viewModel;
@@ -37,20 +38,22 @@ namespace MyShop_WPF_Application.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            _listSize = _viewModel._orderList.Count;
+            _totalPage = _listSize / rowsPerPage + ((_listSize % rowsPerPage) == 0 ? 0 : 1);
+
+            //for (int i = 0; i < _listSize; i++)
+            //{
+            //    lst.Items.Add(new
+            //    {
+            //        ID = _viewModel._orderList.ElementAt(i).OrderID.ToString(),
+            //        status = _viewModel.getStatusString(i),
+            //        createDate = _viewModel._orderList.ElementAt(i).OrderDate.ToString(),
+            //        phoneNumber = _viewModel._orderList.ElementAt(i).CustomerPhone,
+            //        totalValue = _viewModel._orderList.ElementAt(i).OrderTotal.ToString(),
+            //    });   
+            //}
             
-            int listSize = _viewModel._orderList.Count;
-            for(int i = 0; i < listSize; i++)
-            {
-                lst.Items.Add(new
-                {
-                    ID = _viewModel._orderList.ElementAt(i).OrderID.ToString(),
-                    status = _viewModel._orderList.ElementAt(i).OrderStatus.ToString(),
-                    createDate = _viewModel._orderList.ElementAt(i).OrderDate.ToString(),
-                    phoneNumber = _viewModel._orderList.ElementAt(i).CustomerPhone,
-                    totalValue = _viewModel._orderList.ElementAt(i).OrderTotal.ToString(),
-                });
-            }
-            
+            lst.ItemsSource = _viewModel._orderList;
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
@@ -69,6 +72,20 @@ namespace MyShop_WPF_Application.Views
         
         }
 
+        private void nextButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void prevButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void updatePage(int page)
+        {
+            _currentPage = page;
+        }
     }
 }
 

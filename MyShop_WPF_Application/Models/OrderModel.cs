@@ -10,8 +10,10 @@ namespace MyShop_WPF_Application.Model
 {
     public class OrderModel
     {
+        public int? PromotionID { get; set; }
         public int OrderID { get; set; }
         public Double OrderTotal { get; set; }
+        public string? OrderStatusDisplayText { get; set; }
         public DateTime OrderDate { get; set; }
         public int OrderStatus { get; set; }
         public string? CustomerPhone { get; set; }
