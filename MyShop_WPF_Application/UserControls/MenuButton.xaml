@@ -7,9 +7,9 @@
              xmlns:local="clr-namespace:MyShop_WPF_Application.UserControls"
              mc:Ignorable="d" 
              Name="menuButton"
-             d:DesignWidth="200">
+             d:DesignWidth="240">
     <Grid Margin="0 -20">
-        <Grid HorizontalAlignment="Right" Width="32" Height="76" Visibility="{Binding ElementName=btn, Path=Tag}" Panel.ZIndex="2">
+        <Grid HorizontalAlignment="Right" Width="25" Height="76" Visibility="{Binding ElementName=btn, Path=Tag}" Panel.ZIndex="2">
             <Path Fill="#ffffff" Stretch="Fill" Data="M0 20.7C15 20 26.5 12 27 0V87.6C26 75 15.1 67.5 0 67V24Z"/>
         </Grid>
         <Button Name="btn" Style="{StaticResource menuButton}" Command="{Binding UpdateViewCommand}" CommandParameter="{Binding ElementName=menuButton, Path=NameView}">
