@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="MyShop_WPF_Application.Views.TKSPView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyShop_WPF_Application.Views"
+        mc:Ignorable="d"
+        Height="750" Width="1080"
+        xmlns:chart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
+        Background="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>
+
+        <!--Tiêu đề-->
+        <Label Content="THỐNG KÊ SẢN PHẨM "
+               Grid.Row="0"
+               Height="25" 
+               FontSize="22"
+               Padding="0"
+               Name="txtTitle"
+               FontWeight="Bold"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"/>
+
+        <ScrollViewer x:Name="scvMain" VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Visible"
+                      Grid.Row="1">
+
+            <StackPanel
+            Grid.Row="1">
+
+                <chart:ClusteredColumnChart
+            Width="900"
+            Height="500"
+            FontFamily="Sitka Subheading" 
+            ChartTitle="Category"
+            ChartSubTitle="Số sản phẩm của từng loại"
+            ChartLegendVisibility="Hidden" Padding="0"
+            Background="Transparent">
+                    <chart:ClusteredColumnChart.Series>
+                        <chart:ChartSeries
+                    Name="categoryChart"
+                    SeriesTitle=" "
+                    DisplayMember="name"
+                    ValueMember="numOfProduct"/>
+                    </chart:ClusteredColumnChart.Series>
+                </chart:ClusteredColumnChart>
+
+                <chart:ClusteredColumnChart
+            Width="900"
+            Height="500"
+            FontFamily="Sitka Subheading" 
+            ChartTitle="Category"
+            ChartSubTitle="Số sản phẩm của từng loại"
+            ChartLegendVisibility="Hidden" Padding="0"
+            Background="Transparent">
+                    <chart:ClusteredColumnChart.Series>
+                        <chart:ChartSeries
+                    Name="categoryChart1"
+                    SeriesTitle=" "
+                    DisplayMember="name"
+                    ValueMember="numOfProduct"/>
+                    </chart:ClusteredColumnChart.Series>
+                </chart:ClusteredColumnChart>
+
+
+                <chart:ClusteredColumnChart
+            Width="900"
+            Height="500"
+            FontFamily="Sitka Subheading" 
+            ChartTitle="Category"
+            ChartSubTitle="Số sản phẩm của từng loại"
+            ChartLegendVisibility="Hidden" Padding="0"
+            Background="Transparent">
+                    <chart:ClusteredColumnChart.Series>
+                        <chart:ChartSeries
+                    Name="categoryChart2"
+                    SeriesTitle=" "
+                    DisplayMember="name"
+                    ValueMember="numOfProduct"/>
+                    </chart:ClusteredColumnChart.Series>
+                </chart:ClusteredColumnChart>
+            </StackPanel>
+        </ScrollViewer>
+            
+
+
+    </Grid>
+</UserControl>
