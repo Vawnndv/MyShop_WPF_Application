@@ -45,6 +45,10 @@ namespace MyShop_WPF_Application.Commands
             {
                 viewModel.SelectedViewModel = new TMSPViewModel();
             }
+            else if (parameter.ToString() == "TKSP")
+            {
+                viewModel.SelectedViewModel = new TKSPViewModel();
+            }
             else if (parameter.ToString() == "dang_xuat")
             {
                 Window myWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.Name == "dashboard");
