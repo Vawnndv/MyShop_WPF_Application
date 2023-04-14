@@ -21,7 +21,7 @@ namespace MyShop_WPF_Application.Converters
                     return Brushes.AliceBlue;
                 case "Ðã thanh toán":
                     return Brushes.Green;
-                case "Ðã hủy":
+                case "Đã hủy":
                     return Brushes.Red;
                 default:
                     return Brushes.DarkOliveGreen;

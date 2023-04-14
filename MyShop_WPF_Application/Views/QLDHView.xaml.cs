@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +19,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MyShop_WPF_Application.Views
 {
@@ -27,8 +29,10 @@ namespace MyShop_WPF_Application.Views
     public partial class QLDHView : Window
     {
         QLDHViewModel _viewModel = new QLDHViewModel();
-        int _currentPage = 1, rowsPerPage = 10;
+        int _currentPage = 1, rowsPerPage = 5;
         int _totalPage, _listSize;
+        bool isFiltering = false;
+        DateTime fromDate, toDate;
 
         public QLDHView()
         {
@@ -38,53 +42,134 @@ namespace MyShop_WPF_Application.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _listSize = _viewModel._orderList.Count;
-            _totalPage = _listSize / rowsPerPage + ((_listSize % rowsPerPage) == 0 ? 0 : 1);
+            // set blackout date from to day --> next day available in the next day
+            // according to NOW system date
+            fromDatePicker.DisplayDateEnd = DateTime.Now;
+            toDatePicker.DisplayDateEnd= DateTime.Now;
 
-            //for (int i = 0; i < _listSize; i++)
-            //{
-            //    lst.Items.Add(new
-            //    {
-            //        ID = _viewModel._orderList.ElementAt(i).OrderID.ToString(),
-            //        status = _viewModel.getStatusString(i),
-            //        createDate = _viewModel._orderList.ElementAt(i).OrderDate.ToString(),
-            //        phoneNumber = _viewModel._orderList.ElementAt(i).CustomerPhone,
-            //        totalValue = _viewModel._orderList.ElementAt(i).OrderTotal.ToString(),
-            //    });   
-            //}
-            
-            lst.ItemsSource = _viewModel._orderList;
+            displayRowPerPageTextBox.Text = rowsPerPage.ToString();
+            updateTotalPage();
+            updatePage(1);
         }
 
-        private void deleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            int i = lst.SelectedIndex;
-
-            // No select, click button
-            if (i == -1)
-                return;
-
-            MessageBox.Show(i.ToString());
-
-            _viewModel.removeOrder(i);
-            lst.Items.RemoveAt(i);
-            lst.Items.Refresh();
-        
-        }
-
+     
         private void nextButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_currentPage < _totalPage)
+            {
+                _currentPage++;
+                updatePage(_currentPage);
+            }
         }
 
+        // event handler
         private void prevButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_currentPage > 1)
+            {
+                _currentPage--;
+                updatePage(_currentPage);
+            }
         }
 
+        // event handler
+        private void deleteRowButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            var currrentItem = (OrderModel)button.DataContext;
+
+            _viewModel.removeOrder(currrentItem.OrderID);
+
+            lst.ClearValue(ItemsControl.ItemsSourceProperty);
+
+            updateTotalPage();
+            updatePage(_currentPage);
+        }
+
+        // event handler
+        private void displayRowPerPageTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                rowsPerPage = Int16.Parse(displayRowPerPageTextBox.Text);
+
+                updateTotalPage();
+                updatePage(_currentPage);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
+        }
+
+        
+        private void removeFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            isFiltering = false;
+            updatePage(_currentPage);
+            updateTotalPage();
+        }
+
+        // filter orders by date button
+        private void filterDateButton_Click(object sender, RoutedEventArgs e)
+        {
+            string fromDateString = fromDatePicker.Text;
+            string toDateString = toDatePicker.Text;
+
+            // check if string is null
+            if (fromDateString == null || fromDateString == "" || toDateString == null || toDateString == "")
+            {
+                isFiltering = false;
+                return;
+            }
+
+            fromDate = DateTime.Parse(fromDateString + " 12:00");
+            toDate = DateTime.Parse(toDateString + " 12:00");
+
+
+            //MessageBox.Show($"{fromDate.ToString()}\n{toDate.ToString()}");
+
+            isFiltering = true;
+
+            updatePage(1);
+            updateTotalPage();
+            lst.ItemsSource = _viewModel._orderList.Where(x => x.OrderDate >= fromDate.Date && x.OrderDate <= toDate.Date).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
+        }
+
+        // calculate and update the value of total page
+        // after changing listview data (delete, add, modify, filter)
+        private void updateTotalPage()
+        {
+            if (isFiltering)
+                _listSize = _viewModel._orderList.Where(x => x.OrderDate >= fromDate.Date && x.OrderDate <= toDate.Date).ToList().Count;
+            else
+                _listSize = _viewModel._orderList.Count;
+
+            _totalPage = _listSize / rowsPerPage + ((_listSize % rowsPerPage) == 0 ? 0 : 1);
+
+            pageCountLabel.Content = $"{_currentPage}/{_totalPage}";
+        }
+
+        // update the paging system
+        // assign new itemsource for listview
         private void updatePage(int page)
         {
             _currentPage = page;
+
+            if (isFiltering)
+                lst.ItemsSource = _viewModel._orderList.Where(x => x.OrderDate >= fromDate.Date && x.OrderDate <= toDate.Date).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
+            else
+                lst.ItemsSource = _viewModel._orderList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
+
+            pageCountLabel.Content = $"{_currentPage}/{_totalPage}";
+        }
+
+        // Make sure the input are all numbers
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

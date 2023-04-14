@@ -21,10 +21,7 @@
     </Window.Resources>
 
     <StackPanel>
-        <Button Content="Xóa" x:Name="deleteButton" Click="deleteButton_Click" />
-        <Button Content="Tiếp" x:Name="nextButton" Click="nextButton_Click" />
-        <Button Content="Về" x:Name="prevButton" Click="prevButton_Click" Canvas.Left="78" />
-
+       
         <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=5}" Canvas.Left="16" Canvas.Top="60">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -56,9 +53,54 @@
                     <GridViewColumn Header="Số điện thoại" Width="150" DisplayMemberBinding="{Binding CustomerPhone}"/>
 
                     <GridViewColumn Header="Tổng giá trị" Width="200" DisplayMemberBinding="{Binding OrderTotal, Converter={StaticResource toCellConverter}}"/>
+
+                    <GridViewColumn Header="Thao tác" Width="200" >
+                        <GridViewColumn.CellTemplate >
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button x:Name="deleteRowButton" Content="Xóa" Click="deleteRowButton_Click"></Button>
+                                    <Button x:Name="viewDetails" Margin="10 0 0 0" Content="Xem chi tiết"></Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Margin="0 0 20 0" Orientation="Horizontal">
+                <TextBlock Text="Số đơn hàng mỗi trang" VerticalAlignment="Center"/>
+                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="displayRowPerPageTextBox" 
+                         d:Text="5" Style="{StaticResource MaterialDesignTextBoxBase}" 
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="5 5 10 5" 
+                         TextChanged="displayRowPerPageTextBox_TextChanged"
+                         Width="30"
+                         Height="30"
+                         TextAlignment="Center"
+                         BorderThickness="2" />
+            </StackPanel>
+            
+            <Button Content="Về" x:Name="prevButton" Click="prevButton_Click"/>
+
+            <Label x:Name="pageCountLabel" HorizontalAlignment="Center" VerticalAlignment="Center" Content="5/10"/>
+            <Button Content="Tiếp" x:Name="nextButton" Click="nextButton_Click" Margin="0 0 0 0"/>
+
+            <StackPanel Margin="20 0 0 0">
+                <TextBlock Text="Từ ngày"/>
+                <DatePicker Height="25" HorizontalAlignment="Center" Margin="0,0,0,0" Name="fromDatePicker" VerticalAlignment="Center" Width="115" />
+
+                <TextBlock Text="Đến ngày" Margin="0 10 0 0"/>
+                <DatePicker Height="25" HorizontalAlignment="Center" Margin="0,0,0,0" Name="toDatePicker" VerticalAlignment="Center" Width="115" />
+
+                <Button Margin="0 10 0 0" Content="Lọc theo ngày" x:Name="filterDateButton" Click="filterDateButton_Click"/>
+                <Button Margin="0 10 0 0" Content="Xóa lọc" x:Name="removeFilterButton" Click="removeFilterButton_Click"/>
+
+            </StackPanel>
+            
+
+        </StackPanel>
     </StackPanel>
     
 </Window>

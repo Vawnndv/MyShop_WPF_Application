@@ -6,11 +6,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace MyShop_WPF_Application.Repositories
 {
     class OrderRepository
     {
+        // query and get all orders item in DB
         public ObservableCollection<OrderModel> getAllOrder()
         {
             ObservableCollection<OrderModel> result = new ObservableCollection<OrderModel>();
@@ -35,12 +37,18 @@ namespace MyShop_WPF_Application.Repositories
                     else
                         pId = (int)reader["Promotion_ID"];
 
+                    var dtime = (DateTime)reader["Centered_At"];
+                    var month = dtime.Month;
+                    var day = dtime.Day;
+                    var year = dtime.Year;
+                    //string.Format("{0}/{1}/{2}", month, day, year);
+
                     // add orders from DB to collection
                     result.Add(new OrderModel()
                     {
                         PromotionID = pId,
                         OrderID = (int)reader["Purchase_ID"],
-                        OrderDate = (DateTime)reader["Centered_At"],
+                        OrderDate = dtime,
                         OrderStatus = (int)reader["Status"],
                         OrderTotal = (Double)reader["Total"],
                         CustomerPhone = (string)reader["Customer_Phone"],

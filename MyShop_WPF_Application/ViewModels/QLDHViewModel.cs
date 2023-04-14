@@ -21,11 +21,11 @@ namespace MyShop_WPF_Application.ViewModels
 
         private int _OrderID { get; set; }
         private float _OrderTotal { get; set; }
-        private string? _OrderDate { get; set; }
+        private DateTime _OrderDate { get; set; }
         private int _OrderStatus { get; set; }
         private int _CustomerPhone { get; set; }
         private int _PromotionID { get; set; }  
-        private string _OrderStatusDisplayText { get; set; }
+        private string? _OrderStatusDisplayText { get; set; }
 
 
         public QLDHViewModel()
@@ -62,7 +62,7 @@ namespace MyShop_WPF_Application.ViewModels
             }
         }
 
-        public string? OrderDate
+        public DateTime OrderDate
         {
             get { return _OrderDate; }
             set
@@ -102,13 +102,16 @@ namespace MyShop_WPF_Application.ViewModels
 
         // Function
         // remove order at position i (in the list and in the Database)
-        public void removeOrder(int i)
+        public void removeOrder(int id)
         {
-            if(i >= 0 && i < _orderList.Count)
+            int i = 0;
+            for(; i < _orderList.Count; i++)
             {
-                _repository.deleteOrderId(_orderList[i].OrderID);
+                if (_orderList[i].OrderID == id)
+                    break;
+            }  
+                _repository.deleteOrderId(id);
                 _orderList.RemoveAt(i);
-            }
         }
     }
 }
