@@ -1,0 +1,154 @@
+﻿<UserControl x:Class="MyShop_WPF_Application.Views.TK_DoanhThu_LoiNhuanView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MyShop_WPF_Application.Views"
+             xmlns:Converter="clr-namespace:MyShop_WPF_Application.Converters"
+             mc:Ignorable="d" 
+             xmlns:linegraph="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
+             d:DesignHeight="750" d:DesignWidth="1080">
+    <UserControl.Resources>
+        <Converter:VisibilityToCheckedConverter x:Key="VisibilityToCheckedConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>
+
+        <!--Tiêu đề-->
+        <Label Content="DOANH THU VÀ LỢI NHUẬN"
+               Grid.Row="0"
+               Height="25" 
+               FontSize="22"
+               Padding="0"
+               Name="txtTitle"
+               FontWeight="Bold"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               Margin="0,20,0,0"
+               FontFamily="Sitka Heading"/>
+
+        <StackPanel Margin="20 0 0 0" 
+                    Grid.Row="1"
+                    Orientation="Horizontal">
+            <TextBlock FontFamily="Sitka Subheading" 
+                       FontWeight="Bold" 
+                       Margin="10, 0, 100, 0"
+                       FontSize="15"  Text="DOANH THU THEO NGÀY " VerticalAlignment="Center"/>
+            <TextBlock FontFamily="Sitka Subheading" Text="Từ ngày" VerticalAlignment="Center"/>
+            <DatePicker FontFamily="Sitka Subheading"
+                        FontWeight="Bold"
+                        Height="25" HorizontalAlignment="Center" Margin="10,0,20,0" Name="startDatePicker" VerticalAlignment="Center" Width="115" />
+
+            <TextBlock FontFamily="Sitka Subheading"  Text="Đến ngày" Margin="0 10 0 0" VerticalAlignment="Center"/>
+            <DatePicker 
+                FontFamily="Sitka Subheading"
+                FontWeight="Bold"
+                Height="25" HorizontalAlignment="Center" Margin="10,0,50,0" Name="endDatePicker" VerticalAlignment="Center" Width="115" />
+
+            <Button Margin="0 10 0 0" Content="Doanh thu theo ngày" x:Name="filterDateButton" Click="filterDateButton_Click" Background="#348F6C" FontFamily="Sitka Subheading" />
+
+        </StackPanel>
+
+        <StackPanel Margin="20 0 0 0" 
+                    Grid.Row="2"
+                    Orientation="Horizontal">
+            <TextBlock FontFamily="Sitka Subheading" 
+                       FontWeight="Bold" 
+                       Margin="10, 0, 100, 0"
+                       FontSize="15"  Text="DOANH THU GẦN NHẤT " VerticalAlignment="Center"/>
+
+            <TextBlock FontFamily="Sitka Subheading"  Text="Năm" Margin="10 10 10 0" VerticalAlignment="Center"/>
+            <ComboBox
+                 SelectionChanged="chooseYearComboBox_SelectionChanged"
+                 Width="60" FontSize="14"
+                 Margin="0,0,20,0"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 Background="Transparent"
+                 FontFamily="Sitka Subheading"
+                 FontWeight="Bold"
+                 MaxDropDownHeight="100"
+                 Name="chooseYear"/>
+
+            <TextBlock FontFamily="Sitka Subheading"  Text="Tháng" Margin="10 10 10 0" VerticalAlignment="Center"/>
+            <ComboBox
+                 SelectionChanged="chooseMonthComboBox_SelectionChanged"
+                 Width="60" FontSize="14"
+                 Margin="0,0,20,0"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 Background="Transparent"
+                 FontFamily="Sitka Subheading"
+                 FontWeight="Bold"
+                 MaxDropDownHeight="100"
+                 Name="chooseMonth"/>
+
+            <TextBlock FontFamily="Sitka Subheading"  Text="Tuần" Margin="10 10 10 0" VerticalAlignment="Center"/>
+            <ComboBox
+                 SelectionChanged="chooseWeekComboBox_SelectionChanged"
+                 Width="60" FontSize="14"
+                 Margin="0,0,20,0"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 Background="Transparent"
+                 FontFamily="Sitka Subheading"
+                 FontWeight="Bold"
+                 MaxDropDownHeight="100"
+                 Name="chooseWeek"/>
+
+
+        </StackPanel>
+
+        <Label Grid.Row="3" Margin="30,0,0,0"
+               VerticalAlignment="Center"
+               Foreground="Red" HorizontalAlignment="Left"
+               FontSize="14" Padding="0"
+               FontFamily="Sitka Subheading"
+               FontStyle="Italic"
+               Name="txtDuration" />
+
+        <ScrollViewer x:Name="scvMain" VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Visible"
+                      Grid.Row="4">
+
+            <StackPanel>
+                <linegraph:Chart 
+                  Width="900"
+                  Height="500"
+                  Name="Plotter"
+                  Grid.Row="1"
+                  Margin="0,0,25,0"
+                  FontFamily="Sitka Subheading"
+                  BottomTitle="Biểu đồ đường biểu thị sự biến thiên của Doanh số - Vốn - Lợi nhuận"
+                  LeftTitle="Tiền"
+                  Background="Transparent">
+                    <linegraph:Chart.LegendContent>
+                        <linegraph:LegendItemsPanel>
+                            <linegraph:LegendItemsPanel.Resources>
+                                <DataTemplate x:Key="InteractiveDataDisplay.WPF.LineGraph">
+                                    <StackPanel Orientation="Horizontal">
+                                        <CheckBox IsChecked="{Binding Path=Visibility, Converter={StaticResource VisibilityToCheckedConverter}, Mode=TwoWay}"/>
+                                        <Line Width="15" Height="15" X1="0" Y1="0" X2="15" Y2="15" Stroke="{Binding Path=Stroke}" StrokeThickness="2"/>
+                                        <TextBlock Margin="0,0,0,0" Text="{Binding Path=Description}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                                </linegraph:LegendItemsPanel.Resources>
+                        </linegraph:LegendItemsPanel>
+                    </linegraph:Chart.LegendContent>
+                    <Grid Name="Lines"/>
+                </linegraph:Chart>
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</UserControl>

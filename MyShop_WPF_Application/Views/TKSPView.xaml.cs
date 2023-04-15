@@ -1,9 +1,13 @@
-﻿using MyShop_WPF_Application.Models;
+﻿using MaterialDesignThemes.Wpf;
+using MyShop_WPF_Application.Commands;
+using MyShop_WPF_Application.Models;
 using MyShop_WPF_Application.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Navigation;
 
 namespace MyShop_WPF_Application.Views
 {
@@ -88,6 +92,11 @@ namespace MyShop_WPF_Application.Views
 
             updateDuration(start, end);
             refresh(start, end);
+        }
+
+        private void CategoryColumn_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
         }
     }
 }

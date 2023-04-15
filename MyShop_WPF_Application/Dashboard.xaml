@@ -43,7 +43,7 @@
                         </StackPanel>
                     </Expander.Header>
                     <StackPanel>
-                        <uc:MenuButton Margin="30,0,0,0" Title="Doanh thu và lợi nhuận" Height="40" NameView="QLSP" Loaded="MenuButton_Loaded"/>
+                        <uc:MenuButton Margin="30,0,0,0" Title="Doanh thu và lợi nhuận" Height="40" NameView="TKDTVLN" Loaded="MenuButton_Loaded"/>
                         <uc:MenuButton Margin="30,12,0,0" Title="Sản phẩm" Height="40" NameView="TKSP" Loaded="MenuButton_Loaded"/>
                         <uc:MenuButton Margin="30,12,0,0" Title="Bán hàng" Height="40" NameView="TKSP" Loaded="MenuButton_Loaded"/>
                     </StackPanel>

@@ -30,7 +30,8 @@
                FontWeight="Bold"
                VerticalAlignment="Top"
                HorizontalAlignment="Center"
-               Margin="0,20,0,0"/>
+               Margin="0,20,0,0"
+               FontFamily="Sitka Heading"/>
 
         <StackPanel Margin="20 0 0 0" 
                     Grid.Row="1"
@@ -120,6 +121,7 @@
             Grid.Row="1">
                 <UniformGrid Columns="2">
                     <chart:ClusteredColumnChart
+                        MouseDoubleClick="CategoryColumn_MouseDoubleClick"
                         FontFamily="Sitka Subheading" 
                         ChartTitle="Category"
                         ChartSubTitle="Số sản phẩm của từng loại"
