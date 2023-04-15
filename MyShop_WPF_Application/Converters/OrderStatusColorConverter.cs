@@ -14,17 +14,16 @@ namespace MyShop_WPF_Application.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var status = (string)value;
-
             switch (status)
             {
                 case "Mới tạo":
-                    return Brushes.AliceBlue;
+                    return "#00FD9C";
                 case "Ðã thanh toán":
-                    return Brushes.Green;
+                    return "#02C87C";
                 case "Đã hủy":
-                    return Brushes.Red;
+                    return "#01965D";
                 default:
-                    return Brushes.DarkOliveGreen;
+                    return "#9BFFD9";
             }
         }
 

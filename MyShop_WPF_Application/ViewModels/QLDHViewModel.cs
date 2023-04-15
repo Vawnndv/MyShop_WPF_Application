@@ -1,4 +1,5 @@
-﻿using MyShop_WPF_Application.Model;
+﻿using MaterialDesignThemes.Wpf;
+using MyShop_WPF_Application.Model;
 using MyShop_WPF_Application.Repositories;
 using PropertyChanged;
 using System;
@@ -16,7 +17,6 @@ namespace MyShop_WPF_Application.ViewModels
     class QLDHViewModel : BaseViewModel
     {
         public ObservableCollection<OrderModel> _orderList;
-
         private OrderRepository _repository = new OrderRepository();
 
         private int _OrderID { get; set; }

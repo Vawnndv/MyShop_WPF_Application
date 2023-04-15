@@ -1,4 +1,4 @@
-﻿<Window x:Class="MyShop_WPF_Application.Views.QLDHView"
+﻿<UserControl x:Class="MyShop_WPF_Application.Views.QLDHView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,54 +7,102 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Converter="clr-namespace:MyShop_WPF_Application.Converters"
         
-        mc:Ignorable="d"
-        Title="QLDHView" Height="750" Width="1080"
+        mc:Ignorable="d" 
+             
+        Height="750" Width="1065"
         Loaded="Window_Loaded">
     
-    <Window.Resources>
+    <UserControl.Resources>
         <Converter:OrderStatusColorConverter x:Key="orderConverter"/>
         <Converter:ToDataRowStringConverter x:Key="toCellConverter"/>
 
         <Style TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="HorizontalContentAlignment" Value="Center" />
         </Style>
-    </Window.Resources>
+    </UserControl.Resources>
 
     <StackPanel>
-       
-        <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=5}" Canvas.Left="16" Canvas.Top="60">
+        <TextBlock TextAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="#348F6C" Margin="0 20 0 0"> DANH SÁCH ĐƠN HÀNG</TextBlock>
+        <StackPanel Orientation="Horizontal" Margin="0 30 15 10" HorizontalAlignment="Right">
+            <StackPanel Width="115">
+                <TextBlock Text="Từ ngày" HorizontalAlignment="Left"/>
+                <DatePicker Height="25" HorizontalAlignment="Left" Name="fromDatePicker" VerticalAlignment="Center" Width="115" />
+            </StackPanel>
+            <StackPanel Width="115" Margin="30 0 0 0">
+                <TextBlock Text="Đến ngày" HorizontalAlignment="Left"/>
+                <DatePicker Height="25" HorizontalAlignment="Center" Margin="0,0,0,0" Name="toDatePicker" VerticalAlignment="Center" Width="115" />
+            </StackPanel>
+            <Button Margin="20 10 0 0" Content="Lọc Theo Ngày" x:Name="filterDateButton" Click="filterDateButton_Click" Background="#348F6C" BorderThickness="0"/>
+            <Button Margin="10 10 0 0" Content="Bỏ Lọc" x:Name="removeFilterButton" Click="removeFilterButton_Click" Background="#348F6C" BorderThickness="0"/>
+
+        </StackPanel>
+        <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Background" Value="#E4E4E4"/>
                 </Style>
             </ListView.ItemContainerStyle>
             
-            <ListView.View >
-                <GridView >
-                    <GridViewColumn Header="ID" Width="30">
-                        <GridViewColumn.CellTemplate >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="50">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="ID" Width="50" TextAlignment="Center" FontSize="14" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding OrderID, Converter={StaticResource toCellConverter}}" TextAlignment="Center" FontWeight="Bold"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Trạng thái" Width="140" x:Name="statusGridColumn" >
+                    <GridViewColumn x:Name="statusGridColumn" Width="220">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Trạng thái" Width="220" FontSize="14" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate >
                             <DataTemplate>
-                                <TextBlock Text="{Binding OrderStatusDisplayText}" TextAlignment="Center"
+                                <TextBlock Text="{Binding OrderStatusDisplayText}" TextAlignment="Center" Padding="0 3 0 3"
                                             Background="{Binding OrderStatusDisplayText, Converter={StaticResource orderConverter}}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Ngày tạo" Width="150" DisplayMemberBinding="{Binding OrderDate, Converter={StaticResource toCellConverter}}"/>
+                    <GridViewColumn Width="180" DisplayMemberBinding="{Binding OrderDate, Converter={StaticResource toCellConverter}}">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Ngày tạo" FontSize="14" Width="180" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                    </GridViewColumn>
 
-                    <GridViewColumn Header="Số điện thoại" Width="150" DisplayMemberBinding="{Binding CustomerPhone}"/>
+                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding CustomerPhone}">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Số điện thoại" FontSize="14" Width="150" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                    </GridViewColumn>
 
-                    <GridViewColumn Header="Tổng giá trị" Width="200" DisplayMemberBinding="{Binding OrderTotal, Converter={StaticResource toCellConverter}}"/>
+                    <GridViewColumn Width="200" DisplayMemberBinding="{Binding OrderTotal, Converter={StaticResource toCellConverter}}">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Tổng giá trị" FontSize="14" Width="200" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                    </GridViewColumn>
 
-                    <GridViewColumn Header="Thao tác" Width="200" >
+                    <GridViewColumn Width="235">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Thao tác" FontSize="14" Width="235" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate >
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -69,7 +117,7 @@
             </ListView.View>
         </ListView>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 0">
             <StackPanel Margin="0 0 20 0" Orientation="Horizontal">
                 <TextBlock Text="Số đơn hàng mỗi trang" VerticalAlignment="Center"/>
                 <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="displayRowPerPageTextBox" 
@@ -87,20 +135,7 @@
             <Label x:Name="pageCountLabel" HorizontalAlignment="Center" VerticalAlignment="Center" Content="5/10"/>
             <Button Content="Tiếp" x:Name="nextButton" Click="nextButton_Click" Margin="0 0 0 0"/>
 
-            <StackPanel Margin="20 0 0 0">
-                <TextBlock Text="Từ ngày"/>
-                <DatePicker Height="25" HorizontalAlignment="Center" Margin="0,0,0,0" Name="fromDatePicker" VerticalAlignment="Center" Width="115" />
-
-                <TextBlock Text="Đến ngày" Margin="0 10 0 0"/>
-                <DatePicker Height="25" HorizontalAlignment="Center" Margin="0,0,0,0" Name="toDatePicker" VerticalAlignment="Center" Width="115" />
-
-                <Button Margin="0 10 0 0" Content="Lọc theo ngày" x:Name="filterDateButton" Click="filterDateButton_Click"/>
-                <Button Margin="0 10 0 0" Content="Xóa lọc" x:Name="removeFilterButton" Click="removeFilterButton_Click"/>
-
-            </StackPanel>
-            
-
         </StackPanel>
     </StackPanel>
     
-</Window>
+</UserControl>

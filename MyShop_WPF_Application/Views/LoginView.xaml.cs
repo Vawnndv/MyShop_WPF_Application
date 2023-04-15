@@ -143,7 +143,7 @@ namespace MyShop_WPF_Application.WindowScreen
 
 
                 // load dashboard
-                Window win2 = new QLDHView();
+                Window win2 = new Dashboard();
                 win2.Show();
                 this.Close();
 

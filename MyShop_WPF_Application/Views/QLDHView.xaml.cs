@@ -26,10 +26,10 @@ namespace MyShop_WPF_Application.Views
     /// <summary>
     /// Interaction logic for QLDHView.xaml
     /// </summary>
-    public partial class QLDHView : Window
+    public partial class QLDHView : UserControl
     {
         QLDHViewModel _viewModel = new QLDHViewModel();
-        int _currentPage = 1, rowsPerPage = 5;
+        int _currentPage = 1, rowsPerPage = 10;
         int _totalPage, _listSize;
         bool isFiltering = false;
         DateTime fromDate, toDate;

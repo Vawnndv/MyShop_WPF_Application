@@ -1,6 +1,9 @@
-﻿using System;
+﻿using MyShop_WPF_Application.Commands;
+using MyShop_WPF_Application.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,9 +23,16 @@ namespace MyShop_WPF_Application.Views
     /// </summary>
     public partial class QLSPView : UserControl
     {
+
         public QLSPView()
         {
+            DataContext = new MainViewModel();
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            btn.Visibility = Visibility.Collapsed;
         }
     }
 }

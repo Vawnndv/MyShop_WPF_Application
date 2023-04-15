@@ -12,7 +12,7 @@ namespace MyShop_WPF_Application.Commands
 {
     public class UpdateViewCommand : ICommand
     {
-        private MainViewModel viewModel;
+        MainViewModel viewModel;
         Window creatingForm;
         public UpdateViewCommand(MainViewModel viewModel)
         {
@@ -48,6 +48,12 @@ namespace MyShop_WPF_Application.Commands
             else if (parameter.ToString() == "TKSP")
             {
                 viewModel.SelectedViewModel = new TKSPViewModel();
+            }
+            else if (parameter.ToString() == "QLDH")
+            {
+                Trace.WriteLine("hihi");
+                Trace.WriteLine(viewModel.ToString());
+                viewModel.SelectedViewModel = new QLDHViewModel();
             }
             else if (parameter.ToString() == "dang_xuat")
             {
