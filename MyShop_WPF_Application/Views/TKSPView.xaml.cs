@@ -1,20 +1,9 @@
-﻿using Microsoft.Data.SqlClient;
-using MyShop_WPF_Application.Models;
+﻿using MyShop_WPF_Application.Models;
 using MyShop_WPF_Application.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MyShop_WPF_Application.Views
 {
@@ -23,19 +12,82 @@ namespace MyShop_WPF_Application.Views
     /// </summary>
     public partial class TKSPView : UserControl
     {
+        int[] listYear = { 2024, 2023, 2022, 2021, 2020, 2019 };
+        int[] listMonth = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+        int[] listWeek = { 1, 2, 3, 4};
         TKSPViewModel _viewModel = new TKSPViewModel();
+
+        private void refresh (DateTime start, DateTime end)
+        {
+            ObservableCollection<CategoryTypeStatistic> viewModels = new ObservableCollection<CategoryTypeStatistic>();
+            viewModels = _viewModel.getAllCategory(start, end);
+
+            categoryChart.ItemsSource = viewModels;
+            categoryPieChart.ItemsSource = viewModels;
+
+            categoryTurnoverChart.ItemsSource = viewModels;
+            categoryTurnoverPieChart.ItemsSource = viewModels;
+        }
+
+        private void refreshCombobox ()
+        {
+            chooseYear.SelectedIndex = -1;
+            chooseMonth.SelectedIndex = -1;
+            chooseWeek.SelectedIndex = -1;
+        }
+
+        private void updateDuration (DateTime start, DateTime end)
+        {
+            string s = start.ToShortDateString();
+            string e = end.ToShortDateString ();
+
+            txtDuration.Content = "Từ ngày " + s + " đến " + e;
+        }
+
         public TKSPView()
         {
-
-
             InitializeComponent();
 
-            ObservableCollection<CategoryTypeStatistic> viewModels = new ObservableCollection<CategoryTypeStatistic>();
+            chooseYear.ItemsSource = listYear;
+            chooseMonth.ItemsSource = listMonth;
+            chooseWeek.ItemsSource = listWeek;
+            
+        }
 
-            viewModels = _viewModel.getAllCategory();
-            categoryChart1.ItemsSource = viewModels;
-            categoryChart.ItemsSource = viewModels;
-            categoryChart2.ItemsSource = viewModels;
+        private void filterDateButton_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime start = DateTime.Parse(startDatePicker.Text + " 12:00");
+            DateTime end = DateTime.Parse(endDatePicker.Text + " 12:00");
+
+            updateDuration(start, end);
+            refresh(start, end);
+        }
+
+        private void chooseYearComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateTime start = new DateTime(listYear[chooseYear.SelectedIndex], 1, 1);
+            DateTime end = new DateTime(listYear[chooseYear.SelectedIndex], 12, 31);
+
+            updateDuration(start, end);
+            refresh(start, end);
+        }
+
+        private void chooseMonthComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateTime end = DateTime.Now;
+            DateTime start = end.AddMonths(-listMonth[chooseMonth.SelectedIndex]);
+
+            updateDuration(start, end);
+            refresh(start, end);
+        }
+
+        private void chooseWeekComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateTime end = DateTime.Now;
+            DateTime start = end.AddDays(- listWeek[chooseWeek.SelectedIndex] * 7);
+
+            updateDuration(start, end);
+            refresh(start, end);
         }
     }
 }

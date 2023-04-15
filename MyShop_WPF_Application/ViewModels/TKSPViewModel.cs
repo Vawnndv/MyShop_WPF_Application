@@ -20,12 +20,12 @@ namespace MyShop_WPF_Application.ViewModels
 
         public TKSPViewModel ()
         {
-            _categoryList = _repository.getAllCategory();
+            //_categoryList = _repository.getAllCategory();
         }
 
-        public ObservableCollection<CategoryTypeStatistic> getAllCategory ()
+        public ObservableCollection<CategoryTypeStatistic> getAllCategory (DateTime start, DateTime end)
         {
-            return _categoryList;
+            return _repository.getAllCategory(start, end);
         }
     }
 }
