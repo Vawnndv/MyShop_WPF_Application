@@ -21,7 +21,7 @@ namespace MyShop_WPF_Application.Converters
                 case "Ðã thanh toán":
                     return "#02C87C";
                 case "Đã hủy":
-                    return "#01965D";
+                    return "#CB3737";
                 default:
                     return "#9BFFD9";
             }

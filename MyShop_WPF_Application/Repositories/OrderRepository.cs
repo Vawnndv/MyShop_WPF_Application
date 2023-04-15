@@ -16,7 +16,9 @@ namespace MyShop_WPF_Application.Repositories
         public ObservableCollection<OrderModel> getAllOrder()
         {
             ObservableCollection<OrderModel> result = new ObservableCollection<OrderModel>();
-            if(Global.Connection != null)
+            Global.Connection = new SqlConnection(Global.ConnectionString);
+            Global.Connection.Open();
+            if (Global.Connection != null)
             {
                 List<string> statusTypeList = getStatusDisplayTextStringFromDB();
 

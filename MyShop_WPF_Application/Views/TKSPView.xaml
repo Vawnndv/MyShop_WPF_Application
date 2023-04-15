@@ -20,6 +20,7 @@
         <Grid.ColumnDefinitions>
         </Grid.ColumnDefinitions>
 
+        <ContentControl Content="{Binding SelectedViewModel}" Grid.RowSpan="5"/>
         <!--Tiêu đề-->
         <Label Content="THỐNG KÊ SẢN PHẨM "
                Grid.Row="0"
@@ -121,6 +122,7 @@
             Grid.Row="1">
                 <UniformGrid Columns="2">
                     <chart:ClusteredColumnChart
+                        Name ="first_chart"
                         MouseDoubleClick="CategoryColumn_MouseDoubleClick"
                         FontFamily="Sitka Subheading" 
                         ChartTitle="Category"

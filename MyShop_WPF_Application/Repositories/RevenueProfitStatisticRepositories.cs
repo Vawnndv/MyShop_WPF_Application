@@ -16,8 +16,8 @@ namespace MyShop_WPF_Application.Repositories
         public ObservableCollection<RevenueProfitStatisticModel> getAllRevenueAndProfit(DateTime start, DateTime end)
         {
             ObservableCollection<RevenueProfitStatisticModel> result = new ObservableCollection<RevenueProfitStatisticModel>();
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
             if (Global.Connection != null)
             {
                 string sql = string.Format("SELECT p.Purchase_ID, p.Centered_At, p.Total,SUM(pd.Quantity * pr.Price_Original) as Capital, (SUM(pd.Quantity * pr.Price_Original) - p.Total) as Profit\r\nFROM Purchase p left join PurchaseDetail pd on p.Purchase_ID = pd.Purchase_ID join\r\n\tProduct pr on pr.Product_ID = pd.Product_ID\r\nWHERE p.Centered_At BETWEEN '{0}' AND '{1}'\r\nGROUP BY p.Purchase_ID, p.Centered_At, p.Total", start.ToString("yyyy-MM-dd"), end.ToString("yyyy-MM-dd"));

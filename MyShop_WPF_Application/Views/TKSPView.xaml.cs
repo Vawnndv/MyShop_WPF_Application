@@ -96,7 +96,7 @@ namespace MyShop_WPF_Application.Views
 
         private void CategoryColumn_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            DataContext = new MainViewModel();
         }
     }
 }

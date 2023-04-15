@@ -36,11 +36,12 @@
             <Button Margin="10 10 0 0" Content="Bỏ Lọc" x:Name="removeFilterButton" Click="removeFilterButton_Click" Background="#348F6C" BorderThickness="0"/>
 
         </StackPanel>
-        <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0">
+        <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0" SelectionChanged="lst_SelectionChanged">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     <Setter Property="Background" Value="#E4E4E4"/>
+                    
                 </Style>
             </ListView.ItemContainerStyle>
             
@@ -67,7 +68,7 @@
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate >
                             <DataTemplate>
-                                <TextBlock Text="{Binding OrderStatusDisplayText}" TextAlignment="Center" Padding="0 3 0 3"
+                                <TextBlock FontWeight="Medium" FontSize="13" Text="{Binding OrderStatusDisplayText}" TextAlignment="Center" Padding="0 3 0 3"
                                             Background="{Binding OrderStatusDisplayText, Converter={StaticResource orderConverter}}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -105,9 +106,13 @@
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate >
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button x:Name="deleteRowButton" Content="Xóa" Click="deleteRowButton_Click"></Button>
-                                    <Button x:Name="viewDetails" Margin="10 0 0 0" Content="Xem chi tiết"></Button>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button x:Name="viewDetails" Background="#439452" BorderThickness="0" Margin="0 4 0 4">
+                                            <Image Source="../img/view.png" Width="20" Height="20" VerticalAlignment="Center" Stretch="UniformToFill"/>
+                                    </Button>
+                                    <Button x:Name="deleteRowButton" Margin="10 0 5 0" Click="deleteRowButton_Click" Background="#F66A6A" BorderThickness="0">
+                                        <Image Source="../img/delete.png" Width="20" Height="20" VerticalAlignment="Center" Stretch="UniformToFill"/>
+                                    </Button>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -129,11 +134,11 @@
                          TextAlignment="Center"
                          BorderThickness="2" />
             </StackPanel>
-            
-            <Button Content="Về" x:Name="prevButton" Click="prevButton_Click"/>
+
+            <Button Content="Về" x:Name="prevButton" Click="prevButton_Click" Background="#186245" BorderThickness="0"/>
 
             <Label x:Name="pageCountLabel" HorizontalAlignment="Center" VerticalAlignment="Center" Content="5/10"/>
-            <Button Content="Tiếp" x:Name="nextButton" Click="nextButton_Click" Margin="0 0 0 0"/>
+            <Button Content="Tiếp" x:Name="nextButton" Click="nextButton_Click" Background="#186245" BorderThickness="0"/>
 
         </StackPanel>
     </StackPanel>

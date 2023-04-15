@@ -8,7 +8,7 @@
              Height="750" Width="1065">
     <Grid Background="white">
         <Grid>
-            <ContentControl Content="{Binding SelectedViewModel}" Name="LayoutRoot"/>
+            <ContentControl Content="{Binding SelectedViewModel}"/>
         </Grid>
         <Button Width="50" Click="Button_Click" Margin="1015,37,0,681" Name ="btn" Command="{Binding UpdateViewCommand}" CommandParameter="QLDH">huhu</Button>
     </Grid>

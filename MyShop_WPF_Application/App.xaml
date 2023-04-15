@@ -5,7 +5,7 @@
              xmlns:views="clr-namespace:MyShop_WPF_Application.Views"
              xmlns:viewmodels="clr-namespace:MyShop_WPF_Application.ViewModels"
              xmlns:local="clr-namespace:MyShop_WPF_Application"
-             StartupUri="Dashboard.xaml">
+             StartupUri="Views/LoginView.xaml">
     <Application.Resources>
         
         <ResourceDictionary>
@@ -75,6 +75,9 @@
 
             <DataTemplate DataType="{x:Type viewmodels:QLSPViewModel}">
                 <views:QLSPView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:QLDHViewModel}">
+                <views:QLDHView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:TMSPViewModel}">
             <views:TMSPView/>

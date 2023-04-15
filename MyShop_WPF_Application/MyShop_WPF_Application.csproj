@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <None Remove="Fonts\Amsterdam_One.ttf" />
+    <None Remove="img\delete.png" />
+    <None Remove="img\view.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +30,8 @@
     <Resource Include="Fonts\Amsterdam_One.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="img\delete.png" />
+    <Resource Include="img\view.png" />
   </ItemGroup>
 
 </Project>

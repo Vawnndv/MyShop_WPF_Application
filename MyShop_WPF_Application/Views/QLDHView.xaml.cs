@@ -137,6 +137,11 @@ namespace MyShop_WPF_Application.Views
             lst.ItemsSource = _viewModel._orderList.Where(x => x.OrderDate >= fromDate.Date && x.OrderDate <= toDate.Date).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
         }
 
+        private void lst_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
         // calculate and update the value of total page
         // after changing listview data (delete, add, modify, filter)
         private void updateTotalPage()
