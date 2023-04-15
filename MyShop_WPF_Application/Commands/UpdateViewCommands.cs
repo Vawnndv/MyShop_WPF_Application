@@ -49,12 +49,6 @@ namespace MyShop_WPF_Application.Commands
             {
                 viewModel.SelectedViewModel = new TKSPViewModel();
             }
-            else if (parameter.ToString() == "QLDH")
-            {
-                Trace.WriteLine("hihi");
-                Trace.WriteLine(viewModel.ToString());
-                viewModel.SelectedViewModel = new QLDHViewModel();
-            }
             else if (parameter.ToString() == "dang_xuat")
             {
                 Window myWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.Name == "dashboard");

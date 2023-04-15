@@ -11,5 +11,9 @@ namespace MyShop_WPF_Application.Models
         public int id { get; set; }
         public String? name { get; set; }
         public int numOfProduct { get; set; }
+
+        public double sumPrice { get; set; }
+
+        public double percentage { get; set; }
     }
 }
