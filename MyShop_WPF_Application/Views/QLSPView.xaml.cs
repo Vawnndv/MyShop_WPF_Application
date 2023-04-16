@@ -23,16 +23,24 @@ namespace MyShop_WPF_Application.Views
     /// </summary>
     public partial class QLSPView : UserControl
     {
+        QLSPViewModel _viewModel = new QLSPViewModel();
 
         public QLSPView()
         {
             DataContext = new MainViewModel();
             InitializeComponent();
+            base.DataContext = _viewModel;
+
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    btn.Visibility = Visibility.Collapsed;
+        //}
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            btn.Visibility = Visibility.Collapsed;
+            ProductListView.ItemsSource = _viewModel._productList;
         }
     }
 }

@@ -4,12 +4,42 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyShop_WPF_Application.Views"
+             xmlns:Converter="clr-namespace:MyShop_WPF_Application.Converters"
              mc:Ignorable="d" 
-             Height="750" Width="1065">
-    <Grid Background="white">
+             Height="750" Width="1065"
+             Loaded="Window_Loaded">
+    <UserControl.Resources>
+        <Converter:AbsoluteConverter x:Key="absolute" />
+    </UserControl.Resources>
+    <!--<Grid Background="white">
         <Grid>
-            <ContentControl Content="{Binding SelectedViewModel}"/>
+            <ContentControl Content="{Binding SelectedViewModel}"></ContentControl>
         </Grid>
         <Button Width="50" Click="Button_Click" Margin="1015,37,0,681" Name ="btn" Command="{Binding UpdateViewCommand}" CommandParameter="QLDH">huhu</Button>
-    </Grid>
+
+    </Grid>-->
+    <StackPanel Background="White">
+        <ListView x:Name="ProductListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="1080" Height="600" HorizontalAlignment="Center" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical"  Width="200">
+                        <Image RenderOptions.BitmapScalingMode="HighQuality" Margin="0, 0, 5, 0"  Width="200" Height="200"
+                            d:Source="img/phone/1.png"  
+                            Source="{Binding Path=ProductAvatar,Converter={StaticResource absolute}}"/>
+                        <TextBlock Text="{Binding ProductName}" FontWeight="Bold"></TextBlock>
+                        <TextBlock Text="{Binding ProductQuantity}" FontWeight="Bold"></TextBlock>
+                        <TextBlock Text="{Binding ProductPrice}" FontWeight="Bold" Foreground="Red"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+
+    </StackPanel>
+
+
 </UserControl>
