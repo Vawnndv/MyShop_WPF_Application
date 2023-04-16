@@ -6,35 +6,41 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:MyShop_WPF_Application.WindowScreen"
         mc:Ignorable="d"
-        Title="Login" Height="530" Width="500"
+        Title="Login" Height="750" Width="1250"
         Background="{x:Null}"
         WindowStyle="None"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
         >
-    <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource ResourceKey=MaterialDesignPaper}" Margin="25" x:Name="loginMaterialCard">
+    <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource ResourceKey=MaterialDesignPaper}" x:Name="loginMaterialCard">
         <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost" >
-            <Canvas >
+            <Canvas>
+                <Canvas.Background>
+                    <ImageBrush ImageSource="../img/bg_login.png" Stretch="UniformToFill"/>
+                </Canvas.Background>
                 <Border x:Name="loadCanvas"  BorderThickness="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="0 0 0 0"
                         CornerRadius="15,15,15,15" BorderBrush="Black" Opacity="0.5"  Background="Gray" Canvas.ZIndex="2"   
                         Height="480" Width="450" Visibility="Hidden"/>
 
+                <!--<Button BorderBrush="{x:Null}"  x:Name="closeButton" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Background="Transparent"
+                        FontSize="25"  Height="50" materialDesign:ButtonAssist.CornerRadius="15" Click="closeButton_Click" Canvas.Left="1145" Canvas.Top="10">
+                    <Image Source="../img/close.png" />
+                </Button>-->
+                <Button BorderBrush="{x:Null}"  x:Name="closeButton" Background="Transparent" Height="50" Click="closeButton_Click" Canvas.Left="1176" Canvas.Top="10" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Image Source="../img/close.png" Stretch="UniformToFill"/>
+                </Button>
+
                 <ProgressBar Width="200" Height="200"  Style="{StaticResource MaterialDesignCircularProgressBar}" x:Name="progressBar" Canvas.ZIndex="3" Canvas.Left="125" Canvas.Top="150" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
 
-                <StackPanel Width="450" Canvas.ZIndex="1" x:Name="loginStackPanel" >
-                    <Border BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="2"
-                        CornerRadius="15,15,0,0" BorderBrush="Black" Background="Green" Height="80">
-                        <TextBlock Foreground="AntiqueWhite" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="36" Text="Đăng nhập" FontWeight="Bold"/>
-                    </Border>
-
-
-
-                    <TextBox Margin="0 50 0 0" x:Name="userNameTextBox" Width="400" FontSize="18" BorderThickness="2" 
+                <StackPanel VerticalAlignment="Center" Canvas.ZIndex="1" x:Name="loginStackPanel" Margin="425 160 0 0"
+                            >
+                    <TextBlock Foreground="#348F6C" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="50" Margin="0 20 0 0" Text="ĐĂNG NHẬP" FontWeight="Bold"/>
+                    <TextBox Margin="15 50 15 0" x:Name="userNameTextBox" Width="400" FontSize="18" BorderThickness="2"
                          BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         materialDesign:HintAssist.Hint="Nhập tên đăng nhập"
+                         materialDesign:HintAssist.Hint="Nhập tên đăng nhập" Padding="10 0 0 10"
                          />
-                    <PasswordBox Margin="0 20 0 0" x:Name="passwordTextBox" Width="400" FontSize="18" BorderThickness="2" 
+                    <PasswordBox Margin="0 20 0 0" x:Name="passwordTextBox" Width="400" FontSize="18" BorderThickness="2" Padding="10 0 0 10"
                          BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
                                  materialDesign:PasswordBoxAssist.IsPasswordRevealed="False"
                             materialDesign:HintAssist.Hint="Nhập mật khẩu"
@@ -42,17 +48,15 @@
 
                     <CheckBox Name="rememberCheckBox" Content="Nhớ tài khoản" Style="{StaticResource MaterialDesignUserForegroundCheckBox}" Width="400" Margin="0 10 0 0"/>
 
-                    <Button  Margin="0 50 0 0" Width="200" x:Name="loginButton" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Click="loginButton_Click"
-                        materialDesign:ShadowAssist.ShadowDepth="Depth2" Height="50" Content="Đăng nhập" FontSize="25" Background="Green" materialDesign:ButtonAssist.CornerRadius="10" />
+                    <Button  Margin="0 50 0 20" Width="400" x:Name="loginButton" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Click="loginButton_Click"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2" Height="50" Content="Đăng nhập" FontSize="25" Background="#2A7D5D" materialDesign:ButtonAssist.CornerRadius="10" />
 
-                    <Border BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="2" Margin="0 43 0 0"
-                        CornerRadius="0,0,15,15" BorderBrush="Black" Background="IndianRed">
+                    <!--<Border BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="2" Margin="0 43 0 0"-->
+                    <!--CornerRadius="0,0,15,15" BorderBrush="Black" Background="IndianRed">
                         <Button BorderBrush="{x:Null}"  x:Name="closeButton" Style="{StaticResource MaterialDesignFlatDarkBgButton}" 
                         Content="Đóng" FontSize="25" Background="IndianRed" Height="50"  materialDesign:ButtonAssist.CornerRadius="15" Click="closeButton_Click"/>
-                    </Border>
+                    </Border>-->
                 </StackPanel>
-
-
             </Canvas>
         </materialDesign:DialogHost>
     </materialDesign:Card>

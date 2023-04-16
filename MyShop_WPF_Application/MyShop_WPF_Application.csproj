@@ -10,6 +10,10 @@
 
   <ItemGroup>
     <None Remove="Fonts\Amsterdam_One.ttf" />
+    <None Remove="img\background.png" />
+    <None Remove="img\bglogin.png" />
+    <None Remove="img\bg_login.png" />
+    <None Remove="img\close.png" />
     <None Remove="img\delete.png" />
     <None Remove="img\view.png" />
   </ItemGroup>
@@ -30,6 +34,10 @@
     <Resource Include="Fonts\Amsterdam_One.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="img\background.png" />
+    <Resource Include="img\bglogin.png" />
+    <Resource Include="img\bg_login.png" />
+    <Resource Include="img\close.png" />
     <Resource Include="img\delete.png" />
     <Resource Include="img\view.png" />
   </ItemGroup>
