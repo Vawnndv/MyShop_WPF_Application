@@ -13,8 +13,10 @@ namespace MyShop_WPF_Application.ViewModels
     class QLSPViewModel : BaseViewModel
     {
         public ObservableCollection<ProductModel> _productList;
+        public ObservableCollection<CategoryModel> _categoryList;
 
         private ProductRepository _repository = new ProductRepository();
+        private CategoryRepository _repository2 = new CategoryRepository();
 
         private int _ProductID { get; set; }
         private int _CategoryID { get; set; }
@@ -28,6 +30,7 @@ namespace MyShop_WPF_Application.ViewModels
         {
             // query and get all orders
             _productList = _repository.getAllProduct();
+            _categoryList = _repository2.getAllCategory();
         }
 
         public int ProductID

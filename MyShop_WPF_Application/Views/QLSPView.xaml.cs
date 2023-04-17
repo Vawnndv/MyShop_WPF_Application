@@ -30,6 +30,8 @@ namespace MyShop_WPF_Application.Views
     {
         QLSPViewModel _viewModel = new QLSPViewModel();
         int _currentPage = 1, rowsPerPage = 12;
+        int _currentCategoryCombobox = 0;
+
         int _totalPage = 0;
         int _listSize;
         int _productCount = 0;
@@ -49,9 +51,15 @@ namespace MyShop_WPF_Application.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            comboboxCategory.Items.Add("Tất cả");
+            foreach (var category in _viewModel._categoryList)
+            {
+                comboboxCategory.Items.Add(category.CategoryName);
+            }
             updateTotalPage();
-            updatePage(1);
+            updatePage(_currentCategoryCombobox, 1);
 
+            comboboxCategory.SelectedIndex = 0;
             currentPageComboBox.SelectedIndex = _currentPage - 1;
         }
 
@@ -67,42 +75,72 @@ namespace MyShop_WPF_Application.Views
 
         }
 
-        private void updatePage(int page, string keyword = "")
+        private void updatePage(int category, int page, string keyword = "", int index = -1)
         {
             _currentPage = page;
+
+            if (_currentPage == 1)
+            {
+                previousButton.IsEnabled = false;
+                nextButton.IsEnabled = true;
+            }
+
+            else if (_currentPage == _totalPage)
+            {
+                previousButton.IsEnabled = true;
+                nextButton.IsEnabled = false;
+            }
+
+            else
+            {
+                previousButton.IsEnabled = true;
+                nextButton.IsEnabled = true;
+            }
+
+            List<ProductModel> _productListCategory = new List<ProductModel>(); 
             List<ProductModel> _newProductList = new List<ProductModel>();
             List<ProductModel> _newProductItem = new List<ProductModel>();
+
+            if(category == 0)
+            {
+                _productListCategory = _viewModel._productList.ToList();
+            } else
+            {
+                _productListCategory = _viewModel._productList.Where(x => x.CategoryID == category).ToList();
+
+            }
             if (keyword.Length > 0)
             {
-                _newProductList = _viewModel._productList.Where(x => x.ProductName.Contains(keyword)).ToList();
+                _newProductList = _productListCategory.Where(x => x.ProductName.ToLower().Contains(keyword.ToLower())).ToList();
                 if (_newProductList.Count > 0)
                 {
                     _newProductItem = _newProductList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList();
                 }
                 else
                 {
-                    //var dialog = new Dialog() { Message = "Không tìm thấy sản phẩm" };
-                    //dialog.Owner = Window.GetWindow(this);
-                    //dialog.ShowDialog();
+                    MessageBox.Show("Không tìm thấy sản phẩm", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    _newProductList = _productListCategory.ToList();
+                    _newProductItem = _newProductList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList();
                 }
 
                 searchProductInput.Clear();
             }
-            else
-            {
+            else { 
                 if (isFiltering)
                 {
-                    _newProductList = _viewModel._productList.Where(x => x.ProductPrice >= double.Parse(fromPrice.Text) && x.ProductPrice <= double.Parse(toPrice.Text)).ToList();
+                    _newProductList = _productListCategory.Where(x => x.ProductPrice >= double.Parse(fromPrice.Text) && x.ProductPrice <= double.Parse(toPrice.Text)).ToList();
                     _newProductItem = _newProductList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList();
 
                 }
                 else
                 {
-                    _newProductList = _viewModel._productList.ToList();
+                    _newProductList = _productListCategory.ToList();
                     _newProductItem = _newProductList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList();
                     
                 }
             }
+
+
             ProductListView.ItemsSource = _newProductItem;
             _listSize = _newProductList.Count;
             _productCount = _newProductItem.Count;
@@ -113,7 +151,7 @@ namespace MyShop_WPF_Application.Views
         {
             string keyword = searchProductInput.Text;
 
-            updatePage(1, keyword);
+            updatePage(_currentCategoryCombobox, 1, keyword);
             updateTotalPage();
 
             currentPageComboBox.SelectedIndex = _currentPage - 1;
@@ -125,7 +163,7 @@ namespace MyShop_WPF_Application.Views
             {
                 _currentPage--;
                 currentPageComboBox.SelectedIndex = _currentPage - 1;
-                updatePage(_currentPage);
+                updatePage(_currentCategoryCombobox, _currentPage);
             }
         }
 
@@ -135,7 +173,7 @@ namespace MyShop_WPF_Application.Views
             {
                 _currentPage++;
                 currentPageComboBox.SelectedIndex = _currentPage - 1;
-                updatePage(_currentPage);
+                updatePage(_currentCategoryCombobox, _currentPage);
             }
         }
 
@@ -145,7 +183,7 @@ namespace MyShop_WPF_Application.Views
             {
                 _currentPage = currentPageComboBox.SelectedIndex + 1;
 
-                updatePage(_currentPage);
+                updatePage(_currentCategoryCombobox, _currentPage);
             }
         }
 
@@ -163,10 +201,10 @@ namespace MyShop_WPF_Application.Views
 
 
             isFiltering = true;
-            updatePage(1);
+            updatePage(_currentCategoryCombobox, 1);
             updateTotalPage();
             currentPageComboBox.SelectedIndex = _currentPage - 1;
-            ProductListView.ItemsSource = _viewModel._productList.Where(x => x.ProductPrice >= double.Parse(fromPriceString) && x.ProductPrice <= double.Parse(toPriceString)).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
+            //ProductListView.ItemsSource = _viewModel._productList.Where(x => x.ProductPrice >= double.Parse(fromPriceString) && x.ProductPrice <= double.Parse(toPriceString)).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
         }
 
         private void removeFilterButton_Click(object sender, RoutedEventArgs e)
@@ -174,10 +212,32 @@ namespace MyShop_WPF_Application.Views
             isFiltering = false;
             fromPrice.Clear();
             toPrice.Clear();    
-            updatePage(_currentPage);
+            updatePage(_currentCategoryCombobox, _currentPage);
             updateTotalPage();
             currentPageComboBox.SelectedIndex = _currentPage - 1;
 
+        }
+
+        private void ComboPageIndex_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _currentCategoryCombobox = comboboxCategory.SelectedIndex;
+            updatePage(_currentCategoryCombobox, _currentPage);
+            updateTotalPage();
+            currentPageComboBox.SelectedIndex = _currentPage - 1;
+        }
+
+        /// Hiệu ứng khi chọn
+        private void ComboProductTypes_DropDownOpened(object sender, EventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+            comboBox.Background = Brushes.LightGray;
+        }
+
+        /// Hiệu ứng khi bỏ chọn     
+        private void ComboProductTypes_DropDownClosed(object sender, EventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+            comboBox.Background = Brushes.Transparent;
         }
 
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
