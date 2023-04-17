@@ -57,18 +57,6 @@ namespace MyShop_WPF_Application.Views
 
         private void updateTotalPage()
         {
-
-            if (isFiltering)
-            {
-                _listSize = _viewModel._productList.Where(x => x.ProductPrice >= double.Parse(fromPrice.Text) && x.ProductPrice <= double.Parse(toPrice.Text)).ToList().Count;
-
-            }
-
-            else
-            {
-                _listSize = _viewModel._productList.Count;
-            }
-
             _totalPage = _listSize / rowsPerPage + ((_listSize % rowsPerPage) == 0 ? 0 : 1);
             var lines = new List<Tuple<int, int>>();
             for (int i = 1; i <= _totalPage; i++)
@@ -79,20 +67,56 @@ namespace MyShop_WPF_Application.Views
 
         }
 
-        private void updatePage(int page)
+        private void updatePage(int page, string keyword = "")
         {
             _currentPage = page;
-            if (isFiltering)
+            List<ProductModel> _newProductList = new List<ProductModel>();
+            List<ProductModel> _newProductItem = new List<ProductModel>();
+            if (keyword.Length > 0)
             {
-                ProductListView.ItemsSource = _viewModel._productList.Where(x => x.ProductPrice >= double.Parse(fromPrice.Text) && x.ProductPrice <= double.Parse(toPrice.Text)).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
-                _productCount = _viewModel._productList.Where(x => x.ProductPrice >= double.Parse(fromPrice.Text) && x.ProductPrice <= double.Parse(toPrice.Text)).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList().Count;
+                _newProductList = _viewModel._productList.Where(x => x.ProductName.Contains(keyword)).ToList();
+                if (_newProductList.Count > 0)
+                {
+                    _newProductItem = _newProductList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList();
+                }
+                else
+                {
+                    //var dialog = new Dialog() { Message = "Không tìm thấy sản phẩm" };
+                    //dialog.Owner = Window.GetWindow(this);
+                    //dialog.ShowDialog();
+                }
+
+                searchProductInput.Clear();
             }
             else
             {
-                ProductListView.ItemsSource = _viewModel._productList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
-                _productCount = _viewModel._productList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList().Count;
+                if (isFiltering)
+                {
+                    _newProductList = _viewModel._productList.Where(x => x.ProductPrice >= double.Parse(fromPrice.Text) && x.ProductPrice <= double.Parse(toPrice.Text)).ToList();
+                    _newProductItem = _newProductList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList();
+
+                }
+                else
+                {
+                    _newProductList = _viewModel._productList.ToList();
+                    _newProductItem = _newProductList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList();
+                    
+                }
             }
-            infoTextBlock.Text = $"Đang hiển thị {_productCount} / {_listSize} sinh viên";
+            ProductListView.ItemsSource = _newProductItem;
+            _listSize = _newProductList.Count;
+            _productCount = _newProductItem.Count;
+            infoTextBlock.Text = $"Đang hiển thị {_productCount} / {_listSize} sản phẩm";
+        }
+
+        private void searchProductButton_Click(object sender, RoutedEventArgs e)
+        {
+            string keyword = searchProductInput.Text;
+
+            updatePage(1, keyword);
+            updateTotalPage();
+
+            currentPageComboBox.SelectedIndex = _currentPage - 1;
         }
 
         private void previosButton_Click(object sender, RoutedEventArgs e)

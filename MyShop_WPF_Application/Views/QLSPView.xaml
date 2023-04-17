@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyShop_WPF_Application.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:Converter="clr-namespace:MyShop_WPF_Application.Converters"
              mc:Ignorable="d" 
              Height="750" Width="1065"
@@ -20,8 +21,13 @@
 
     </Grid>-->
     <StackPanel Background="White" Height="750">
-        <TextBlock TextAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="#348F6C" Margin="0 20 0 0"> DANH SÁCH ĐƠN HÀNG</TextBlock>
+        <TextBlock TextAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="#348F6C" Margin="0 20 0 0"> DANH SÁCH SẢN PHẨM</TextBlock>
         <StackPanel Orientation="Horizontal" Margin="0 30 15 10" HorizontalAlignment="Right">
+            <StackPanel Width="200" VerticalAlignment="Bottom">
+                <TextBox  Name="searchProductInput" materialDesign:HintAssist.Hint="Tìm kiếm tên sản phẩm" BorderBrush="{DynamicResource MaterialDesignDivider}" Height="25" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="200" />
+            </StackPanel>
+            <Button Margin="20 10 20 0" Content="Tìm kiếm" x:Name="searchProductButton" Click="searchProductButton_Click" Background="#348F6C" BorderThickness="0" Focusable="False"/>
+
             <StackPanel Width="115">
                 <TextBlock Text="Từ khoảng" HorizontalAlignment="Left"/>
                 <TextBox PreviewTextInput="NumberOnly_PreviewTextInput" Style="{StaticResource MaterialDesignTextBoxBase}" 
@@ -62,13 +68,13 @@
             <DockPanel>
                 <StackPanel DockPanel.Dock="Top" Height="0"></StackPanel>
                 <StackPanel DockPanel.Dock="Left" Orientation="Vertical">
-                    <Button x:Name="previousButton" Height="30"  Width="80" Click="previosButton_Click">
-                        <TextBlock>Previous</TextBlock>
+                    <Button x:Name="previousButton" Height="30"  Width="80" Click="previosButton_Click" Background="#348F6C">
+                        <TextBlock>Trước</TextBlock>
                     </Button>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Right" Orientation="Vertical">
-                    <Button DockPanel.Dock="Right" x:Name="nextButton" Height="30" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" Click="nextButton_Click">
-                        <TextBlock>Next</TextBlock>
+                    <Button DockPanel.Dock="Right" x:Name="nextButton" Height="30" Width="80" Click="nextButton_Click" Background="#348F6C">
+                        <TextBlock>Sau</TextBlock>
                     </Button>
                 </StackPanel>
 
