@@ -14,8 +14,8 @@ namespace MyShop_WPF_Application.Models
         public string ProductName { get; set; }
         public string ProductAvatar { get; set; }
         public int ProductQuantity { get; set; }
-        public Double ProductPrice { get; set; }
-        public Double ProductPriceOriginal { get; set; }
+        public double ProductPrice { get; set; }
+        public double ProductPriceOriginal { get; set; }
 
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -21,8 +21,8 @@ namespace MyShop_WPF_Application.ViewModels
         private string _ProductName { get; set; }
         private string _ProductAvatar { get; set; }
         private int _ProductQuantity { get; set; }
-        private float _ProductPrice { get; set; }
-        private float _ProductPriceOriginal { get; set; }
+        private double _ProductPrice { get; set; }
+        private double _ProductPriceOriginal { get; set; }
 
         public QLSPViewModel()
         {
@@ -80,7 +80,7 @@ namespace MyShop_WPF_Application.ViewModels
             }
         }
 
-        public float ProductPrice
+        public double ProductPrice
         {
             get { return _ProductPrice; }
             set
@@ -90,7 +90,7 @@ namespace MyShop_WPF_Application.ViewModels
             }
         }
 
-        public float ProductPriceOriginal
+        public double ProductPriceOriginal
         {
             get { return _ProductPriceOriginal; }
             set

@@ -34,8 +34,8 @@ namespace MyShop_WPF_Application.Repositories
                     string pName = (string)reader["Product_Name"];
                     string pAvatar = (string)reader["Avatar"];
                     int pQuantiry = (int)reader["Quantity"];
-                    Double pPrice = (Double)reader["Price"];
-                    Double pPriceOriginal = (Double)reader["Price_Original"];
+                    double pPrice = (double)reader["Price"];
+                    double pPriceOriginal = (double)reader["Price_Original"];
 
 
                     // add products from DB to collection
