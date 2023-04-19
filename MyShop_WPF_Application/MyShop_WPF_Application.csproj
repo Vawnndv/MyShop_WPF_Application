@@ -15,6 +15,7 @@
     <None Remove="img\bg_login.png" />
     <None Remove="img\close.png" />
     <None Remove="img\delete.png" />
+    <None Remove="img\edit.png" />
     <None Remove="img\view.png" />
   </ItemGroup>
 
@@ -39,6 +40,7 @@
     <Resource Include="img\bg_login.png" />
     <Resource Include="img\close.png" />
     <Resource Include="img\delete.png" />
+    <Resource Include="img\edit.png" />
     <Resource Include="img\view.png" />
   </ItemGroup>
 

@@ -19,7 +19,7 @@ namespace MyShop_WPF_Application.Converters
         public object ConvertBack(
         object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return Int16.Parse(value.ToString());
         }
     }
 }

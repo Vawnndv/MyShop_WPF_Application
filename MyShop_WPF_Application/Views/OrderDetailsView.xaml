@@ -56,18 +56,33 @@
                     </GridViewColumn.HeaderTemplate>
                 </GridViewColumn>
 
-                <GridViewColumn Width="100" DisplayMemberBinding="{Binding orderQuantity, Converter={StaticResource toCellConverter}}">
+                <GridViewColumn Width="100" >
                     <GridViewColumn.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock Text="Số lượng" FontSize="14" Width="100" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
                         </DataTemplate>
                     </GridViewColumn.HeaderTemplate>
+
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBox x:Name="orderQuantityTextBox" Text="{Binding orderQuantity, Converter={StaticResource toCellConverter}}" Style="{StaticResource MaterialDesignTextBoxBase}" Margin="0 0 10 0"/>
+                                
+                                <Button x:Name="editQuantityButton" Click="editQuantityButton_Click" BorderThickness="0" Height="15" Width="15">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="../img/edit.png" TileMode="None"  Stretch="Fill"/>
+                                    </Button.Background>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
                 </GridViewColumn>
 
                 <GridViewColumn Width="200" DisplayMemberBinding="{Binding ProductPrice, Converter={StaticResource toCellConverter}}">
                     <GridViewColumn.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock HorizontalAlignment="Center" Text="Giá mỗi sản phẩm" FontSize="14" Width="200" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                            
                         </DataTemplate>
                     </GridViewColumn.HeaderTemplate>
                 </GridViewColumn>
@@ -78,6 +93,7 @@
                             <TextBlock Text="Thao tác" FontSize="14" Width="235" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
                         </DataTemplate>
                     </GridViewColumn.HeaderTemplate>
+                    
                     <GridViewColumn.CellTemplate >
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

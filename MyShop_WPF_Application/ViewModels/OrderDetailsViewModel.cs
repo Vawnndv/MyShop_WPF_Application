@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MyShop_WPF_Application.ViewModels
 {
@@ -20,9 +21,7 @@ namespace MyShop_WPF_Application.ViewModels
 
         public void removeProductFromList(int productId, int orderId)
         {
-            int i = 0;
-
-            for(; i < productList.Count; i++) {
+            for(int i = 0; i < productList.Count; i++) {
                 if (productList[i].ProductID == productId) { 
                     productList.RemoveAt(i); 
                     break; 
@@ -30,6 +29,34 @@ namespace MyShop_WPF_Application.ViewModels
             }
 
             _repo.removeProductFromOrder(productId, orderId);
+        }
+
+        public Boolean updateProductQuantity(int orderId, int productId, int quantity, int prevQuan)
+        {
+            // get stock product from Database
+            int stock = _repo.getProductQuantity(productId);
+            int newStock = stock + prevQuan - quantity; // calculate new in stock if get an amount of product base on quantity
+
+            // not enough product in stock
+            if(newStock < 0)
+                return false;
+            
+            for (int i = 0; i < productList.Count; i++)
+            {
+                if (productList[i].ProductID == productId)
+                {
+                    productList[i].ProductQuantity = quantity;
+                   
+                    break;
+                }
+            }
+
+            _repo.updateStockProductQuantity(productId, newStock);
+            _repo.updateProductQuantityInOrderDetail(orderId, productId, quantity);
+            
+            MessageBox.Show(prevQuan.ToString());
+
+            return true;
         }
     }
 }

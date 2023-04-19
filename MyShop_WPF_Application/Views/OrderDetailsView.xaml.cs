@@ -37,12 +37,26 @@ namespace MyShop_WPF_Application.Views
             lst.ItemsSource = _viewModel.productList;
         }
 
+        // delete product from list + DB
         private void deleteRowButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            var currrentItem = (OrderDetailsProductModel)button.DataContext;
+            var currentItem = (OrderDetailsProductModel)button.DataContext;
 
-            _viewModel.removeProductFromList((int)currrentItem.ProductID, currentOrderId);
+            _viewModel.removeProductFromList((int)currentItem.ProductID, currentOrderId);
+        }
+
+        // edit quantity of a product in list + DB
+        private void editQuantityButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            var currentItem = (OrderDetailsProductModel)button.DataContext; // get selected row data
+            int id = (int)currentItem.ProductID;
+
+            if (!_viewModel.updateProductQuantity(currentOrderId, id, currentItem.orderQuantity, currentItem.ProductQuantity))
+            {
+                MessageBox.Show("Not enough product in stock");
+            }
         }
     }
 }
