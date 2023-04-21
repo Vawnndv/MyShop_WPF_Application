@@ -1,0 +1,112 @@
+﻿<Window x:Class="MyShop_WPF_Application.Views.OrderDetailsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyShop_WPF_Application.Views"
+        Title="OrderDetailsView" Height="750" Width="1065"
+        xmlns:Converter="clr-namespace:MyShop_WPF_Application.Converters"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" 
+        Loaded="Window_Loaded"
+        >
+    
+    <Window.Resources>
+        <Converter:ToDataRowStringConverter x:Key="toCellConverter"/>
+        <Converter:AbsoluteConverter x:Key="absoluteConverter"   />
+
+        <Style TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
+
+
+    <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0">
+        <ListView.ItemContainerStyle>
+            <Style TargetType="ListViewItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="Background" Value="#E4E4E4"/>
+
+            </Style>
+        </ListView.ItemContainerStyle>
+
+        <ListView.View>
+            <GridView>
+                <GridViewColumn Width="100">
+                    <GridViewColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Hình ảnh" Width="100" TextAlignment="Center" FontSize="14" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                        </DataTemplate>
+                    </GridViewColumn.HeaderTemplate>
+                    
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image  d:Source="img/phone/1.png"  
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                            Source="{Binding ProductAvatar,Converter={StaticResource absoluteConverter}}"/>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+
+                <GridViewColumn Width="150" DisplayMemberBinding="{Binding ProductName}">
+                    <GridViewColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Tên sản phẩm" FontSize="14" Width="150" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                        </DataTemplate>
+                    </GridViewColumn.HeaderTemplate>
+                </GridViewColumn>
+
+                <GridViewColumn Width="100" >
+                    <GridViewColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Số lượng" FontSize="14" Width="100" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                        </DataTemplate>
+                    </GridViewColumn.HeaderTemplate>
+
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBox x:Name="orderQuantityTextBox" Text="{Binding orderQuantity, Converter={StaticResource toCellConverter}}" Style="{StaticResource MaterialDesignTextBoxBase}" Margin="0 0 10 0"/>
+                                
+                                <Button x:Name="editQuantityButton" Click="editQuantityButton_Click" BorderThickness="0" Height="15" Width="15">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="../img/edit.png" TileMode="None"  Stretch="Fill"/>
+                                    </Button.Background>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+
+                <GridViewColumn Width="200" DisplayMemberBinding="{Binding ProductPrice, Converter={StaticResource toCellConverter}}">
+                    <GridViewColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock HorizontalAlignment="Center" Text="Giá mỗi sản phẩm" FontSize="14" Width="200" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                            
+                        </DataTemplate>
+                    </GridViewColumn.HeaderTemplate>
+                </GridViewColumn>
+
+                <GridViewColumn Width="235">
+                    <GridViewColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Thao tác" FontSize="14" Width="235" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                        </DataTemplate>
+                    </GridViewColumn.HeaderTemplate>
+                    
+                    <GridViewColumn.CellTemplate >
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                
+                                <Button x:Name="deleteRowButton" Margin="10 0 5 0" Click="deleteRowButton_Click" Background="#F66A6A" BorderThickness="0">
+                                    <Image Source="../img/delete.png" Width="20" Height="20" VerticalAlignment="Center" Stretch="UniformToFill"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+
+            </GridView>
+        </ListView.View>
+    </ListView>
+</Window>
