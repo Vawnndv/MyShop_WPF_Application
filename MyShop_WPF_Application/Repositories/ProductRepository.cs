@@ -104,6 +104,44 @@ namespace MyShop_WPF_Application.Repositories
             return result;
         }
 
+
+        public ProductModel getProductWithId(int? _productID)
+        {
+            ObservableCollection<ProductModel> result = new ObservableCollection<ProductModel>();
+            ProductModel product = null;
+
+            Global.Connection = new SqlConnection(Global.ConnectionString);
+            Global.Connection.Open();
+            if (Global.Connection != null)
+            {
+
+                // query to get user's role
+                string sql = $"select * from Product where Product_ID = @pID\"";
+
+                var command = new SqlCommand(sql, Global.Connection);
+                command.Parameters.AddWithValue("@pID", _productID);
+
+                var reader = command.ExecuteReader();
+
+               product = new ProductModel()
+               {
+                   ProductID = (int)reader["Product_ID"],
+                   CategoryID = (int)reader["Category_ID"],
+                   ProductName = (string)reader["Product_Name"],
+                   ProductAvatar = (string)reader["Avatar"],
+                   ProductQuantity = (int)reader["Quantity"],
+                   ProductPrice = (double)reader["Price"],
+                   ProductPriceOriginal = (double)reader["Price_Original"],
+               };
+
+
+                reader.Close();
+            }
+
+            Global.Connection?.Close();
+            return product;
+        }
+
         public int getNumOfProductsAvailable()
         {
             int quantity = 0;
