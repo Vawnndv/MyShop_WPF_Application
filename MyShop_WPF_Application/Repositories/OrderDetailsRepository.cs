@@ -65,6 +65,7 @@ namespace MyShop_WPF_Application.Repositories
             }
         }
 
+        // query to get product quantity by Product_ID from Product table
         public int getProductQuantity(int productId)
         {
             int stockQuantity = 0;
@@ -84,6 +85,7 @@ namespace MyShop_WPF_Application.Repositories
             return stockQuantity;
         }
 
+        // update product quantity of a selected product in a selected order detail
         public void updateProductQuantityInOrderDetail(int orderId, int productId, int quantity)
         {
             if (Global.Connection == null)
@@ -106,6 +108,7 @@ namespace MyShop_WPF_Application.Repositories
             }
         }
 
+        // update product quantity of a selected product in Product table
         public void updateStockProductQuantity(int productId, int newQuantity) {
             if (Global.Connection == null)
             {

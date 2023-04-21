@@ -143,7 +143,7 @@ namespace MyShop_WPF_Application.WindowScreen
 
 
                 // load dashboard
-                Window win2 = new OrderDetailsView();
+                Window win2 = new OrderDetailChooseProductView();
                 win2.Show();
                 this.Close();
 

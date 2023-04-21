@@ -58,5 +58,10 @@ namespace MyShop_WPF_Application.Views
                 MessageBox.Show("Not enough product in stock");
             }
         }
+
+        private void addNewProductButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

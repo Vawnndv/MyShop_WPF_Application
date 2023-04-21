@@ -20,8 +20,8 @@
         </Style>
     </Window.Resources>
 
-
-    <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0">
+    <StackPanel>
+        <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0">
         <ListView.ItemContainerStyle>
             <Style TargetType="ListViewItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -109,4 +109,7 @@
             </GridView>
         </ListView.View>
     </ListView>
+
+        <Button x:Name="addNewProductButton" Content="Thêm sản phẩm" Click="addNewProductButton_Click"/>
+    </StackPanel>
 </Window>
