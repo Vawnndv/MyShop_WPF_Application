@@ -46,7 +46,7 @@ namespace MyShop_WPF_Application.Repositories
 
                 reader.Close();
             }
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return result;
         }
     }
