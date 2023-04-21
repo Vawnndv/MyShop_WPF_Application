@@ -19,9 +19,9 @@
                 <Canvas.Background>
                     <ImageBrush ImageSource="../img/bg_login.png" Stretch="UniformToFill"/>
                 </Canvas.Background>
-                <Border x:Name="loadCanvas"  BorderThickness="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="0 0 0 0"
-                        CornerRadius="15,15,15,15" BorderBrush="Black" Opacity="0.5"  Background="Gray" Canvas.ZIndex="2"   
-                        Height="480" Width="450" Visibility="Hidden"/>
+                <Border x:Name="loadCanvas"  BorderThickness="0" Grid.Row="0" Grid.ColumnSpan="2"
+                        CornerRadius="15,15,15,15" BorderBrush="Black" Opacity="0.5"  Background="#DFDFDF" Canvas.ZIndex="2"   
+                        Height="480" Width="450" Canvas.Left="415" Canvas.Top="128" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden"/>
 
                 <!--<Button BorderBrush="{x:Null}"  x:Name="closeButton" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Background="Transparent"
                         FontSize="25"  Height="50" materialDesign:ButtonAssist.CornerRadius="15" Click="closeButton_Click" Canvas.Left="1145" Canvas.Top="10">
@@ -31,7 +31,7 @@
                     <Image Source="../img/close.png" Stretch="UniformToFill"/>
                 </Button>
 
-                <ProgressBar Width="200" Height="200"  Style="{StaticResource MaterialDesignCircularProgressBar}" x:Name="progressBar" Canvas.ZIndex="3" Canvas.Left="125" Canvas.Top="150" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
+                <ProgressBar Width="200" Height="200"  Style="{StaticResource MaterialDesignCircularProgressBar}" x:Name="progressBar" Canvas.ZIndex="3" Canvas.Left="540" Canvas.Top="275" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Hidden"/>
 
                 <StackPanel VerticalAlignment="Center" Canvas.ZIndex="1" x:Name="loginStackPanel" Margin="425 160 0 0"
                             >

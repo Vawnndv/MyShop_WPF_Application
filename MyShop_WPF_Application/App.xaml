@@ -73,11 +73,30 @@
                 <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=Button}}"/>
             </Style>
 
+            <LinearGradientBrush x:Key="mybrush" EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#348F6C"/>
+                <GradientStop Color="#97FD6C" Offset="1"/>
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="gradient_2" EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF3131"/>
+                <GradientStop Color="#FFD880" Offset="1"/>
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="gradient_3" EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#38B6FF"/>
+                <GradientStop Color="#444EFF" Offset="1"/>
+            </LinearGradientBrush>
+
+            <DataTemplate DataType="{x:Type viewmodels:DashboardViewModel}">
+                <views:DashboardView/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:QLSPViewModel}">
                 <views:QLSPView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:QLDHViewModel}">
                 <views:QLDHView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:TK_DoanhThu_LoiNhuanViewModel}">
+                <views:TK_DoanhThu_LoiNhuanView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:TMSPViewModel}">
             <views:TMSPView/>

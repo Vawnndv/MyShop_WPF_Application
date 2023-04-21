@@ -78,6 +78,12 @@
                     <WrapPanel />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
+            <ListView.Resources>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <EventSetter Event="MouseDoubleClick"
+                                 Handler="ProductListView_MouseDoubleClick"/>
+                </Style>
+            </ListView.Resources>
         </ListView>
         <StackPanel HorizontalAlignment="Center" Margin="0, 5, 0, 0">
             <DockPanel>

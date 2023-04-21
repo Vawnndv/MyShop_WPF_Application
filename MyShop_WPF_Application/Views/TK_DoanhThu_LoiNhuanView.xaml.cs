@@ -34,6 +34,7 @@ namespace MyShop_WPF_Application.Views
         LineGraph line3 = new LineGraph();
         private void refresh(DateTime start, DateTime end)
         {
+            Lines.Children.Clear();
             var tempTuple = _viewModel.getListRevenueAndProfit(start, end);
             if (tempTuple == null)
                 return;

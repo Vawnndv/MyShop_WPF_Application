@@ -240,6 +240,11 @@ namespace MyShop_WPF_Application.Views
             comboBox.Background = Brushes.Transparent;
         }
 
+        private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             TextBox textBox = sender as TextBox;

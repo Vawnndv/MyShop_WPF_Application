@@ -103,5 +103,139 @@ namespace MyShop_WPF_Application.Repositories
             Global.Connection?.Close();
             return result;
         }
+
+
+        public ProductModel getProductWithId(int? _productID)
+        {
+            ObservableCollection<ProductModel> result = new ObservableCollection<ProductModel>();
+            ProductModel product = null;
+
+            Global.Connection = new SqlConnection(Global.ConnectionString);
+            Global.Connection.Open();
+            if (Global.Connection != null)
+            {
+
+                // query to get user's role
+                string sql = $"select * from Product where Product_ID = @pID\"";
+
+                var command = new SqlCommand(sql, Global.Connection);
+                command.Parameters.AddWithValue("@pID", _productID);
+
+                var reader = command.ExecuteReader();
+
+               product = new ProductModel()
+               {
+                   ProductID = (int)reader["Product_ID"],
+                   CategoryID = (int)reader["Category_ID"],
+                   ProductName = (string)reader["Product_Name"],
+                   ProductAvatar = (string)reader["Avatar"],
+                   ProductQuantity = (int)reader["Quantity"],
+                   ProductPrice = (double)reader["Price"],
+                   ProductPriceOriginal = (double)reader["Price_Original"],
+               };
+
+
+                reader.Close();
+            }
+
+            Global.Connection?.Close();
+            return product;
+        }
+
+        public int getNumOfProductsAvailable()
+        {
+            int quantity = 0;
+            Global.Connection = new SqlConnection(Global.ConnectionString);
+            Global.Connection.Open();
+            if (Global.Connection != null)
+            {
+
+                // query to get user's role
+                string sql = "SELECT COUNT(*) AS QUANTITY\r\nFROM Product p\r\nWHERE p.Quantity > 0";
+
+                var command = new SqlCommand(sql, Global.Connection);
+
+                var reader = command.ExecuteReader();
+                reader.Read();
+
+                quantity = (int)reader["QUANTITY"];
+
+                reader.Close();
+            }
+
+            Global.Connection?.Close();
+            return quantity;
+        }
+
+        public int getNumOfPurchaseSold(DateTime start, DateTime end)
+        {
+            int quantity = 0;
+            Global.Connection = new SqlConnection(Global.ConnectionString);
+            Global.Connection.Open();
+            if (Global.Connection != null)
+            {
+
+                // query to get user's role
+                string sql = string.Format("SELECT COUNT(*) AS QUANTITY\r\nFROM Purchase p\r\nWHERE p.Centered_At BETWEEN  '{0}' AND '{1}'", start.ToString("yyyy-MM-dd"), end.ToString("yyyy-MM-dd"));
+
+                var command = new SqlCommand(sql, Global.Connection);
+
+                var reader = command.ExecuteReader();
+                reader.Read();
+
+                quantity = (int)reader["QUANTITY"];
+
+                reader.Close();
+            }
+
+            Global.Connection?.Close();
+            return quantity;
+        }
+
+        public ObservableCollection<ProductModel> getTop5Product()
+        {
+            ObservableCollection<ProductModel> result = new ObservableCollection<ProductModel>();
+            Global.Connection = new SqlConnection(Global.ConnectionString);
+            Global.Connection.Open();
+            if (Global.Connection != null)
+            {
+
+                // query to get user's role
+                string sql = "SELECT TOP(5) *\r\nFROM Product p\r\nWHERE p.Quantity < 5\r\nORDER BY p.Quantity";
+
+                var command = new SqlCommand(sql, Global.Connection);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int? pId = (int)reader["Product_ID"];
+                    int? cId = (int)reader["Category_ID"];
+                    string pName = (string)reader["Product_Name"];
+                    string pAvatar = (string)reader["Avatar"];
+                    int pQuantiry = (int)reader["Quantity"];
+                    double pPrice = (double)reader["Price"];
+                    double pPriceOriginal = (double)reader["Price_Original"];
+
+
+                    // add products from DB to collection
+                    result.Add(new ProductModel()
+                    {
+                        ProductID = pId,
+                        CategoryID = cId,
+                        ProductName = pName,
+                        ProductAvatar = pAvatar,
+                        ProductQuantity = pQuantiry,
+                        ProductPrice = pPrice,
+                        ProductPriceOriginal = pPriceOriginal,
+                    });
+                }
+
+                reader.Close();
+            }
+
+            Global.Connection?.Close();
+            return result;
+        }
     }
 }

@@ -15,11 +15,18 @@
     <None Remove="img\bg_login.png" />
     <None Remove="img\close.png" />
     <None Remove="img\delete.png" />
-    <None Remove="img\edit.png" />
+    <None Remove="img\icon\box.png" />
+    <None Remove="img\icon\cube.png" />
+    <None Remove="img\icon\diagram.png" />
+    <None Remove="img\icon\fire.png" />
+    <None Remove="img\icon\graph.png" />
+    <None Remove="img\icon\product_in_month.png" />
+    <None Remove="img\icon\total_product.png" />
     <None Remove="img\view.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Chart.js" Version="3.7.1" />
     <PackageReference Include="InteractiveDataDisplay.WPF" Version="1.0.0" />
     <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.8.0" />
@@ -40,7 +47,6 @@
     <Resource Include="img\bg_login.png" />
     <Resource Include="img\close.png" />
     <Resource Include="img\delete.png" />
-    <Resource Include="img\edit.png" />
     <Resource Include="img\view.png" />
   </ItemGroup>
 
