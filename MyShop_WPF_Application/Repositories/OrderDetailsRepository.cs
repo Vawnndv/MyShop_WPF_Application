@@ -126,5 +126,113 @@ namespace MyShop_WPF_Application.Repositories
             command.ExecuteNonQuery();
         }
 
+        public CustomerModel getCustomer(string phone)
+        {
+            var sql = "select * from Customer where Tel = @phoneNum";
+
+            var command = new SqlCommand(sql, Global.Connection);
+            command.Parameters.AddWithValue("@phoneNum", phone);
+
+            var reader = command.ExecuteReader();
+
+            reader.Read();
+
+            CustomerModel model = new CustomerModel()
+            {
+                name = (string)reader["Customer_Name"],
+                phone = (string)reader["Tel"],
+                address = (string)reader["Address"],
+                email = (string)reader["Email"]
+            };
+
+            reader.Close();
+            return model;
+        }
+
+        public string getCustomerPhone(int orderID)
+        {
+            var sql = "select Customer_Phone from Purchase where Purchase_ID = @id";
+
+            var command = new SqlCommand(sql, Global.Connection);
+            command.Parameters.AddWithValue("@id", orderID);
+
+            var reader = command.ExecuteReader();
+
+            reader.Read();
+
+            string res = (string)reader["Customer_Phone"];
+
+            reader.Close();
+
+            return res;
+        }
+
+        public DateTime getOrderDate(int orderID)
+        {
+            var sql = "select Centered_At from Purchase where Purchase_ID = @id";
+
+            var command = new SqlCommand(sql, Global.Connection);
+            command.Parameters.AddWithValue("@id", orderID);
+
+            var reader = command.ExecuteReader();
+
+            reader.Read();
+
+            var dtime = (DateTime)reader["Centered_At"];
+       
+
+            reader.Close ();
+
+            return dtime;
+        }
+
+        public List<Status> getOrderStatusList()
+        {
+            var sql = "select Display_Text from PurchasesStatusEnum";
+
+            var command = new SqlCommand(sql, Global.Connection);
+
+            var reader = command.ExecuteReader();
+
+            List<Status> res = new List<Status>();
+            while (reader.Read())
+            {
+                res.Add(new Status(){displayText = (string)reader["Display_Text"]});
+            }
+
+
+            reader.Close();
+
+            return res;
+        }
+
+        
+        public int getOrderStatus(int orderID)
+        {
+            var sql = "select Status from Purchase where Purchase_ID = @dT";
+
+            var command = new SqlCommand(sql, Global.Connection);
+            command.Parameters.AddWithValue("@dT", orderID);
+
+            var reader = command.ExecuteReader();
+
+            reader.Read();
+            int res = (int)reader["Status"];
+
+            reader.Close();
+
+            return res;
+        }
+
+        public void updateOrderStatus(int orderID, int newStatus)
+        {
+            var sql = "update Purchase set Status = @newStatus where Purchase_ID = @orderID";
+
+            var command = new SqlCommand(sql, Global.Connection);
+            command.Parameters.AddWithValue("@orderID", orderID);
+            command.Parameters.AddWithValue("@newStatus", newStatus);
+
+            command.ExecuteNonQuery();
+        }
     }
 }

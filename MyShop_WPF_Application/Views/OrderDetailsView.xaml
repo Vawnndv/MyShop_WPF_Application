@@ -10,10 +10,11 @@
         mc:Ignorable="d" 
         Loaded="Window_Loaded"
         >
-    
+
     <Window.Resources>
         <Converter:ToDataRowStringConverter x:Key="toCellConverter"/>
         <Converter:AbsoluteConverter x:Key="absoluteConverter"   />
+        <Converter:OrderStatusColorConverter x:Key="orderConverter"/>
 
         <Style TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -21,95 +22,183 @@
     </Window.Resources>
 
     <StackPanel>
-        <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0">
-        <ListView.ItemContainerStyle>
-            <Style TargetType="ListViewItem">
-                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                <Setter Property="Background" Value="#E4E4E4"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="ĐƠN HÀNG #" FontSize="45" TextAlignment="Center" FontWeight="Black"/>
+            <TextBlock d:Text="Order ID" x:Name="orderIDTextBlock" FontSize="45" TextAlignment="Center" FontWeight="Black"/>
 
-            </Style>
-        </ListView.ItemContainerStyle>
+        </StackPanel>
+        <DockPanel>
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Left" Width="532.5">
+                <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
+                    <TextBlock Text="Tên khách hàng: " FontSize="20" FontWeight="Bold"/>
+                    <TextBlock d:Text="Nguyễn Văn A" FontSize="20" Margin="10 0 0 0" x:Name="customerNameTextBlock"/>
+                </StackPanel>
 
-        <ListView.View>
-            <GridView>
-                <GridViewColumn Width="100">
-                    <GridViewColumn.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="Hình ảnh" Width="100" TextAlignment="Center" FontSize="14" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
-                        </DataTemplate>
-                    </GridViewColumn.HeaderTemplate>
-                    
-                    <GridViewColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image  d:Source="img/phone/1.png"  
+                <StackPanel Orientation="Horizontal" Margin="20 10 0 0">
+                    <TextBlock Text="Số điện thoại: " FontSize="20" FontWeight="Bold"/>
+                    <TextBlock d:Text="1234567890" FontSize="20" Margin="32 0 0 0" x:Name="customerPhoneTextBlock"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="20 10 0 0">
+                    <TextBlock Text="Địa chỉ email: " FontSize="20" FontWeight="Bold"/>
+                    <TextBlock d:Text="abc@gmail.com" FontSize="20" Margin="36 0 0 0" x:Name="customerEmailTextBlock"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="20 10 0 20">
+                    <TextBlock Text="Địa chỉ nhà: " FontSize="20" FontWeight="Bold"/>
+                    <TextBlock d:Text="123 Nguyễn Văn Cừ P5 Q10" FontSize="20" Margin="50 0 0 0" x:Name="customerAddressTextBlock"/>
+                </StackPanel>
+
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Right" Width="532.5" Margin="0 0 0 0">
+                <StackPanel Orientation="Horizontal" Margin="0 0 37 0" HorizontalAlignment="Right">
+                    <TextBlock Text="Ngày tạo đơn: " FontSize="20" FontWeight="Bold"/>
+                    <TextBlock d:Text="20/12/2022" FontSize="20" Margin="30 0 0 0" x:Name="oderCreateDateTextBlock"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Right" Margin="0 10 20 0">
+                    <TextBlock Text="Trạng thái đơn hàng" FontSize="20" FontWeight="Bold" Margin="0 0 0 10"/>
+                    <ComboBox SelectionChanged="orderStatusComboBox_SelectionChanged" Name="orderStatusComboBox" Width="290" Height="50" Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock  FontWeight="Medium" FontSize="12" Text="{Binding displayText}" TextAlignment="Center" VerticalAlignment="Top"
+                                                Background="{Binding displayText, Converter={StaticResource orderConverter}}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Right" Margin="0 10 20 0">
+                    <TextBlock Text="Loại khuyến mãi" FontSize="20" FontWeight="Bold" Margin="0 0 0 10"/>
+                    <ComboBox SelectionChanged="orderStatusComboBox_SelectionChanged" Name="promotionCombobox" Width="290" Height="40" Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock  FontWeight="Medium" FontSize="10"  TextAlignment="Center" VerticalAlignment="Top">
+                                    <Run Text="{Binding promoteName}"/>
+                                    -
+                                    <Run Text="{Binding promotePercentage}"/>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+            </StackPanel>
+
+
+        </DockPanel>
+
+        <Button HorizontalAlignment="Right" Margin="0 0 350 10" x:Name="addNewProductButton" Content="Thêm sản phẩm" Click="addNewProductButton_Click" Width="200"/>
+
+        <StackPanel Orientation="Horizontal">
+            <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}"  Width="733" Margin="10 0 0 0" Height="402">
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Background" Value="#E4E4E4"/>
+                        <Setter Property="Focusable" Value="false"/>
+
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="100">
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Hình ảnh" Width="100" TextAlignment="Center" FontSize="14" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image  d:Source="img/phone/1.png"  
                                     RenderOptions.BitmapScalingMode="HighQuality"
                             Source="{Binding ProductAvatar,Converter={StaticResource absoluteConverter}}"/>
-                        </DataTemplate>
-                    </GridViewColumn.CellTemplate>
-                </GridViewColumn>
+                                </DataTemplate>
 
-                <GridViewColumn Width="150" DisplayMemberBinding="{Binding ProductName}">
-                    <GridViewColumn.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="Tên sản phẩm" FontSize="14" Width="150" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
-                        </DataTemplate>
-                    </GridViewColumn.HeaderTemplate>
-                </GridViewColumn>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-                <GridViewColumn Width="100" >
-                    <GridViewColumn.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="Số lượng" FontSize="14" Width="100" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
-                        </DataTemplate>
-                    </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn Width="200" >
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Tên sản phẩm" FontSize="14" Width="200" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
 
-                    <GridViewColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <TextBox x:Name="orderQuantityTextBox" Text="{Binding orderQuantity, Converter={StaticResource toCellConverter}}" Style="{StaticResource MaterialDesignTextBoxBase}" Margin="0 0 10 0"/>
-                                
-                                <Button x:Name="editQuantityButton" Click="editQuantityButton_Click" BorderThickness="0" Height="15" Width="15">
-                                    <Button.Background>
-                                        <ImageBrush ImageSource="../img/edit.png" TileMode="None"  Stretch="Fill"/>
-                                    </Button.Background>
-                                </Button>
-                            </StackPanel>
-                        </DataTemplate>
-                    </GridViewColumn.CellTemplate>
-                </GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ProductName}" FontSize="14" Width="200" TextAlignment="Center" TextWrapping="WrapWithOverflow"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-                <GridViewColumn Width="200" DisplayMemberBinding="{Binding ProductPrice, Converter={StaticResource toCellConverter}}">
-                    <GridViewColumn.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock HorizontalAlignment="Center" Text="Giá mỗi sản phẩm" FontSize="14" Width="200" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
-                            
-                        </DataTemplate>
-                    </GridViewColumn.HeaderTemplate>
-                </GridViewColumn>
+                        <GridViewColumn Width="100" >
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Số lượng" FontSize="14" Width="100" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
 
-                <GridViewColumn Width="235">
-                    <GridViewColumn.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="Thao tác" FontSize="14" Width="235" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
-                        </DataTemplate>
-                    </GridViewColumn.HeaderTemplate>
-                    
-                    <GridViewColumn.CellTemplate >
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                
-                                <Button x:Name="deleteRowButton" Margin="10 0 5 0" Click="deleteRowButton_Click" Background="#F66A6A" BorderThickness="0">
-                                    <Image Source="../img/delete.png" Width="20" Height="20" VerticalAlignment="Center" Stretch="UniformToFill"/>
-                                </Button>
-                            </StackPanel>
-                        </DataTemplate>
-                    </GridViewColumn.CellTemplate>
-                </GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBox x:Name="orderQuantityTextBox" Text="{Binding orderQuantity, Converter={StaticResource toCellConverter}}" Style="{StaticResource MaterialDesignTextBoxBase}" Margin="0 0 10 0"/>
 
-            </GridView>
-        </ListView.View>
-    </ListView>
+                                        <Button x:Name="editQuantityButton" Click="editQuantityButton_Click" BorderThickness="0" Height="15" Width="15">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="../img/edit.png" TileMode="None"  Stretch="Fill"/>
+                                            </Button.Background>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-        <Button x:Name="addNewProductButton" Content="Thêm sản phẩm" Click="addNewProductButton_Click"/>
+                        <GridViewColumn Width="200" >
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock HorizontalAlignment="Center" Text="Giá mỗi sản phẩm" FontSize="14" Width="200" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ProductPrice, Converter={StaticResource toCellConverter}}" FontSize="14" Width="150" TextAlignment="Center" TextWrapping="WrapWithOverflow"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="110">
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Thao tác" FontSize="14" Width="110" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
+
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                                        <Button x:Name="deleteRowButton" Margin="10 0 5 0" Click="deleteRowButton_Click" Background="#F66A6A" BorderThickness="0">
+                                            <Image Source="../img/delete.png" Width="20" Height="20" VerticalAlignment="Center" Stretch="UniformToFill"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <StackPanel HorizontalAlignment="Center" Width="340">
+                <TextBlock Text="Tổng giá trị đơn hàng" FontSize="30" FontWeight="Bold" TextAlignment="Center"/>
+                <TextBlock x:Name="totalMoneyTextBlock" d:Text="200.000" FontSize="30" FontWeight="Bold" TextAlignment="Center" Margin="0 10 0 0" Foreground="Red"/>
+            </StackPanel>
+        </StackPanel>
     </StackPanel>
 </Window>

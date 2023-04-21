@@ -18,7 +18,7 @@ namespace MyShop_WPF_Application.Repositories
                       "from Product " +
                       "where Product_ID not in (select Product_ID" +
                                                 " from PurchaseDetail" +
-                                                " where Purchase_ID = @orderID)";
+                                                " where Purchase_ID = @orderID) and Quantity != 0";
 
             var productList = new ObservableCollection<ProductModel>();
             var command = new SqlCommand(sql, Global.Connection);

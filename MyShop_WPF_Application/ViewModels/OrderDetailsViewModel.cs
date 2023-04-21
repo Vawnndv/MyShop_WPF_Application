@@ -58,5 +58,42 @@ namespace MyShop_WPF_Application.ViewModels
 
             return true;
         }
+
+        public double calculateTotalMoney()
+        {
+            double total = 0;
+
+            for(int i = 0; i < productList.Count; ++i)
+            {
+                total += productList[i].orderQuantity * productList[i].ProductPrice;
+            }
+
+            return total;
+        }
+
+        public CustomerModel getCustormerFromDB(int orderID)
+        {
+            return _repo.getCustomer(_repo.getCustomerPhone(orderID));
+        }
+
+        public DateTime getDateFromDB(int orderID)
+        {
+            return _repo.getOrderDate(orderID);
+        }
+
+        public List<Status> orderStatusList()
+        {
+            return _repo.getOrderStatusList();
+        }
+
+        public int getOrderStatusKey(int orderId)
+        {
+            return _repo.getOrderStatus(orderId);
+        }
+
+        public void updateStatus(int orderId, int status)
+        {
+            _repo.updateOrderStatus(orderId, status);
+        }
     }
 }

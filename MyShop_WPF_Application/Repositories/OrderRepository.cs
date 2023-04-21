@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using MyShop_WPF_Application.Model;
+using MyShop_WPF_Application.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

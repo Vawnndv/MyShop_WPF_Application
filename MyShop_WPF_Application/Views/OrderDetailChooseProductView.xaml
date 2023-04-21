@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyShop_WPF_Application.Views"
         mc:Ignorable="d"
-        Title="OrderDetailChooseProductView" Height="450" Width="800"
+        Title="Chọn sản phẩm thêm vào đơn hàng" Height="450" Width="800"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Converter="clr-namespace:MyShop_WPF_Application.Converters"
         Loaded="Window_Loaded"

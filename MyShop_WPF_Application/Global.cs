@@ -15,5 +15,6 @@ namespace MyShop_WPF_Application
         public static int role = -1;
         public static Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static SqlConnection? Connection;
+        public static int selectedOrderID = 2;
     }
 }

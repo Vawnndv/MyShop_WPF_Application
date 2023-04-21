@@ -13,7 +13,7 @@ namespace MyShop_WPF_Application.ViewModels
     {
         public ObservableCollection<ProductModel> _productList = new ObservableCollection<ProductModel>();
         private OrderDetailChooseProductRepository _repo = new OrderDetailChooseProductRepository();
-        private int currentOrderID = 2;
+        private int currentOrderID = Global.selectedOrderID;
 
         public OrderDetailChooseProductViewModel()
         {

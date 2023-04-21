@@ -22,19 +22,32 @@ namespace MyShop_WPF_Application.Views
     /// </summary>
     public partial class OrderDetailsView : Window
     {
-        int currentOrderId = 2;
+        int currentOrderId = Global.selectedOrderID;
         OrderDetailsViewModel _viewModel;
 
         public OrderDetailsView()
         {
             InitializeComponent();
-            currentOrderId = 2;
             _viewModel = new OrderDetailsViewModel(currentOrderId);
+
+            totalMoneyTextBlock.Text = _viewModel.calculateTotalMoney().ToString();
+
+            orderStatusComboBox.ItemsSource = _viewModel.orderStatusList();
+            orderStatusComboBox.SelectedIndex = _viewModel.getOrderStatusKey(currentOrderId) - 1;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             lst.ItemsSource = _viewModel.productList;
+
+            CustomerModel customer = _viewModel.getCustormerFromDB(currentOrderId);
+
+            customerNameTextBlock.Text = customer.name;
+            customerPhoneTextBlock.Text = customer.phone;
+            customerEmailTextBlock.Text = customer.email;
+            customerAddressTextBlock.Text = customer.address;
+            oderCreateDateTextBlock.Text = _viewModel.getDateFromDB(currentOrderId).ToShortDateString();
+            orderIDTextBlock.Text = currentOrderId.ToString();
         }
 
         // delete product from list + DB
@@ -59,9 +72,20 @@ namespace MyShop_WPF_Application.Views
             }
         }
 
-        private void addNewProductButton_Click(object sender, RoutedEventArgs e)
+        private async void addNewProductButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            Window addProductWindow = new OrderDetailChooseProductView();
+            addProductWindow.ShowDialog();
+
+            _viewModel = new OrderDetailsViewModel(currentOrderId);
+            lst.ItemsSource = _viewModel.productList;
+
+            totalMoneyTextBlock.Text = _viewModel.calculateTotalMoney().ToString();
+        }
+
+        private void orderStatusComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _viewModel.updateStatus(currentOrderId, orderStatusComboBox.SelectedIndex + 1);
         }
     }
 }
