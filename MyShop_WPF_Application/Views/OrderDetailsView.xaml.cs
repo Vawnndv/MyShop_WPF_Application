@@ -24,29 +24,49 @@ namespace MyShop_WPF_Application.Views
     {
         int currentOrderId = Global.selectedOrderID;
         OrderDetailsViewModel _viewModel;
+        CustomerModel customer;
+        PromotionModel? currentPromo;
 
         public OrderDetailsView()
         {
             InitializeComponent();
+
             _viewModel = new OrderDetailsViewModel(currentOrderId);
 
-            totalMoneyTextBlock.Text = _viewModel.calculateTotalMoney().ToString();
+            // get order's customer info
+            customer = _viewModel.getCustormerFromDB(currentOrderId);
+
 
             orderStatusComboBox.ItemsSource = _viewModel.orderStatusList();
             orderStatusComboBox.SelectedIndex = _viewModel.getOrderStatusKey(currentOrderId) - 1;
+
+            promotionCombobox.ItemsSource = _viewModel.getPromotionList();
+
+            int? promoID = _viewModel.getPromotionID(currentOrderId);
+            if(promoID == null)
+            {
+                promotionCombobox.SelectedIndex = 0;
+            }
+            else
+            {
+                promotionCombobox.SelectedIndex = promoID ?? default(int);
+            }
+
+            currentPromo = promotionCombobox.SelectedItem as PromotionModel;
+
+            updateMoneyTextBlock();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             lst.ItemsSource = _viewModel.productList;
 
-            CustomerModel customer = _viewModel.getCustormerFromDB(currentOrderId);
-
             customerNameTextBlock.Text = customer.name;
             customerPhoneTextBlock.Text = customer.phone;
             customerEmailTextBlock.Text = customer.email;
             customerAddressTextBlock.Text = customer.address;
             oderCreateDateTextBlock.Text = _viewModel.getDateFromDB(currentOrderId).ToShortDateString();
+
             orderIDTextBlock.Text = currentOrderId.ToString();
         }
 
@@ -57,6 +77,8 @@ namespace MyShop_WPF_Application.Views
             var currentItem = (OrderDetailsProductModel)button.DataContext;
 
             _viewModel.removeProductFromList((int)currentItem.ProductID, currentOrderId);
+
+            updateMoneyTextBlock();
         }
 
         // edit quantity of a product in list + DB
@@ -70,6 +92,10 @@ namespace MyShop_WPF_Application.Views
             {
                 MessageBox.Show("Not enough product in stock");
             }
+            else
+            {
+                updateMoneyTextBlock();
+            }
         }
 
         private async void addNewProductButton_Click(object sender, RoutedEventArgs e)
@@ -80,12 +106,72 @@ namespace MyShop_WPF_Application.Views
             _viewModel = new OrderDetailsViewModel(currentOrderId);
             lst.ItemsSource = _viewModel.productList;
 
-            totalMoneyTextBlock.Text = _viewModel.calculateTotalMoney().ToString();
+            updateMoneyTextBlock();
         }
 
         private void orderStatusComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _viewModel.updateStatus(currentOrderId, orderStatusComboBox.SelectedIndex + 1);
+        }
+
+        private void promotionCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _viewModel.updatePromo(currentOrderId, promotionCombobox.SelectedIndex);
+            
+            // update current promo
+            currentPromo = promotionCombobox.SelectedItem as PromotionModel;
+
+            updateMoneyTextBlock();
+        }
+
+        private void editCustomerNameButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (customerNameTextBlock.Text == null || customerNameTextBlock.Text == "")
+            {
+                MessageBox.Show("Vui lòng không để trống tên khách hàng");
+                return;
+            }
+
+            _viewModel.updateInfo(customer.phone!, customerNameTextBlock.Text, "Customer_Name");
+        }
+
+        
+        private void editCustomerAddressButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (customerAddressTextBlock.Text == null || customerAddressTextBlock.Text == "")
+            {
+                MessageBox.Show("Vui lòng không để trống địa chỉ khách hàng");
+                return;
+            }
+
+            _viewModel.updateInfo(customer.phone!, customerAddressTextBlock.Text, "Address");
+        }
+
+        private void editCustomerEmailButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (customerEmailTextBlock.Text == null || customerEmailTextBlock.Text == "")
+            {
+                MessageBox.Show("Vui lòng không để trống địa chỉ email khách hàng");
+                return;
+            }
+
+            _viewModel.updateInfo(customer.phone!, customerEmailTextBlock.Text, "Email");
+        }
+
+        private void oderCreateDateTextBlock_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(oderCreateDateTextBlock.Text != null)
+            {
+                _viewModel.updateDate(currentOrderId, oderCreateDateTextBlock.Text);
+            }
+        }
+
+        private void updateMoneyTextBlock()
+        {
+            double newTotal = _viewModel.calculateTotalMoney(currentPromo!._promotionPercentage);
+            totalMoneyTextBlock.Text = newTotal.ToString();
+
+            _viewModel.updateTotal(currentOrderId, newTotal);
         }
     }
 }

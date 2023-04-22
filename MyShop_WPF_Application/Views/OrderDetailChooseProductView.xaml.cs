@@ -60,12 +60,16 @@ namespace MyShop_WPF_Application.Views
 
                 if(tempModel != null)
                 {
-                    
+                 
                     if(addToOrderQuantityTextBox.Text != "" && addToOrderQuantityTextBox.Text != null)
                     {
                         if(!_viewmModel.addNewProduct(tempModel.ProductID ?? default(int), Int16.Parse(addToOrderQuantityTextBox.Text), tempModel.ProductQuantity))
                         {
                             MessageBox.Show("Số lượng sản phẩm trong đơn hàng không được lớn hơn số lượng còn trong kho");
+                        }
+                        else
+                        {
+                            this.Close();
                         }
                     }
                     else

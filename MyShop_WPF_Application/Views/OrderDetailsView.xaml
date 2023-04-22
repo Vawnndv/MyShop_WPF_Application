@@ -28,67 +28,62 @@
 
         </StackPanel>
         <DockPanel>
-            <StackPanel Orientation="Vertical" DockPanel.Dock="Left" Width="532.5">
-                <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
-                    <TextBlock Text="Tên khách hàng: " FontSize="20" FontWeight="Bold"/>
-                    <TextBlock d:Text="Nguyễn Văn A" FontSize="20" Margin="10 0 0 0" x:Name="customerNameTextBlock"/>
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Left" Width="680">
+                <StackPanel Orientation="Horizontal" Margin="20 10 0 0">
+                    <TextBlock Text="Số điện thoại: " FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="Red" FontWeight="SemiBold" d:Text="1234567890" FontSize="20" Margin="32 0 0 0" x:Name="customerPhoneTextBlock"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Margin="20 10 0 0">
+                    <TextBlock Text="Tên khách hàng: " FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBox d:Text="Nguyễn Văn A" FontSize="20" Margin="10 0 0 0" x:Name="customerNameTextBlock"/>
+                    
+                    <Button x:Name="editCustomerNameButton" Click="editCustomerNameButton_Click" BorderThickness="0" Height="15" Width="15" Margin="10 0 0 0">
+                        <Button.Background>
+                            <ImageBrush ImageSource="../img/edit.png" TileMode="None"  Stretch="Fill"/>
+                        </Button.Background>
+                    </Button>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="20 10 0 0">
-                    <TextBlock Text="Số điện thoại: " FontSize="20" FontWeight="Bold"/>
-                    <TextBlock d:Text="1234567890" FontSize="20" Margin="32 0 0 0" x:Name="customerPhoneTextBlock"/>
-                </StackPanel>
+               
 
                 <StackPanel Orientation="Horizontal" Margin="20 10 0 0">
-                    <TextBlock Text="Địa chỉ email: " FontSize="20" FontWeight="Bold"/>
-                    <TextBlock d:Text="abc@gmail.com" FontSize="20" Margin="36 0 0 0" x:Name="customerEmailTextBlock"/>
+                    <TextBlock Text="Địa chỉ email: " FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBox d:Text="123 Nguyễn Văn Cừ P5 Q10" FontSize="20" Margin="35 0 0 0" x:Name="customerEmailTextBlock" TextWrapping="WrapWithOverflow"/>
+
+                    <Button x:Name="editCustomerEmailButton" Click="editCustomerEmailButton_Click" BorderThickness="0" Height="15" Width="15" Margin="10 0 0 0">
+                        <Button.Background>
+                            <ImageBrush ImageSource="../img/edit.png" TileMode="None"  Stretch="Fill"/>
+                        </Button.Background>
+                    </Button>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="20 10 0 20">
-                    <TextBlock Text="Địa chỉ nhà: " FontSize="20" FontWeight="Bold"/>
-                    <TextBlock d:Text="123 Nguyễn Văn Cừ P5 Q10" FontSize="20" Margin="50 0 0 0" x:Name="customerAddressTextBlock"/>
+                    <TextBlock Text="Địa chỉ nhà: " FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBox d:Text="123 Nguyễn Văn Cừ P5 Q10" FontSize="20" Margin="50 0 0 0" x:Name="customerAddressTextBlock" TextWrapping="WrapWithOverflow"/>
+
+                    <Button x:Name="editCustomerAddressButton" Click="editCustomerAddressButton_Click"  BorderThickness="0" Height="15" Width="15" Margin="10 0 0 0">
+                        <Button.Background>
+                            <ImageBrush ImageSource="../img/edit.png" TileMode="None"  Stretch="Fill"/>
+                        </Button.Background>
+                    </Button>
                 </StackPanel>
 
+                
             </StackPanel>
 
-            <StackPanel Orientation="Vertical" DockPanel.Dock="Right" Width="532.5" Margin="0 0 0 0">
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Right" Width="384.5" Margin="0 0 0 0">
                 <StackPanel Orientation="Horizontal" Margin="0 0 37 0" HorizontalAlignment="Right">
-                    <TextBlock Text="Ngày tạo đơn: " FontSize="20" FontWeight="Bold"/>
-                    <TextBlock d:Text="20/12/2022" FontSize="20" Margin="30 0 0 0" x:Name="oderCreateDateTextBlock"/>
+                    <TextBlock Text="Ngày tạo đơn: " FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <DatePicker SelectedDateChanged="oderCreateDateTextBlock_SelectedDateChanged" d:Text="20/12/2022" FontSize="20" Margin="30 0 0 0" x:Name="oderCreateDateTextBlock"/>
                 </StackPanel>
 
-                <StackPanel HorizontalAlignment="Right" Margin="0 10 20 0">
-                    <TextBlock Text="Trạng thái đơn hàng" FontSize="20" FontWeight="Bold" Margin="0 0 0 10"/>
-                    <ComboBox SelectionChanged="orderStatusComboBox_SelectionChanged" Name="orderStatusComboBox" Width="290" Height="50" Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock  FontWeight="Medium" FontSize="12" Text="{Binding displayText}" TextAlignment="Center" VerticalAlignment="Top"
-                                                Background="{Binding displayText, Converter={StaticResource orderConverter}}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </StackPanel>
-
-                <StackPanel HorizontalAlignment="Right" Margin="0 10 20 0">
-                    <TextBlock Text="Loại khuyến mãi" FontSize="20" FontWeight="Bold" Margin="0 0 0 10"/>
-                    <ComboBox SelectionChanged="orderStatusComboBox_SelectionChanged" Name="promotionCombobox" Width="290" Height="40" Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock  FontWeight="Medium" FontSize="10"  TextAlignment="Center" VerticalAlignment="Top">
-                                    <Run Text="{Binding promoteName}"/>
-                                    -
-                                    <Run Text="{Binding promotePercentage}"/>
-                                </TextBlock>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </StackPanel>
+                
             </StackPanel>
 
 
         </DockPanel>
 
-        <Button HorizontalAlignment="Right" Margin="0 0 350 10" x:Name="addNewProductButton" Content="Thêm sản phẩm" Click="addNewProductButton_Click" Width="200"/>
 
         <StackPanel Orientation="Horizontal">
             <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}"  Width="733" Margin="10 0 0 0" Height="402">
@@ -195,10 +190,41 @@
                 </ListView.View>
             </ListView>
 
-            <StackPanel HorizontalAlignment="Center" Width="340">
-                <TextBlock Text="Tổng giá trị đơn hàng" FontSize="30" FontWeight="Bold" TextAlignment="Center"/>
-                <TextBlock x:Name="totalMoneyTextBlock" d:Text="200.000" FontSize="30" FontWeight="Bold" TextAlignment="Center" Margin="0 10 0 0" Foreground="Red"/>
+            <StackPanel HorizontalAlignment="Center" Width="320">
+                <StackPanel HorizontalAlignment="Right" Margin="0 10 20 0">
+                    <TextBlock Text="Trạng thái đơn hàng" FontSize="20" FontWeight="Bold" Margin="0 0 0 10"/>
+                    <ComboBox SelectionChanged="orderStatusComboBox_SelectionChanged" Name="orderStatusComboBox" Width="290" Height="50" Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock  FontWeight="Medium" FontSize="12" Text="{Binding displayText}" TextAlignment="Center" VerticalAlignment="Top"
+                                                Background="{Binding displayText, Converter={StaticResource orderConverter}}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Right" Margin="0 10 20 0">
+                    <TextBlock Text="Loại khuyến mãi" FontSize="20" FontWeight="Bold" Margin="0 0 0 10"/>
+                    <ComboBox SelectionChanged="promotionCombobox_SelectionChanged" Name="promotionCombobox" Width="290" Height="50" Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock  FontWeight="Medium" FontSize="10"  TextAlignment="Center" VerticalAlignment="Top">
+                                    <Run Text="{Binding Path=_promotionName}"/>
+                                    -
+                                    <Run Text="{Binding Path=_promotionPercentage}"/>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+
+                <Button HorizontalAlignment="Center" Margin="0 20 0 0" x:Name="addNewProductButton" Content="Thêm sản phẩm" Click="addNewProductButton_Click" Width="200"/>
             </StackPanel>
+            
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+            <TextBlock Text="Tổng giá trị đơn hàng: " FontSize="30" FontWeight="Bold" TextAlignment="Center"/>
+            <TextBlock x:Name="totalMoneyTextBlock" d:Text="200.000" FontSize="30" FontWeight="Bold" TextAlignment="Center" Foreground="Red"/>
         </StackPanel>
     </StackPanel>
 </Window>

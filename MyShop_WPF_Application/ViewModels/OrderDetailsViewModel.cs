@@ -1,4 +1,5 @@
-﻿using MyShop_WPF_Application.Models;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using MyShop_WPF_Application.Models;
 using MyShop_WPF_Application.Repositories;
 using System;
 using System.Collections.Generic;
@@ -54,12 +55,10 @@ namespace MyShop_WPF_Application.ViewModels
             _repo.updateStockProductQuantity(productId, newStock);
             _repo.updateProductQuantityInOrderDetail(orderId, productId, quantity);
             
-            MessageBox.Show(prevQuan.ToString());
-
             return true;
         }
 
-        public double calculateTotalMoney()
+        public double calculateTotalMoney(double promoPercentage)
         {
             double total = 0;
 
@@ -67,6 +66,8 @@ namespace MyShop_WPF_Application.ViewModels
             {
                 total += productList[i].orderQuantity * productList[i].ProductPrice;
             }
+
+            total = total * (100 - promoPercentage) / 100;
 
             return total;
         }
@@ -94,6 +95,40 @@ namespace MyShop_WPF_Application.ViewModels
         public void updateStatus(int orderId, int status)
         {
             _repo.updateOrderStatus(orderId, status);
+        }
+
+        public void updateInfo(string phone, string newVal, string type)
+        {
+            _repo.updateCustomerInfo(phone, newVal, type);
+        }
+
+        public void updateDate(int orderID, string date)
+        {
+            _repo.updateCreateDate(orderID, date);
+        }
+
+        public List<PromotionModel> getPromotionList()
+        {
+            return _repo.getPromotionListFromDB();
+        }
+
+        public int? getPromotionID(int orderID)
+        {
+            return _repo.getPromotionID(orderID);
+        }
+
+        public void updatePromo(int orderID, int? promotionID)
+        {
+            // No promotion
+            if (promotionID == 0)
+                promotionID = null;
+
+            _repo.updatePromotionInOrderDetails(orderID, promotionID);
+        }
+
+        public void updateTotal(int orderID, double newTotal)
+        {
+            _repo.updateTotalInDB(orderID, newTotal);
         }
     }
 }

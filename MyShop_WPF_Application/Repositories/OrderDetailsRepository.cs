@@ -234,5 +234,113 @@ namespace MyShop_WPF_Application.Repositories
 
             command.ExecuteNonQuery();
         }
+
+        public void updateCustomerInfo(string customerPhone, string newValue, string type)
+        {
+            var sql = "update Customer set @updateType = @newVal where Tel = @cusPhone";
+
+            // add update field 
+            sql = sql.Replace("@updateType", type);
+
+            var command = new SqlCommand(sql, Global.Connection);
+
+            command.Parameters.AddWithValue("@newVal", newValue);
+            command.Parameters.AddWithValue("@cusPhone", customerPhone);
+
+            command.ExecuteNonQuery();
+        }
+
+        public void updateCreateDate(int orderID, string newDate)
+        {
+            var sql = "update Purchase set Centered_At = @newDate where Purchase_ID = @orderID";
+
+            var command = new SqlCommand(sql, Global.Connection);
+            command.Parameters.AddWithValue("@orderID", orderID);
+            command.Parameters.AddWithValue("@newDate", newDate);
+
+            command.ExecuteNonQuery();
+        }
+
+        public List<PromotionModel> getPromotionListFromDB()
+        {
+            List<PromotionModel> list = new List<PromotionModel>();
+
+            var sql = "select * from Promotion";
+            var command = new SqlCommand(sql, Global.Connection);
+            var reader = command.ExecuteReader();
+
+            list.Add(new PromotionModel()
+            {
+                _promotionId = 0,
+                _promotionName = "Không giảm giá",
+                _promotionPercentage = 0
+            });
+
+            while (reader.Read())
+            {
+                list.Add(new PromotionModel()
+                {
+                    _promotionId = (int)reader["Promotion_ID"],
+                    _promotionName = (string)reader["Promotion_Name"],
+                    _promotionPercentage = (double)reader["Promotion_Percentage"]
+                });
+            }
+
+            reader.Close();
+
+           
+
+            return list;
+        } 
+
+        public void updatePromotionInOrderDetails(int orderID, int? newPromotionID)
+        {
+            var sql = "update Purchase set Promotion_ID = @promo where Purchase_ID = @orderID";
+
+            var command = new SqlCommand(sql, Global.Connection);
+            command.Parameters.AddWithValue("@orderID", orderID);
+
+            if(newPromotionID != null)
+                command.Parameters.AddWithValue("@promo", newPromotionID);
+            else
+                command.Parameters.AddWithValue("@promo", DBNull.Value);
+
+            command.ExecuteNonQuery();
+        }
+
+        public int? getPromotionID(int orderID)
+        {
+            int? res = null;
+            var sql = "select Promotion_ID from Purchase where Purchase_ID = @dT";
+            var command = new SqlCommand(sql, Global.Connection);
+
+            command.Parameters.AddWithValue("@dT", orderID);
+
+            var reader = command.ExecuteReader();
+
+            reader.Read();
+
+
+            if (reader["Promotion_ID"] != DBNull.Value)
+            {
+                res = (int)reader["Promotion_ID"];
+            }
+
+            reader.Close();
+
+            return res;
+        }
+
+        public void updateTotalInDB(int orderID, double newTotal)
+        {
+            var sql = "update Purchase set Total = @total where Purchase_ID = @orderID";
+
+            var command = new SqlCommand(sql, Global.Connection);
+            command.Parameters.AddWithValue("@orderID", orderID);
+
+            command.Parameters.AddWithValue("@total", newTotal);
+
+            command.ExecuteNonQuery();
+        }
     }
 }
