@@ -9,29 +9,23 @@ using System.Threading.Tasks;
 
 namespace MyShop_WPF_Application.ViewModels
 {
-    class CTSPViewModel : BaseViewModel
+    class ThemSPViewModel : BaseViewModel
     {
+        private ProductRepository _repository = new ProductRepository();
         public ProductModel _product = null;
         public ObservableCollection<CategoryModel> _categoryList;
 
         private CategoryRepository _categoryRepository = new CategoryRepository();
-        private ProductRepository _repository = new ProductRepository();
-
-        public CTSPViewModel(int? pId)
+        public ThemSPViewModel()
         {
-            _product = _repository.getProductWithId(pId);
             _categoryList = _categoryRepository.getAllCategory();
-
+            _product = new ProductModel();
         }
 
-        public bool EditProduct(ProductModel editProduct)
+        public bool AddNewProduct(ProductModel product)
         {
-            return _repository.editProduct(editProduct);
-        }
-
-        public bool RemoveProduct(int? pId)
-        {
-            return _repository.removeProduct(pId);
+            return _repository.addProduct(product);
         }
     }
 }
+

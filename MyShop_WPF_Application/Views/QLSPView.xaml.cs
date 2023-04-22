@@ -242,8 +242,10 @@ namespace MyShop_WPF_Application.Views
 
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            int index = ProductListView.SelectedIndex;
+            nextPage.Content = new CTSPView(_viewModel._productList[index].ProductID);
         }
+
 
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
