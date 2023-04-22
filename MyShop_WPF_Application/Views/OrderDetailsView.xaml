@@ -21,25 +21,10 @@
         </Style>
     </Window.Resources>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-    <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0">
-        <ListView.ItemContainerStyle>
-            <Style TargetType="ListViewItem">
-                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                <Setter Property="Background" Value="#E4E4E4"/>
-=======
-=======
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
     <StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="ĐƠN HÀNG #" FontSize="45" TextAlignment="Center" FontWeight="Black"/>
             <TextBlock d:Text="Order ID" x:Name="orderIDTextBlock" FontSize="45" TextAlignment="Center" FontWeight="Black"/>
-<<<<<<< HEAD
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-=======
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
 
         </StackPanel>
         <DockPanel>
@@ -157,14 +142,6 @@
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                         <TextBox x:Name="orderQuantityTextBox" Text="{Binding orderQuantity, Converter={StaticResource toCellConverter}}" Style="{StaticResource MaterialDesignTextBoxBase}" Margin="0 0 10 0"/>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-            </GridView>
-        </ListView.View>
-    </ListView>
-=======
-=======
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
                                         <Button x:Name="editQuantityButton" Click="editQuantityButton_Click" BorderThickness="0" Height="15" Width="15">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="../img/edit.png" TileMode="None"  Stretch="Fill"/>
@@ -250,8 +227,4 @@
             <TextBlock x:Name="totalMoneyTextBlock" d:Text="200.000" FontSize="30" FontWeight="Bold" TextAlignment="Center" Foreground="Red"/>
         </StackPanel>
     </StackPanel>
-<<<<<<< HEAD
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-=======
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
 </Window>

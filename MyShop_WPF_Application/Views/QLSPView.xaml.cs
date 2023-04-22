@@ -36,7 +36,7 @@ namespace MyShop_WPF_Application.Views
         int _listSize;
         int _productCount = 0;
         bool isFiltering = false;
-        
+
         public QLSPView()
         {
             InitializeComponent();
@@ -242,33 +242,10 @@ namespace MyShop_WPF_Application.Views
 
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-<<<<<<< HEAD
-<<<<<<< HEAD
-            var index = ProductListView.SelectedIndex;
+            int index = ProductListView.SelectedIndex;
             nextPage.Content = new CTSPView(_viewModel._productList[index].ProductID);
-            //MessageBox.Show(_viewModel._productList[index].ProductName);
-
         }
 
-        private void nextPage_Navigated(object sender, NavigationEventArgs e)
-        {
-
-        }
-
-        private void addProductButton_Click(object sender, RoutedEventArgs e)
-        {
-            var index = ProductListView.SelectedIndex;
-            nextPage.Content = new ThemSPView();
-        }
-
-        private void importProductsButton_Click(object sender, RoutedEventArgs e)
-        {
-=======
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-=======
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-
-        }
 
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

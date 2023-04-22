@@ -3,13 +3,7 @@ using MyShop_WPF_Application.Models;
 using MyShop_WPF_Application.ViewModels;
 using System;
 using System.Collections.Generic;
-<<<<<<< HEAD
-<<<<<<< HEAD
 using System.Diagnostics;
-=======
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-=======
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -25,11 +19,6 @@ using System.Windows.Shapes;
 
 namespace MyShop_WPF_Application.Views
 {
-    /// <summary>
-    /// Interaction logic for CTSPView.xaml
-    /// </summary>
-<<<<<<< HEAD
-<<<<<<< HEAD
     public partial class CTSPView : Page
     {
         FileInfo _selectImage = null;
@@ -51,27 +40,6 @@ namespace MyShop_WPF_Application.Views
             }
             comboboxCategory.SelectedIndex = (int)(_viewModel._product.CategoryID - 1);
             _currentCategoryCombobox = (int)_viewModel._product.CategoryID - 1;
-=======
-=======
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-    public partial class CTSPView : UserControl
-    {
-        FileInfo _selectImage = null;
-        CTSPViewModel _viewModel = null;
-        private int? productID;
-
-
-        public CTSPView(int? pID)
-        {
-            InitializeComponent();
-
-            productID = pID;
-            _viewModel = new CTSPViewModel(pID);
-            base.DataContext = _viewModel;
-<<<<<<< HEAD
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-=======
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
         }
 
         private void ListBill_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -79,23 +47,16 @@ namespace MyShop_WPF_Application.Views
 
         }
 
-        private void BtnAddBill_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void BtnEditProduct_Click(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
-<<<<<<< HEAD
             //_viewModel.CategoryID = int.Parse(editProductCategory.Text);
             _viewModel._product.ProductName = editProductName.Text;
-            _viewModel._product.ProductPrice = int.Parse(editProductPrice.Text);
-            _viewModel._product.ProductPriceOriginal = int.Parse(editProductPriceOriginal.Text);
+            _viewModel._product.ProductPrice = double.Parse(editProductPrice.Text);
+            _viewModel._product.ProductPriceOriginal = double.Parse(editProductPriceOriginal.Text);
             _viewModel._product.ProductQuantity = int.Parse(editProductQuantity.Text);
             _viewModel._product.CategoryID = _currentCategoryCombobox;
 
-            if(_selected)
+            if (_selected)
             {
                 var folder = AppDomain.CurrentDomain.BaseDirectory;
                 try
@@ -114,41 +75,8 @@ namespace MyShop_WPF_Application.Views
                 }
             }
 
-            var edit = _viewModel.EditProduct(_viewModel._product);
-            if (edit)
-            {
-
-                
-=======
-=======
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-            _viewModel.CategoryID = int.Parse(editProductCategory.Text);
-            _viewModel.ProductName = editProductName.Text;
-            _viewModel.ProductPrice = int.Parse(editProductPrice.Text);
-            _viewModel.ProductPriceOriginal = int.Parse(editProductPriceOriginal.Text);
-            _viewModel.ProductQuantity = int.Parse(editProductQuantity.Text);
-
-            var folder = AppDomain.CurrentDomain.BaseDirectory;
-            try
-            {
-                string newPath = $"{folder}img/{_selectImage.Name}";
-
-                if (!File.Exists(newPath))
-                {
-                    File.Copy(_selectImage.FullName, newPath);
-                }
-                _viewModel.ProductAvatar = $"img/{_selectImage.Name}";
-            }
-            catch (Exception ex)
-            {
-
-<<<<<<< HEAD
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-=======
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-            }
         }
-    
+
         private void BtnStatistic_Click(object sender, RoutedEventArgs e)
         {
 
@@ -156,20 +84,12 @@ namespace MyShop_WPF_Application.Views
 
         private void BtnRemoveProduct_Click(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
-<<<<<<< HEAD
             var remove = _viewModel.RemoveProduct(_viewModel._product.ProductID);
             if (remove)
             {
 
 
             }
-=======
-
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-=======
-
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
         }
 
         private void editAmount_TextChanged(object sender, TextChangedEventArgs e)
@@ -190,9 +110,6 @@ namespace MyShop_WPF_Application.Views
                 bitmap.UriSource = new Uri(screen.FileName, UriKind.Absolute);
                 bitmap.EndInit();
                 editProductAvatar.Source = bitmap;
-<<<<<<< HEAD
-<<<<<<< HEAD
-
                 _selected = true;
             }
         }
@@ -215,13 +132,10 @@ namespace MyShop_WPF_Application.Views
             ComboBox comboBox = sender as ComboBox;
             comboBox.Background = Brushes.Transparent;
         }
-=======
-            }
+
+        private void BtnAddBill_Click(object sender, RoutedEventArgs e)
+        {
+
         }
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-=======
-            }
-        }
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
     }
 }

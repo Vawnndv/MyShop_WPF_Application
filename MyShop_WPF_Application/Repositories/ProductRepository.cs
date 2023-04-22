@@ -107,14 +107,7 @@ namespace MyShop_WPF_Application.Repositories
 
         public ProductModel getProductWithId(int? _productID)
         {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
             ObservableCollection<ProductModel> result = new ObservableCollection<ProductModel>();
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-=======
-            ObservableCollection<ProductModel> result = new ObservableCollection<ProductModel>();
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
             ProductModel product = null;
 
             Global.Connection = new SqlConnection(Global.ConnectionString);
@@ -123,41 +116,24 @@ namespace MyShop_WPF_Application.Repositories
             {
 
                 // query to get user's role
-<<<<<<< HEAD
-<<<<<<< HEAD
                 var sql = $"select * from Product where Product_ID = @pID";
-=======
-                string sql = $"select * from Product where Product_ID = @pID\"";
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-=======
-                string sql = $"select * from Product where Product_ID = @pID\"";
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
 
                 var command = new SqlCommand(sql, Global.Connection);
                 command.Parameters.AddWithValue("@pID", _productID);
 
                 var reader = command.ExecuteReader();
-<<<<<<< HEAD
-<<<<<<< HEAD
                 reader.Read();
                 product = new ProductModel()
-=======
 
-               product = new ProductModel()
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-=======
-
-               product = new ProductModel()
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-               {
-                   ProductID = (int)reader["Product_ID"],
-                   CategoryID = (int)reader["Category_ID"],
-                   ProductName = (string)reader["Product_Name"],
-                   ProductAvatar = (string)reader["Avatar"],
-                   ProductQuantity = (int)reader["Quantity"],
-                   ProductPrice = (double)reader["Price"],
-                   ProductPriceOriginal = (double)reader["Price_Original"],
-               };
+                {
+                    ProductID = (int)reader["Product_ID"],
+                    CategoryID = (int)reader["Category_ID"],
+                    ProductName = (string)reader["Product_Name"],
+                    ProductAvatar = (string)reader["Avatar"],
+                    ProductQuantity = (int)reader["Quantity"],
+                    ProductPrice = (double)reader["Price"],
+                    ProductPriceOriginal = (double)reader["Price_Original"],
+                };
 
 
                 reader.Close();
@@ -167,8 +143,6 @@ namespace MyShop_WPF_Application.Repositories
             return product;
         }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         public bool addProduct(ProductModel product)
         {
             bool result = false;
@@ -269,12 +243,6 @@ namespace MyShop_WPF_Application.Repositories
             return result;
         }
 
-
-
-=======
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-=======
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
         public int getNumOfProductsAvailable()
         {
             int quantity = 0;

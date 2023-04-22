@@ -17,7 +17,7 @@ namespace MyShop_WPF_Application.Repositories
             // result list (all products of a specific order)
             ObservableCollection<OrderDetailsProductModel> productResultList = new ObservableCollection<OrderDetailsProductModel>();
 
-            if(Global.Connection !=  null)
+            if (Global.Connection != null)
             {
                 string sql = $"select p.*, pd.Quantity as orderQuantity from Product as p, PurchaseDetail as pd where pd.Purchase_ID = @oId and pd.Product_ID = p.Product_ID";
 
@@ -53,22 +53,19 @@ namespace MyShop_WPF_Application.Repositories
                 Global.Connection = new SqlConnection(Global.ConnectionString);
             }
 
-            if(Global.Connection != null)
+            if (Global.Connection != null)
             {
                 var sql = $"delete from PurchaseDetail where Purchase_ID = @ID and Product_ID = @pID";
                 var command = new SqlCommand(sql, Global.Connection);
 
-                command.Parameters.AddWithValue("@ID", orderId );
+                command.Parameters.AddWithValue("@ID", orderId);
                 command.Parameters.AddWithValue("@pID", productId);
 
                 command.ExecuteNonQuery();
             }
         }
 
-<<<<<<< HEAD
-=======
         // query to get product quantity by Product_ID from Product table
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
         public int getProductQuantity(int productId)
         {
             int stockQuantity = 0;
@@ -88,10 +85,7 @@ namespace MyShop_WPF_Application.Repositories
             return stockQuantity;
         }
 
-<<<<<<< HEAD
-=======
         // update product quantity of a selected product in a selected order detail
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
         public void updateProductQuantityInOrderDetail(int orderId, int productId, int quantity)
         {
             if (Global.Connection == null)
@@ -99,7 +93,7 @@ namespace MyShop_WPF_Application.Repositories
                 Global.Connection = new SqlConnection(Global.ConnectionString);
             }
 
-            
+
             if (Global.Connection != null)
             {
                 // edit quantity of product in Order
@@ -114,11 +108,9 @@ namespace MyShop_WPF_Application.Repositories
             }
         }
 
-<<<<<<< HEAD
-=======
         // update product quantity of a selected product in Product table
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-        public void updateStockProductQuantity(int productId, int newQuantity) {
+        public void updateStockProductQuantity(int productId, int newQuantity)
+        {
             if (Global.Connection == null)
             {
                 Global.Connection = new SqlConnection(Global.ConnectionString);
@@ -188,9 +180,9 @@ namespace MyShop_WPF_Application.Repositories
             reader.Read();
 
             var dtime = (DateTime)reader["Centered_At"];
-       
 
-            reader.Close ();
+
+            reader.Close();
 
             return dtime;
         }
@@ -206,7 +198,7 @@ namespace MyShop_WPF_Application.Repositories
             List<Status> res = new List<Status>();
             while (reader.Read())
             {
-                res.Add(new Status(){displayText = (string)reader["Display_Text"]});
+                res.Add(new Status() { displayText = (string)reader["Display_Text"] });
             }
 
 
@@ -215,7 +207,7 @@ namespace MyShop_WPF_Application.Repositories
             return res;
         }
 
-        
+
         public int getOrderStatus(int orderID)
         {
             var sql = "select Status from Purchase where Purchase_ID = @dT";
@@ -297,10 +289,10 @@ namespace MyShop_WPF_Application.Repositories
 
             reader.Close();
 
-           
+
 
             return list;
-        } 
+        }
 
         public void updatePromotionInOrderDetails(int orderID, int? newPromotionID)
         {
@@ -309,7 +301,7 @@ namespace MyShop_WPF_Application.Repositories
             var command = new SqlCommand(sql, Global.Connection);
             command.Parameters.AddWithValue("@orderID", orderID);
 
-            if(newPromotionID != null)
+            if (newPromotionID != null)
                 command.Parameters.AddWithValue("@promo", newPromotionID);
             else
                 command.Parameters.AddWithValue("@promo", DBNull.Value);

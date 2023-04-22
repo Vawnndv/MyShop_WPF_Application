@@ -143,15 +143,8 @@ namespace MyShop_WPF_Application.WindowScreen
 
 
                 // load dashboard
-<<<<<<< HEAD
-<<<<<<< HEAD
                 Window win2 = new Dashboard();
-=======
-                Window win2 = new OrderDetailsView();
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
-=======
-                Window win2 = new OrderDetailsView();
->>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
+
                 win2.Show();
                 this.Close();
 
