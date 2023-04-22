@@ -15,6 +15,7 @@
     <UserControl.Resources>
         <Converter:OrderStatusColorConverter x:Key="orderConverter"/>
         <Converter:ToDataRowStringConverter x:Key="toCellConverter"/>
+        <Converter:RemoveTimeFromDateConverter x:Key="onlyDate"/>
 
         <Style TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -23,7 +24,9 @@
 
     <StackPanel>
         <TextBlock TextAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="#348F6C" Margin="0 20 0 0"> DANH SÁCH ĐƠN HÀNG</TextBlock>
-        <StackPanel Orientation="Horizontal" Margin="0 30 15 10" HorizontalAlignment="Right">
+
+        <DockPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 30 15 10" HorizontalAlignment="Right" DockPanel.Dock="Right">
             <StackPanel Width="115">
                 <TextBlock Text="Từ ngày" HorizontalAlignment="Left"/>
                 <DatePicker Height="25" HorizontalAlignment="Left" Name="fromDatePicker" VerticalAlignment="Center" Width="115" />
@@ -36,7 +39,9 @@
             <Button Margin="10 10 0 0" Content="Bỏ Lọc" x:Name="removeFilterButton" Click="removeFilterButton_Click" Background="#348F6C" BorderThickness="0"/>
 
         </StackPanel>
-        <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0" SelectionChanged="lst_SelectionChanged">
+            <Button DockPanel.Dock="Left" Content="Thêm đơn hàng mới" x:Name="addNewOrderButton" Click="addNewOrderButton_Click" Width="200" HorizontalAlignment="Left" Margin="15 0 0 -20"/>
+        </DockPanel>
+        <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -74,7 +79,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Width="180" DisplayMemberBinding="{Binding OrderDate, Converter={StaticResource toCellConverter}}">
+                    <GridViewColumn Width="180" DisplayMemberBinding="{Binding OrderDate, Converter={StaticResource onlyDate}}">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Ngày tạo" FontSize="14" Width="180" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
@@ -107,7 +112,7 @@
                         <GridViewColumn.CellTemplate >
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Button x:Name="viewDetails" Background="#439452" BorderThickness="0" Margin="0 4 0 4">
+                                    <Button x:Name="viewDetails" Click="viewDetails_Click" Background="#439452" BorderThickness="0" Margin="0 4 0 4">
                                             <Image Source="../img/view.png" Width="20" Height="20" VerticalAlignment="Center" Stretch="UniformToFill"/>
                                     </Button>
                                     <Button x:Name="deleteRowButton" Margin="10 0 5 0" Click="deleteRowButton_Click" Background="#F66A6A" BorderThickness="0">

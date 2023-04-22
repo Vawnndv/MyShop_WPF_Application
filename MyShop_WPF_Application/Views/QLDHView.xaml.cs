@@ -137,9 +137,30 @@ namespace MyShop_WPF_Application.Views
             lst.ItemsSource = _viewModel._orderList.Where(x => x.OrderDate >= fromDate.Date && x.OrderDate <= toDate.Date).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
         }
 
-        private void lst_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void viewDetails_Click(object sender, RoutedEventArgs e)
         {
+            Button button = (Button)sender;
+            var order = (OrderModel)button.DataContext;
 
+            Global.selectedOrderID = order.OrderID;
+            Window selectedOrderDetails = new OrderDetailsView();
+            selectedOrderDetails.ShowDialog();
+
+            _viewModel = new QLDHViewModel();
+
+            updateTotalPage();
+            updatePage(_currentPage);
+        }
+
+        private void addNewOrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window addNewOrderWindow = new AddNewOrderView();
+            addNewOrderWindow.ShowDialog();
+
+            _viewModel = new QLDHViewModel();
+
+            updatePage(_currentPage);
+            updateTotalPage();
         }
 
         // calculate and update the value of total page
