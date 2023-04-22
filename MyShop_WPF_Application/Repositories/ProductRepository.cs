@@ -107,7 +107,14 @@ namespace MyShop_WPF_Application.Repositories
 
         public ProductModel getProductWithId(int? _productID)
         {
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
             ObservableCollection<ProductModel> result = new ObservableCollection<ProductModel>();
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
+=======
+            ObservableCollection<ProductModel> result = new ObservableCollection<ProductModel>();
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
             ProductModel product = null;
 
             Global.Connection = new SqlConnection(Global.ConnectionString);
@@ -116,14 +123,32 @@ namespace MyShop_WPF_Application.Repositories
             {
 
                 // query to get user's role
+<<<<<<< HEAD
+<<<<<<< HEAD
+                var sql = $"select * from Product where Product_ID = @pID";
+=======
                 string sql = $"select * from Product where Product_ID = @pID\"";
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
+=======
+                string sql = $"select * from Product where Product_ID = @pID\"";
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
 
                 var command = new SqlCommand(sql, Global.Connection);
                 command.Parameters.AddWithValue("@pID", _productID);
 
                 var reader = command.ExecuteReader();
+<<<<<<< HEAD
+<<<<<<< HEAD
+                reader.Read();
+                product = new ProductModel()
+=======
 
                product = new ProductModel()
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
+=======
+
+               product = new ProductModel()
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
                {
                    ProductID = (int)reader["Product_ID"],
                    CategoryID = (int)reader["Category_ID"],
@@ -142,6 +167,114 @@ namespace MyShop_WPF_Application.Repositories
             return product;
         }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+        public bool addProduct(ProductModel product)
+        {
+            bool result = false;
+
+            Global.Connection = new SqlConnection(Global.ConnectionString);
+            Global.Connection.Open();
+
+            if (Global.Connection != null)
+            {
+                var sql = "INSERT INTO Product(Category_ID, Product_Name, Avatar, Quantity, Price, Price_Original) " +
+                          "VALUES(@categoryID, @productName, @avatar, @quantity, @price, @priceOriginal)";
+
+                var command = new SqlCommand(sql, Global.Connection);
+
+                command.Parameters.AddWithValue("@categoryID", product.CategoryID);
+                command.Parameters.AddWithValue("@productName", product.ProductName);
+                command.Parameters.AddWithValue("@avatar", product.ProductAvatar);
+                command.Parameters.AddWithValue("@quantity", product.ProductQuantity);
+                command.Parameters.AddWithValue("@price", product.ProductPrice);
+                command.Parameters.AddWithValue("@priceOriginal", product.ProductPriceOriginal);
+
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    result = true;
+                }
+            }
+
+            Global.Connection?.Close();
+            return result;
+        }
+
+
+        public bool editProduct(ProductModel product)
+        {
+            bool result = false;
+
+            Global.Connection = new SqlConnection(Global.ConnectionString);
+            Global.Connection.Open();
+
+            if (Global.Connection != null)
+            {
+                var sql = "UPDATE Product SET Category_ID = @categoryID, Product_Name = @productName, Avatar = @productAvatar, Quantity = @productQuantity, Price = @productPrice, Price_Original = @productPriceOriginal WHERE Product_ID = @productID";
+
+                var command = new SqlCommand(sql, Global.Connection);
+
+                command.Parameters.AddWithValue("@categoryID", product.CategoryID);
+                command.Parameters.AddWithValue("@productName", product.ProductName);
+                command.Parameters.AddWithValue("@productAvatar", product.ProductAvatar);
+                command.Parameters.AddWithValue("@productQuantity", product.ProductQuantity);
+                command.Parameters.AddWithValue("@productPrice", product.ProductPrice);
+                command.Parameters.AddWithValue("@productPriceOriginal", product.ProductPriceOriginal);
+                command.Parameters.AddWithValue("@productID", product.ProductID);
+
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    result = true;
+                }
+            }
+
+            Global.Connection?.Close();
+            return result;
+        }
+
+
+        public bool removeProduct(int? productID)
+        {
+            bool result = false;
+
+            Global.Connection = new SqlConnection(Global.ConnectionString);
+            Global.Connection.Open();
+
+            if (Global.Connection != null)
+            {
+                // delete related records in PurchaseDetail table
+                var relatedSql = "DELETE FROM PurchaseDetail WHERE Product_ID = @productID";
+                var relatedCommand = new SqlCommand(relatedSql, Global.Connection);
+                relatedCommand.Parameters.AddWithValue("@productID", productID);
+                relatedCommand.ExecuteNonQuery();
+
+                // delete the product
+                var sql = "DELETE FROM Product WHERE Product_ID = @productID";
+                var command = new SqlCommand(sql, Global.Connection);
+                command.Parameters.AddWithValue("@productID", productID);
+
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    result = true;
+                }
+            }
+
+            Global.Connection?.Close();
+            return result;
+        }
+
+
+
+=======
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
+=======
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
         public int getNumOfProductsAvailable()
         {
             int quantity = 0;

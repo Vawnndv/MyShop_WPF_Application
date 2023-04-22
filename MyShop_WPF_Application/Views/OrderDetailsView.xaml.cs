@@ -97,6 +97,11 @@ namespace MyShop_WPF_Application.Views
                 updateMoneyTextBlock();
             }
         }
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
 
         private async void addNewProductButton_Click(object sender, RoutedEventArgs e)
         {
@@ -173,5 +178,9 @@ namespace MyShop_WPF_Application.Views
 
             _viewModel.updateTotal(currentOrderId, newTotal);
         }
+<<<<<<< HEAD
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
+=======
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
     }
 }

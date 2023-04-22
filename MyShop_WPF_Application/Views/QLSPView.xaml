@@ -20,16 +20,26 @@
         <Button Width="50" Click="Button_Click" Margin="1015,37,0,681" Name ="btn" Command="{Binding UpdateViewCommand}" CommandParameter="QLDH">huhu</Button>
 
     </Grid>-->
-    <StackPanel Background="White" Height="750">
-        <TextBlock TextAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="#348F6C" Margin="0 20 0 0"> DANH SÁCH SẢN PHẨM</TextBlock>
-        <StackPanel Orientation="Horizontal" Margin="0 30 15 10" HorizontalAlignment="Right">
-            <StackPanel Width="200" VerticalAlignment="Bottom">
-                <TextBox  Name="searchProductInput" materialDesign:HintAssist.Hint="Tìm kiếm tên sản phẩm" BorderBrush="{DynamicResource MaterialDesignDivider}" Height="25" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="200" />
+    <Grid>
+        <StackPanel Background="White" Height="750">
+            <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
+                <TextBlock  Width="390"></TextBlock>
+                <StackPanel Width="500">
+                    <TextBlock  FontSize="30" FontWeight="Bold" Foreground="#348F6C" > DANH SÁCH SẢN PHẨM</TextBlock>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                    <Button Margin="0,0,15,0"  Content="Thêm" x:Name="addProductButton" Click="addProductButton_Click" Background="#348F6C" BorderThickness="0" Focusable="False"/>
+                    <Button Content="Import" x:Name="importProductsButton" Click="importProductsButton_Click" Background="#348F6C" BorderThickness="0" Focusable="False"/>
+                </StackPanel>
             </StackPanel>
-            <Button Margin="20 10 20 0" Content="Tìm kiếm" x:Name="searchProductButton" Click="searchProductButton_Click" Background="#348F6C" BorderThickness="0" Focusable="False"/>
-            <StackPanel Width="150" Margin="20 0 20 0">
-                <TextBlock Text="Loại sản phẩm" Foreground="#348F6C" FontWeight="Bold" HorizontalAlignment="Left"/>
-                <ComboBox Name="comboboxCategory"
+            <StackPanel Orientation="Horizontal" Margin="0 30 15 10" HorizontalAlignment="Right">
+                <StackPanel Width="200" VerticalAlignment="Bottom">
+                    <TextBox  Name="searchProductInput" materialDesign:HintAssist.Hint="Tìm kiếm tên sản phẩm" BorderBrush="{DynamicResource MaterialDesignDivider}" Height="25" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="200" />
+                </StackPanel>
+                <Button Margin="20 10 20 0" Content="Tìm kiếm" x:Name="searchProductButton" Click="searchProductButton_Click" Background="#348F6C" BorderThickness="0" Focusable="False"/>
+                <StackPanel Width="150" Margin="20 0 20 0">
+                    <TextBlock Text="Loại sản phẩm" Foreground="#348F6C" FontWeight="Bold" HorizontalAlignment="Left"/>
+                    <ComboBox Name="comboboxCategory"
                   BorderBrush="#348F6C"
                   FontSize="13"
                   Width="150"
@@ -41,6 +51,8 @@
                   DropDownOpened="ComboProductTypes_DropDownOpened"
                   DropDownClosed="ComboProductTypes_DropDownClosed"
                   ItemsSource="{Binding LongListToTestComboVirtualization}">
+<<<<<<< HEAD
+=======
                 </ComboBox>
             </StackPanel>
             <StackPanel Width="115">
@@ -111,12 +123,94 @@
                                 </TextBlock>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
                     </ComboBox>
                 </StackPanel>
+                <StackPanel Width="115">
+                    <TextBlock Text="Từ khoảng" Foreground="#348F6C" FontWeight="Bold" HorizontalAlignment="Left"/>
+                    <TextBox  PreviewTextInput="NumberOnly_PreviewTextInput" Style="{StaticResource MaterialDesignTextBoxBase}" 
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Height="25" HorizontalAlignment="Left" Name="fromPrice" VerticalAlignment="Center" Width="115" />
+                </StackPanel>
+                <StackPanel Width="115" Margin="30 0 0 0">
+                    <TextBlock Text="Đến khoảng" Foreground="#348F6C" FontWeight="Bold" HorizontalAlignment="Left"/>
+                    <TextBox PreviewTextInput="NumberOnly_PreviewTextInput" Style="{StaticResource MaterialDesignTextBoxBase}" 
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Height="25" HorizontalAlignment="Center" Margin="0,0,0,0" Name="toPrice" VerticalAlignment="Center" Width="115" />
+                </StackPanel>
+                <Button Margin="20 10 0 0" Content="Lọc Theo Giá" x:Name="filterPriceButton" Click="filterPriceButton_Click" Background="#348F6C" BorderThickness="0"/>
+                <Button Margin="10 10 0 0" Content="Bỏ Lọc" x:Name="removeFilterButton" Click="removeFilterButton_Click" Background="#348F6C" BorderThickness="0"/>
 
-            </DockPanel>
+            </StackPanel>
+            <ListView Height="460" x:Name="ProductListView" d:ItemsSource="{d:SampleData ItemCount=12}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="15 0 15 0" HorizontalAlignment="Center">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical"  Width="140" Height="200" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5, 5, 5, 5">
+                            <Image RenderOptions.BitmapScalingMode="HighQuality" Margin="0, 0, 0, 0" Width="120" Height="120"
+                            d:Source="img/phone/1.png"  
+                            Source="{Binding Path=ProductAvatar,Converter={StaticResource absolute}}"/>
+                            <TextBlock Text="{Binding ProductName}" FontWeight="Bold" FontSize="14" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock  FontWeight="Bold">
+                               Số sản phẩm: 
+                             <Run Text="{Binding ProductQuantity}" FontWeight="Bold" Foreground="Blue"/>
+                            </TextBlock>
+                            <TextBlock Text="{Binding ProductPrice, Converter={StaticResource priceFormat}}" FontWeight="Bold" Foreground="Red"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.Resources>
+                    <ContextMenu x:Key="productsContextMenu">
+                        <MenuItem Header="View details">
+
+                        </MenuItem>
+                    </ContextMenu>
+                </ListView.Resources>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="ContextMenu"
+                            Value="{StaticResource productsContextMenu}"/>
+                        <EventSetter Event="MouseDoubleClick"
+                                 Handler="ProductListView_MouseDoubleClick"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+            <StackPanel HorizontalAlignment="Center" Margin="0, 5, 0, 0">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Height="0"></StackPanel>
+                    <StackPanel DockPanel.Dock="Left" Orientation="Vertical">
+                        <Button x:Name="previousButton" Height="30"  Width="80" Click="previosButton_Click" Background="#348F6C">
+                            <TextBlock>Trước</TextBlock>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Vertical">
+                        <Button DockPanel.Dock="Right" x:Name="nextButton" Height="30" Width="80" Click="nextButton_Click" Background="#348F6C">
+                            <TextBlock>Sau</TextBlock>
+                        </Button>
+                    </StackPanel>
+
+                    <TextBlock DockPanel.Dock="Bottom" x:Name="infoTextBlock" Foreground="#348F6C" FontWeight="Bold" d:Text="Đang hiển thị 7 / 32 sản phẩm. " HorizontalAlignment="Center" VerticalAlignment="Top">
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="40" Margin="5, 0, 5, 5">
+                        <ComboBox BorderBrush="#348F6C" BorderThickness="2" Padding="10, 5, 10, 5" Foreground="#348F6C" DropDownOpened="ComboProductTypes_DropDownOpened"
+                        DropDownClosed="ComboProductTypes_DropDownClosed" FontWeight="Bold" Height="30" SelectionChanged="currentPageComboBox_SelectionChanged" Name="currentPageComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                    <Run Text="{Binding Item1, Mode=OneWay}"/> / <Run Text="{Binding Item2, Mode=OneWay}"/>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+
+                </DockPanel>
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
+        <Frame Name="nextPage" Navigated="nextPage_Navigated"></Frame>
+    </Grid>
 
 
 </UserControl>

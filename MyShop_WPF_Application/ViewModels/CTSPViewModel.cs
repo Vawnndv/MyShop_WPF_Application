@@ -11,6 +11,32 @@ namespace MyShop_WPF_Application.ViewModels
 {
     class CTSPViewModel : BaseViewModel
     {
+<<<<<<< HEAD
+<<<<<<< HEAD
+        public  ProductModel _product = null;
+        public ObservableCollection<CategoryModel> _categoryList;
+
+        private CategoryRepository _categoryRepository = new CategoryRepository();
+        private ProductRepository _repository = new ProductRepository();
+
+        public CTSPViewModel(int? pId)
+        {
+            _product = _repository.getProductWithId(pId);
+            _categoryList = _categoryRepository.getAllCategory();
+            
+        }
+
+        public bool EditProduct(ProductModel editProduct)
+        {
+            return _repository.editProduct(editProduct);    
+        }
+
+        public bool RemoveProduct(int? pId)
+        {
+            return _repository.removeProduct(pId);
+=======
+=======
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
         public  ProductModel _product;
 
         private ProductRepository _repository = new ProductRepository();
@@ -98,6 +124,10 @@ namespace MyShop_WPF_Application.ViewModels
                 _ProductPriceOriginal = value;
                 OnPropertyChanged("ProductPriceOriginal");
             }
+<<<<<<< HEAD
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
+=======
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
         }
     }
 }

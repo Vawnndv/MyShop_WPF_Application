@@ -65,7 +65,10 @@ namespace MyShop_WPF_Application.Repositories
             }
         }
 
+<<<<<<< HEAD
+=======
         // query to get product quantity by Product_ID from Product table
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
         public int getProductQuantity(int productId)
         {
             int stockQuantity = 0;
@@ -85,7 +88,10 @@ namespace MyShop_WPF_Application.Repositories
             return stockQuantity;
         }
 
+<<<<<<< HEAD
+=======
         // update product quantity of a selected product in a selected order detail
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
         public void updateProductQuantityInOrderDetail(int orderId, int productId, int quantity)
         {
             if (Global.Connection == null)
@@ -108,7 +114,10 @@ namespace MyShop_WPF_Application.Repositories
             }
         }
 
+<<<<<<< HEAD
+=======
         // update product quantity of a selected product in Product table
+>>>>>>> a61559e37b16087ac880ed0a5a65019d6b82f201
         public void updateStockProductQuantity(int productId, int newQuantity) {
             if (Global.Connection == null)
             {
