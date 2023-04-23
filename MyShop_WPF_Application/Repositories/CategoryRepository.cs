@@ -100,30 +100,54 @@ namespace MyShop_WPF_Application.Repositories
         public bool addCategory(CategoryModel category)
         {
             bool result = false;
+            int lastId = 0;
 
             Global.Connection = new SqlConnection(Global.ConnectionString);
             Global.Connection.Open();
 
             if (Global.Connection != null)
             {
-                var sql = "INSERT INTO Category(Category_Name) VALUES(@categoryName)";
+                // Retrieve the ID of the last Category record
+                var getLastIdSql = "SELECT TOP 1 Category_Id FROM Category ORDER BY Category_Id DESC";
+                var getLastIdCommand = new SqlCommand(getLastIdSql, Global.Connection);
+                var lastIdReader = getLastIdCommand.ExecuteReader();
+
+                if (lastIdReader.Read())
+                {
+                    lastId = lastIdReader.GetInt32(0);
+                }
+
+                lastIdReader.Close();
+
+                // Turn on IDENTITY_INSERT for the Category table
+                var setIdInsertSql = "SET IDENTITY_INSERT Category ON";
+                var setIdInsertCommand = new SqlCommand(setIdInsertSql, Global.Connection);
+                setIdInsertCommand.ExecuteNonQuery();
+
+                // Insert the new Category record with a new ID
+                var sql = "INSERT INTO Category(Category_Id, Category_Name) VALUES(@categoryId, @categoryName)";
 
                 var command = new SqlCommand(sql, Global.Connection);
 
+                command.Parameters.AddWithValue("@categoryId", lastId + 1);
                 command.Parameters.AddWithValue("@categoryName", category.CategoryName);
-             
+
                 int rowsAffected = command.ExecuteNonQuery();
 
                 if (rowsAffected > 0)
                 {
                     result = true;
                 }
+
+                // Turn off IDENTITY_INSERT for the Category table
+                var unsetIdInsertSql = "SET IDENTITY_INSERT Category OFF";
+                var unsetIdInsertCommand = new SqlCommand(unsetIdInsertSql, Global.Connection);
+                unsetIdInsertCommand.ExecuteNonQuery();
             }
 
             Global.Connection?.Close();
             return result;
         }
-
 
         public bool editCategory(CategoryModel category)
         {

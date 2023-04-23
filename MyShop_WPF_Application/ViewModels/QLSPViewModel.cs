@@ -14,7 +14,7 @@ namespace MyShop_WPF_Application.ViewModels
     {
         public ObservableCollection<ProductModel> _productList;
         public ObservableCollection<CategoryModel> _categoryList;
-
+        public ProductModel _product;
         private ProductRepository _repository = new ProductRepository();
         private CategoryRepository _repository2 = new CategoryRepository();
 
@@ -23,6 +23,18 @@ namespace MyShop_WPF_Application.ViewModels
             // query and get all orders
             _productList = _repository.getAllProduct();
             _categoryList = _repository2.getAllCategory();
+            _product = new ProductModel();
+        }
+
+        public ObservableCollection<ProductModel> getProductList()
+        {
+            _productList = _repository.getAllProduct();
+            return _productList;
+        }
+
+        public bool AddNewProduct(ProductModel product)
+        {
+            return _repository.addProduct(product);
         }
     }
 }

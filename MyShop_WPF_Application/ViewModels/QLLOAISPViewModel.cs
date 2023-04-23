@@ -25,7 +25,8 @@ namespace MyShop_WPF_Application.ViewModels
 
         public ObservableCollection<CategoryTypeStatistic> getCategory()
         {
-            return  _repository.getCategoryWithProduct();
+            _categoryList = _repository.getCategoryWithProduct();
+            return _categoryList;
         }
 
         public bool AddNewCategory(CategoryModel newCategory)

@@ -1,4 +1,7 @@
-﻿using MyShop_WPF_Application.Model;
+﻿using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.Win32;
+using MyShop_WPF_Application.Model;
 using MyShop_WPF_Application.Models;
 using MyShop_WPF_Application.ViewModels;
 using System;
@@ -115,8 +118,8 @@ namespace MyShop_WPF_Application.Views
             {
                 if (addCategoryName.Text.Length == 0)
                 {
-                    string title = "Vui lòng điền tên loại sản phẩm!";
-                    string message = "kiểm tra nhập thông tin";
+                    string message = "Vui lòng điền tên loại sản phẩm!";
+                    string title = "kiểm tra nhập thông tin";
                     MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
@@ -125,8 +128,8 @@ namespace MyShop_WPF_Application.Views
                     var add = _viewModel.AddNewCategory(_viewModel._category);
                     if (add)
                     {
-                        string title = "Thêm";
-                        string message = "Thêm loại sản phẩm thành công";
+                        string message = "Thêm";
+                        string title = "Thêm loại sản phẩm thành công";
                         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
@@ -158,8 +161,8 @@ namespace MyShop_WPF_Application.Views
                         var edit = _viewModel.EditCategory(_viewModel._category);
                         if (edit)
                         {
-                            string message = "Hiệu chỉnh";
-                            string title = "Hiệu chỉnh loại sản phẩm thành công";
+                            string title = "Hiệu chỉnh";
+                            string message = "Hiệu chỉnh loại sản phẩm thành công";
                             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);                  
                         }
                     }
@@ -173,7 +176,95 @@ namespace MyShop_WPF_Application.Views
 
         private void importProductButton_Click(object sender, RoutedEventArgs e)
         {
+            // Mở hộp thoại mở tập tin
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string filename = openFileDialog.FileName;
+                // Do something with the selected file path
 
+                //try
+                //{
+                    var document = SpreadsheetDocument.Open(filename, false);
+                    var wbPart = document.WorkbookPart!;
+                    var sheets = wbPart.Workbook.Descendants<Sheet>()!;
+                    var sheet = sheets.FirstOrDefault(
+                        s => s.Name == "Category");
+                    var wsPart = (WorksheetPart)(wbPart!.GetPartById(sheet.Id!));
+                    var cells = wsPart.Worksheet.Descendants<Cell>();
+
+                    int row = 2;
+                    Cell nameCell;
+
+                    int countAdd = 0;
+                    do
+                    {
+                        nameCell = cells.FirstOrDefault(
+                            c => c?.CellReference == $"A{row}"
+                        )!;
+
+                        if (nameCell?.InnerText.Length > 0)
+                        {
+                            //string id = idCell.InnerText;
+                            //Cell nameCell = cells.FirstOrDefault(
+                            //    c => c?.CellReference == $"A{row}"
+                            //)!;
+                            string stringId = nameCell!.InnerText;
+                            var stringTable = wbPart
+                            .GetPartsOfType<SharedStringTablePart>()
+                                 .FirstOrDefault()!;
+                            string name = stringTable.SharedStringTable
+                                 .ElementAt(int.Parse(stringId)).
+                            InnerText;
+
+                            bool isExist = false;
+                            foreach (var category in _viewModel._categoryList)
+                            {
+                                if (category.name.Equals(name))
+                                {
+                                    isExist = true;
+                                    break;
+
+                                }
+                            }
+                            if (!isExist)
+                            {
+                                _viewModel._category.CategoryName = name;
+                                var add = _viewModel.AddNewCategory(_viewModel._category);
+                                if (add)
+                                {
+                                    countAdd++;
+                                }
+                            }
+                            Trace.WriteLine($"{name}");
+                        }
+                        row++;
+
+                    } while (nameCell?.InnerText.Length > 0);
+                    lst.ItemsSource = _viewModel.getCategory();
+                    Console.ReadLine();
+
+                    if (countAdd > 0)
+                    {
+                        string title = "Import category từ Excel" + countAdd;
+                        string message = "Đã thêm thành công " + countAdd + " loại sản phẩm mới";
+                        MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        string title = "Import category từ Excel";
+                        string message = "Không có dữ liệu hoặc dữ liệu đã tồn tại trong cơ sở dữ liệu";
+                        MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                //}
+                //catch (Exception ex)
+                //{
+                //    string title = "Import category từ Excel";
+                //    string message = "Import không thành công";
+                //    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                //}
+            }
         }
     }
 }
