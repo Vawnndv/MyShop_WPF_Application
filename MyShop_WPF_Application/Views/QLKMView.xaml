@@ -18,6 +18,7 @@
         <Converter:OrderStatusColorConverter x:Key="orderConverter"/>
         <Converter:ToDataRowStringConverter x:Key="toCellConverter"/>
         <Converter:RemoveTimeFromDateConverter x:Key="onlyDate"/>
+        <Converter:ToListViewStringConverter x:Key="convertToListViewString"/>
 
         <Style TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -60,7 +61,14 @@
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding _promotionName, Converter={StaticResource toCellConverter}}" TextAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBox materialDesign:HintAssist.Hint="Tên loại khuyến mãi" x:Name="promotionNameTextBox" Text="{Binding _promotionName, Converter={StaticResource convertToListViewString}}" TextAlignment="Center"/>
+                                    <Button x:Name="editPromotionNameButton" Click="editPromotionNameButton_Click" BorderThickness="0" Height="15" Width="15" Margin="5 0 0 0">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="../img/edit.png" TileMode="None"  Stretch="Fill"/>
+                                        </Button.Background>
+                                    </Button>
+                                </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -73,10 +81,15 @@
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  TextAlignment="Center">
-                                    <Run Text="{Binding _promotionPercentage, Converter={StaticResource toCellConverter}}"/>
-                                    %
-                                </TextBlock>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBox PreviewTextInput="NumberValidationTextBox" materialDesign:HintAssist.Hint="Giá trị khuyến mãi" x:Name="promotionPercentageTextBox"  TextAlignment="Center" Text="{Binding _promotionPercentage, Converter={StaticResource toCellConverter}}"/>
+                                    <TextBlock Text="%" VerticalAlignment="Center"/>
+                                    <Button x:Name="editPromotionPercentageButton" Click="editPromotionPercentageButton_Click" BorderThickness="0" Height="15" Width="15" Margin="5 0 0 0">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="../img/edit.png" TileMode="None"  Stretch="Fill"/>
+                                        </Button.Background>
+                                    </Button>
+                                </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

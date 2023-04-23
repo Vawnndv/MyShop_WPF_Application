@@ -34,5 +34,14 @@ namespace MyShop_WPF_Application.ViewModels
                 }
               
         }
+
+        public void editPromotionPercentage(int promoID, double newPromoPercentage)
+        {
+            _repoPromo.editPromoPercentageInDB(promoID, _repoPromo.getPromoPercentage(promoID), newPromoPercentage);
+        }
+
+        public void editPromotionName(int promoID, string name) { 
+            _repoPromo.editPromoNameInDB(promoID, name);
+        }
     }
 }

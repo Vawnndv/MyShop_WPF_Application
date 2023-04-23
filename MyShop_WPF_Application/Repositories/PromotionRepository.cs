@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace MyShop_WPF_Application.Repositories
 {
     class PromotionRepository
     {
+        // get all promotion in the DB and save in to observable collection
         public ObservableCollection<PromotionModel> getAllPromotion()
         {
             ObservableCollection<PromotionModel > promoLst = new ObservableCollection<PromotionModel>();
@@ -43,15 +45,16 @@ namespace MyShop_WPF_Application.Repositories
             return promoLst;
         }
 
+        // delete a promotion completely from the Promotion table
         public void deletePromotionFromPromotionTable(int promoID, double promoPercentage)
         {
             // re-calculate the total of each order that using this promo ID
-            reCalculateTotalOfPurchase(promoID, promoPercentage);
+            reCalculateTotalOfPurchase(promoID, promoPercentage, 0, false);
 
             // assign each order using this promoID with NULL -> no sale
             assignNullPromotionIdInPurchase(promoID);
 
-            // delete promo ID completely from the Promotion table in DB
+            // delete promo ID from DB
             var sql = "delete from Promotion where Promotion_ID = @promoID";
             var command = new SqlCommand(sql, Global.Connection);
 
@@ -75,7 +78,7 @@ namespace MyShop_WPF_Application.Repositories
         // from the purchase
         // default promo code will be NULL
         // --> No discount --> 0% sale
-        public void reCalculateTotalOfPurchase(int promoID, double promoPercentage)
+        private void reCalculateTotalOfPurchase(int promoID, double oldPromoPercentage, double newPercentage, Boolean calType)
         {
             var sqlTotal = "select Purchase_ID, Total from Purchase where Promotion_ID = @promoID";
             var command = new SqlCommand(sqlTotal, Global.Connection);
@@ -97,11 +100,21 @@ namespace MyShop_WPF_Application.Repositories
 
             reader.Close();
 
-            // calculate new total
-            promoPercentage = (100 - promoPercentage) / 100;
+            // calculate and return to original total (return to non sale - 0%)
+            oldPromoPercentage = (100 - oldPromoPercentage) / 100;
             for(int i = 0; i < totalList.Count; i++)
             {
-                totalList[i] = totalList[i] / promoPercentage;
+                totalList[i] = (double)totalList[i] / oldPromoPercentage;
+            }
+
+            // calculate if change promotion code to another one
+            newPercentage = (100 - newPercentage) / 100;
+            if (calType)
+            {
+                for(int i = 0; i < totalList.Count; ++i)
+                {
+                    totalList[i] = (double)totalList[i] * newPercentage;
+                }
             }
 
             // update total of each selected purchase ID
@@ -118,6 +131,51 @@ namespace MyShop_WPF_Application.Repositories
 
                 command.Parameters.Clear();
             }
+        }
+
+        // edit a promotion 
+        public void editPromoPercentageInDB(int promoID, double oldPercentage, double newPercentage)
+        {
+            // recalulate total of order with promo ID
+            reCalculateTotalOfPurchase(promoID, oldPercentage, newPercentage, true);
+
+            var sqlUpdatePercentage = "update Promotion set Promotion_Percentage = @newPer where Promotion_ID = @promoID";
+            var command = new SqlCommand(sqlUpdatePercentage, Global.Connection);
+
+            command.Parameters.AddWithValue("@newPer", newPercentage);
+            command.Parameters.AddWithValue("@promoID", promoID);
+
+            command.ExecuteNonQuery();
+        }
+
+        public void editPromoNameInDB(int promoID, string promoName)
+        {
+            var sqlUpdate = "update Promotion set Promotion_Name = @newName where Promotion_ID = @promoID";
+            var command = new SqlCommand(sqlUpdate, Global.Connection);
+
+            command.Parameters.AddWithValue("@newName", promoName);
+            command.Parameters.AddWithValue("@promoID", promoID);
+
+            command.ExecuteNonQuery();
+        }
+
+        public double getPromoPercentage(int promoID) {
+            double result = 0;
+
+            var sql = "select Promotion_Percentage from Promotion where Promotion_ID = @promoID";
+            var command = new SqlCommand(sql, Global.Connection);
+
+            command.Parameters.AddWithValue("@promoID", promoID);
+
+            var reader = command.ExecuteReader();
+            
+            reader.Read();
+
+            result = (double)reader["Promotion_Percentage"];
+
+            reader.Close();
+
+            return result;
         }
     }
 

@@ -33,7 +33,7 @@ namespace MyShop_WPF_Application.Views
             InitializeComponent();
 
             _viewModel = new PromotionViewModel();
-
+            
         }
 
         // Make sure the input are all numbers
@@ -120,5 +120,47 @@ namespace MyShop_WPF_Application.Views
 
             pageCountLabel.Content = $"{_currentPage}/{_totalPage}";
         }
+
+        private void editPromotionNameButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            PromotionModel selectedPromo = (PromotionModel)button.DataContext;
+
+            if(selectedPromo._promotionName == null || selectedPromo._promotionName == "")
+            {
+                MessageBox.Show("Tên loại khuyến mãi không được để trống");
+                return;
+            }
+
+            _viewModel.editPromotionName(selectedPromo._promotionId, selectedPromo._promotionName);
+        }
+
+        private void editPromotionPercentageButton_Click(object sender, RoutedEventArgs e)
+        {
+            // get current selected promo from listview
+            Button button = (Button)sender;
+            PromotionModel selectedPromo = (PromotionModel)button.DataContext;
+
+            if (selectedPromo._promotionPercentage.ToString() == null || 
+                selectedPromo._promotionPercentage.ToString() == "" || 
+                selectedPromo._promotionPercentage < 0)
+            {
+                MessageBox.Show("Giá trị không hợp lệ, vui lòng kiểm tra lại");
+                return; 
+            }
+
+            // find current promo in promotion list of view model
+            PromotionModel promoInList = new PromotionModel();
+
+         
+            double newPercentage = selectedPromo._promotionPercentage;
+
+            _viewModel.editPromotionPercentage(selectedPromo._promotionId, newPercentage);
+
+            
+            MessageBox.Show("Chỉnh sửa giá trị phần trăm thành công");
+        }
+
+        
     }
 }

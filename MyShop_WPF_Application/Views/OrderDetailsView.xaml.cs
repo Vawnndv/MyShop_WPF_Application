@@ -40,7 +40,8 @@ namespace MyShop_WPF_Application.Views
             orderStatusComboBox.ItemsSource = _viewModel.orderStatusList();
             orderStatusComboBox.SelectedIndex = _viewModel.getOrderStatusKey(currentOrderId) - 1;
 
-            promotionCombobox.ItemsSource = _viewModel.getPromotionList();
+            List<PromotionModel> promoList = _viewModel.getPromotionList();
+            promotionCombobox.ItemsSource = promoList;
 
             int? promoID = _viewModel.getPromotionID(currentOrderId);
             if(promoID == null)
@@ -49,7 +50,12 @@ namespace MyShop_WPF_Application.Views
             }
             else
             {
-                promotionCombobox.SelectedIndex = promoID ?? default(int);
+                for(int i = 0; i < promoList.Count; ++i)
+                    if(promoID == promoList[i]._promotionId)
+                    {
+                        promotionCombobox.SelectedIndex = i;
+                        break;
+                    }
             }
 
             currentPromo = promotionCombobox.SelectedItem as PromotionModel;
@@ -116,10 +122,11 @@ namespace MyShop_WPF_Application.Views
 
         private void promotionCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _viewModel.updatePromo(currentOrderId, promotionCombobox.SelectedIndex);
+            currentPromo = (PromotionModel)promotionCombobox.SelectedItem;
+
+            _viewModel.updatePromo(currentOrderId, currentPromo._promotionId);
             
             // update current promo
-            currentPromo = promotionCombobox.SelectedItem as PromotionModel;
 
             updateMoneyTextBlock();
         }

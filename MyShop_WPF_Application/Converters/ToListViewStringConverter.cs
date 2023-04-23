@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using System.Windows.Media;
 
 namespace MyShop_WPF_Application.Converters
 {
-    class ToDataRowStringConverter : IValueConverter
+    class ToListViewStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -19,8 +18,7 @@ namespace MyShop_WPF_Application.Converters
         public object ConvertBack(
         object value, Type targetType, object parameter, CultureInfo culture)
         {
-            try { Int16.Parse(value.ToString()!); } catch { return -643; }
-            return Int16.Parse(value.ToString()!);
+            return value.ToString()!;
         }
     }
 }
