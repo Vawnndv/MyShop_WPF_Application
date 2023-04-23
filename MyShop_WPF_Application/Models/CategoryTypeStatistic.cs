@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyShop_WPF_Application.Models
 {
-    internal class CategoryTypeStatistic
+    public class CategoryTypeStatistic
     {
         public int id { get; set; }
         public String? name { get; set; }

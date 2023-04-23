@@ -1,9 +1,11 @@
-﻿using MyShop_WPF_Application.Commands;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using MyShop_WPF_Application.Commands;
 using MyShop_WPF_Application.Models;
 using MyShop_WPF_Application.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection.Metadata;
@@ -97,14 +99,15 @@ namespace MyShop_WPF_Application.Views
                 nextButton.IsEnabled = true;
             }
 
-            List<ProductModel> _productListCategory = new List<ProductModel>(); 
+            List<ProductModel> _productListCategory = new List<ProductModel>();
             List<ProductModel> _newProductList = new List<ProductModel>();
             List<ProductModel> _newProductItem = new List<ProductModel>();
 
-            if(category == 0)
+            if (category == 0)
             {
                 _productListCategory = _viewModel._productList.ToList();
-            } else
+            }
+            else
             {
                 _productListCategory = _viewModel._productList.Where(x => x.CategoryID == category).ToList();
 
@@ -125,7 +128,8 @@ namespace MyShop_WPF_Application.Views
 
                 searchProductInput.Clear();
             }
-            else { 
+            else
+            {
                 if (isFiltering)
                 {
                     _newProductList = _productListCategory.Where(x => x.ProductPrice >= double.Parse(fromPrice.Text) && x.ProductPrice <= double.Parse(toPrice.Text)).ToList();
@@ -136,7 +140,7 @@ namespace MyShop_WPF_Application.Views
                 {
                     _newProductList = _productListCategory.ToList();
                     _newProductItem = _newProductList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList();
-                    
+
                 }
             }
 
@@ -211,7 +215,7 @@ namespace MyShop_WPF_Application.Views
         {
             isFiltering = false;
             fromPrice.Clear();
-            toPrice.Clear();    
+            toPrice.Clear();
             updatePage(_currentCategoryCombobox, _currentPage);
             updateTotalPage();
             currentPageComboBox.SelectedIndex = _currentPage - 1;
@@ -242,10 +246,36 @@ namespace MyShop_WPF_Application.Views
 
         private void ProductListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            int index = ProductListView.SelectedIndex;
+            int index = -1;
+            if (_currentPage > 0)
+            {
+                index = (_currentPage - 1) * rowsPerPage + ProductListView.SelectedIndex;
+            }
+            else
+            {
+                index = ProductListView.SelectedIndex;
+
+            }
+
+            //Trace.WriteLine("san pham thu " + index + ", " + _viewModel._productList[index].ProductID);
+
             nextPage.Content = new CTSPView(_viewModel._productList[index].ProductID);
         }
 
+        private void addProductButton_Click(object sender, RoutedEventArgs e)
+        {
+            nextPage.Content = new ThemSPView();
+        }
+
+        private void importProductButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void nextPage_Navigated(object sender, NavigationEventArgs e)
+        {
+
+        }
 
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

@@ -58,7 +58,7 @@ namespace MyShop_WPF_Application.Repositories
             return result;
         }
 
-        public ObservableCollection<ProductModel> getCategoryProduct(int _CategoryID)
+        public ObservableCollection<ProductModel> getCategoryProduct(int? _CategoryID)
         {
             ObservableCollection<ProductModel> result = new ObservableCollection<ProductModel>();
             Global.Connection = new SqlConnection(Global.ConnectionString);
@@ -67,9 +67,10 @@ namespace MyShop_WPF_Application.Repositories
             {
 
                 // query to get user's role
-                string sql = $"select * from Product";
+                string sql = $"select * from Product Where Category_ID = @CategoryID";
 
                 var command = new SqlCommand(sql, Global.Connection);
+                command.Parameters.AddWithValue("@CategoryID", _CategoryID);
 
                 var reader = command.ExecuteReader();
 

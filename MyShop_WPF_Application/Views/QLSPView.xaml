@@ -22,7 +22,21 @@
     </Grid>-->
     <Grid>
         <StackPanel Background="White" Height="750">
-            <TextBlock TextAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="#348F6C" Margin="0 20 0 0"> DANH SÁCH SẢN PHẨM</TextBlock>
+            <Grid Margin="0 20 0 0" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="#348F6C" > DANH SÁCH SẢN PHẨM</TextBlock>
+                <StackPanel Grid.Row ="0" Grid.Column ="2" Orientation="Horizontal" HorizontalAlignment ="Right">
+                    <Button Content="Thêm" x:Name="addProductButton" Click="addProductButton_Click" Background="#348F6C" BorderThickness="0" Focusable="False"/>
+                    <Button Margin="15, 0, 15, 0"  Content="Import" x:Name="importProductButton" Click="importProductButton_Click" Background="#348F6C" BorderThickness="0" Focusable="False"/>
+                </StackPanel>
+            </Grid>
             <StackPanel Orientation="Horizontal" Margin="0 30 15 10" HorizontalAlignment="Right">
                 <StackPanel Width="200" VerticalAlignment="Bottom">
                     <TextBox  Name="searchProductInput" materialDesign:HintAssist.Hint="Tìm kiếm tên sản phẩm" BorderBrush="{DynamicResource MaterialDesignDivider}" Height="25" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="200" />
@@ -128,5 +142,5 @@
         </StackPanel>
         <Frame Name="nextPage"></Frame>
     </Grid>
-    
+
 </UserControl>

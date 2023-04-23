@@ -176,6 +176,7 @@
                 <Image Stretch="UniformToFill"
                    Width="180" Height="180"
                    Name="editProductAvatar"
+                   RenderOptions.BitmapScalingMode="HighQuality"
                    Source="{Binding Path=ProductAvatar,Converter={StaticResource absolute}}">
                 </Image>
             </Border>
