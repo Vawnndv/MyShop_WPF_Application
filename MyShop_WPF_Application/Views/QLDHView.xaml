@@ -140,10 +140,10 @@
                          BorderThickness="2" />
             </StackPanel>
 
-            <Button Content="Về" x:Name="prevButton" Click="prevButton_Click" Background="#186245" BorderThickness="0"/>
+            <Button Content="Trước" x:Name="prevButton" Click="prevButton_Click" Background="#186245" BorderThickness="0"/>
 
             <Label x:Name="pageCountLabel" HorizontalAlignment="Center" VerticalAlignment="Center" Content="5/10"/>
-            <Button Content="Tiếp" x:Name="nextButton" Click="nextButton_Click" Background="#186245" BorderThickness="0"/>
+            <Button Content="Sau" x:Name="nextButton" Click="nextButton_Click" Background="#186245" BorderThickness="0"/>
 
         </StackPanel>
     </StackPanel>

@@ -48,7 +48,6 @@ namespace MyShop_WPF_Application.Views
             toDatePicker.DisplayDateEnd= DateTime.Now;
 
             displayRowPerPageTextBox.Text = rowsPerPage.ToString();
-            updateTotalPage();
             updatePage(1);
         }
 
@@ -82,7 +81,6 @@ namespace MyShop_WPF_Application.Views
 
             lst.ClearValue(ItemsControl.ItemsSourceProperty);
 
-            updateTotalPage();
             updatePage(_currentPage);
         }
 
@@ -93,14 +91,9 @@ namespace MyShop_WPF_Application.Views
             {
                 rowsPerPage = Int16.Parse(displayRowPerPageTextBox.Text);
 
-                updateTotalPage();
                 updatePage(_currentPage);
             }
-            catch (Exception ex)
-            {
-
-            }
-            
+            catch { }
         }
 
         
@@ -108,7 +101,6 @@ namespace MyShop_WPF_Application.Views
         {
             isFiltering = false;
             updatePage(_currentPage);
-            updateTotalPage();
         }
 
         // filter orders by date button
@@ -133,7 +125,6 @@ namespace MyShop_WPF_Application.Views
             isFiltering = true;
 
             updatePage(1);
-            updateTotalPage();
             lst.ItemsSource = _viewModel._orderList.Where(x => x.OrderDate >= fromDate.Date && x.OrderDate <= toDate.Date).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
         }
 
@@ -148,7 +139,6 @@ namespace MyShop_WPF_Application.Views
 
             _viewModel = new QLDHViewModel();
 
-            updateTotalPage();
             updatePage(_currentPage);
         }
 
@@ -160,34 +150,28 @@ namespace MyShop_WPF_Application.Views
             _viewModel = new QLDHViewModel();
 
             updatePage(_currentPage);
-            updateTotalPage();
         }
 
-        // calculate and update the value of total page
-        // after changing listview data (delete, add, modify, filter)
-        private void updateTotalPage()
-        {
-            if (isFiltering)
-                _listSize = _viewModel._orderList.Where(x => x.OrderDate >= fromDate.Date && x.OrderDate <= toDate.Date).ToList().Count;
-            else
-                _listSize = _viewModel._orderList.Count;
-
-            _totalPage = _listSize / rowsPerPage + ((_listSize % rowsPerPage) == 0 ? 0 : 1);
-
-            pageCountLabel.Content = $"{_currentPage}/{_totalPage}";
-        }
-
+     
         // update the paging system
         // assign new itemsource for listview
         private void updatePage(int page)
         {
             _currentPage = page;
 
-            if (isFiltering)
-                lst.ItemsSource = _viewModel._orderList.Where(x => x.OrderDate >= fromDate.Date && x.OrderDate <= toDate.Date).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
-            else
-                lst.ItemsSource = _viewModel._orderList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
 
+            if (isFiltering)
+            {
+                _listSize = _viewModel._orderList.Where(x => x.OrderDate >= fromDate.Date && x.OrderDate <= toDate.Date).ToList().Count;
+                lst.ItemsSource = _viewModel._orderList.Where(x => x.OrderDate >= fromDate.Date && x.OrderDate <= toDate.Date).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
+            }
+            else
+            {
+                _listSize = _viewModel._orderList.Count;
+                lst.ItemsSource = _viewModel._orderList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
+            }
+
+            _totalPage = _listSize / rowsPerPage + ((_listSize % rowsPerPage) == 0 ? 0 : 1);
             pageCountLabel.Content = $"{_currentPage}/{_totalPage}";
         }
 

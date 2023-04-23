@@ -97,7 +97,7 @@ namespace MyShop_WPF_Application.WindowScreen
                     System.Threading.Thread.Sleep(2000);
 
                 }
-                catch (Exception ex)
+                catch 
                 {
                     return null;
                 }
@@ -143,7 +143,7 @@ namespace MyShop_WPF_Application.WindowScreen
 
 
                 // load dashboard
-                Window win2 = new Dashboard();
+                Window win2 = new QLKMView();
 
                 win2.Show();
                 this.Close();

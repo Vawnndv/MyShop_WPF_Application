@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MyShop_WPF_Application.ViewModels
 {
-    class OrderDetailChooseProductViewModel
+    class OrderDetailChooseProductViewModel : BaseViewModel
     {
         public ObservableCollection<ProductModel> _productList = new ObservableCollection<ProductModel>();
         private OrderDetailChooseProductRepository _repo = new OrderDetailChooseProductRepository();

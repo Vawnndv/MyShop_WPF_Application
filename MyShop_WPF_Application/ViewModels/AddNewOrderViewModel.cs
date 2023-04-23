@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MyShop_WPF_Application.ViewModels
 {
-    class AddNewOrderViewModel
+    class AddNewOrderViewModel : BaseViewModel
     {
         private OrderDetailsRepository _repoDetail;
         private NewOrderRepository _repoNew;
