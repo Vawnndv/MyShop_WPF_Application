@@ -34,7 +34,6 @@ namespace MyShop_WPF_Application.Repositories
                     {
                         _promotionId = (int)reader["Promotion_ID"],
                         _promotionName = (string)reader["Promotion_Name"],
-                        _promotionQuantity = (int)reader["Quantity"],
                         _promotionPercentage = (double)reader["Promotion_Percentage"]
                     });
                 }

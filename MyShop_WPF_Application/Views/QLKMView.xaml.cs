@@ -45,7 +45,11 @@ namespace MyShop_WPF_Application.Views
 
         private void addNewPromoButton_Click(object sender, RoutedEventArgs e)
         {
+            Window addWindow = new AddNewPromotionView();
+            addWindow.ShowDialog();
 
+            _viewModel = new PromotionViewModel();
+            updatePage(_currentPage);
         }
 
         // delete a promotion code base on ID get from list.item
@@ -149,10 +153,6 @@ namespace MyShop_WPF_Application.Views
                 return; 
             }
 
-            // find current promo in promotion list of view model
-            PromotionModel promoInList = new PromotionModel();
-
-         
             double newPercentage = selectedPromo._promotionPercentage;
 
             _viewModel.editPromotionPercentage(selectedPromo._promotionId, newPercentage);

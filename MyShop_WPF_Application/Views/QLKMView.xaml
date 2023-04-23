@@ -62,7 +62,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBox materialDesign:HintAssist.Hint="Tên loại khuyến mãi" x:Name="promotionNameTextBox" Text="{Binding _promotionName, Converter={StaticResource convertToListViewString}}" TextAlignment="Center"/>
+                                    <TextBox x:Name="promotionNameTextBox" Text="{Binding _promotionName, Converter={StaticResource convertToListViewString}}" TextAlignment="Center"/>
                                     <Button x:Name="editPromotionNameButton" Click="editPromotionNameButton_Click" BorderThickness="0" Height="15" Width="15" Margin="5 0 0 0">
                                         <Button.Background>
                                             <ImageBrush ImageSource="../img/edit.png" TileMode="None"  Stretch="Fill"/>
@@ -82,7 +82,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBox PreviewTextInput="NumberValidationTextBox" materialDesign:HintAssist.Hint="Giá trị khuyến mãi" x:Name="promotionPercentageTextBox"  TextAlignment="Center" Text="{Binding _promotionPercentage, Converter={StaticResource toCellConverter}}"/>
+                                    <TextBox PreviewTextInput="NumberValidationTextBox" Width="140" x:Name="promotionPercentageTextBox"  TextAlignment="Center" Text="{Binding _promotionPercentage, Converter={StaticResource toCellConverter}}"/>
                                     <TextBlock Text="%" VerticalAlignment="Center"/>
                                     <Button x:Name="editPromotionPercentageButton" Click="editPromotionPercentageButton_Click" BorderThickness="0" Height="15" Width="15" Margin="5 0 0 0">
                                         <Button.Background>
