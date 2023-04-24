@@ -1,0 +1,167 @@
+﻿<Page x:Class="MyShop_WPF_Application.Views.ThemKHView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MyShop_WPF_Application.Views"
+      Title="ThemKHView"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:Converter="clr-namespace:MyShop_WPF_Application.Converters"
+      mc:Ignorable="d"
+      Height="750" Width="1065">
+    <Page.Resources>
+        <Converter:PriceConverter x:Key="priceFormat" />
+        <Converter:AbsoluteConverter x:Key="absolute" />
+    </Page.Resources>
+    <StackPanel Background="White">
+        <!--<Button
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                BorderBrush="#303030"
+                VerticalAlignment="Top"
+                Height="25" Width="25"
+                Command="{x:Static NavigationCommands.BrowseBack}"
+                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
+                <materialDesign:PackIcon
+                    Kind="KeyboardArrowLeft"
+                    Height="20"
+                    Width="20" />
+            </Button>
+
+            <Button
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                BorderBrush="#303030"
+                VerticalAlignment="Top"
+                Height="25" Width="25"
+                Margin="28,0,0,0"
+                Command="{x:Static NavigationCommands.BrowseForward}"
+                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
+                <materialDesign:PackIcon
+                    Kind="KeyboardArrowRight"
+                    Height="20"
+                    Width="20" />
+            </Button>-->
+
+        <Grid Height="450">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  FontSize="30" FontWeight="Bold" FontFamily="Sitka Subheading" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#348F6C" Margin="0 20 0 50" Text="THÊM MỚI KHÁCH HÀNG"/>
+
+            <TextBox Grid.Row="1" Grid.ColumnSpan="2"
+                     materialDesign:HintAssist.Hint="Họ và tên khách hàng"
+                     Width="350"
+                     VerticalAlignment="Top"
+                     FontSize="15"
+                     Margin="92.5,20,270,10"
+                     Background="Transparent"
+                     FontFamily="Sitka Subheading"
+                     FontWeight="Bold"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Text="{Binding name, UpdateSourceTrigger=PropertyChanged}"
+                     Name="editName"/>
+
+            <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                    Width="500"
+                    Margin="92.5,20,200,10"
+                    FontSize="15"
+                    FontWeight="Bold"
+                    FontFamily="Sitka Subheading"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Top"
+                    VerticalScrollBarVisibility="Auto"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    materialDesign:HintAssist.Hint="Địa chỉ"
+                    Text="{Binding address}"
+                    Name="editAddress"/>
+
+
+
+            <TextBox Grid.Row="2" Grid.Column="2"
+                Width="180"
+                Margin="10,20,0,0"
+                FontSize="15"
+                FontWeight="Bold"
+                FontFamily="Sitka Subheading"
+                AcceptsReturn="True"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                VerticalScrollBarVisibility="Auto"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding email}"
+                Name="editEmail">
+                <materialDesign:HintAssist.Hint>
+                    <TextBlock>
+                        <Bold>Email</Bold>
+                    </TextBlock>
+                </materialDesign:HintAssist.Hint>
+            </TextBox>
+
+            <TextBox Grid.Row="1" Grid.Column="2"
+                Width="180"
+                Margin="10,20,0,0"
+                FontSize="15"
+                FontWeight="Bold"
+                FontFamily="Sitka Subheading"
+                AcceptsReturn="True"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                VerticalScrollBarVisibility="Auto"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                PreviewTextInput="NumberOnly_PreviewTextInput"
+                Text="{Binding phone}"
+                Name="editPhone">
+                <materialDesign:HintAssist.Hint>
+                    <TextBlock>
+                        <Bold>Số điện thoại</Bold>
+                    </TextBlock>
+                </materialDesign:HintAssist.Hint>
+            </TextBox>
+
+            <Button 
+                    Grid.Column="1" Grid.Row="3"
+                    Width="100" Content="Làm mới"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    FontSize="15"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Background="ForestGreen"
+                    FontFamily="Sitka Subheading"
+                    Margin="10, 0, 10, 0"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Click="refreshBtn_Click"
+                    Name="refreshBtn"/>
+
+            <Button 
+                    Grid.Column="1" Grid.Row="3"
+                    Width="100" 
+                    Content="Thêm"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    FontSize="15"
+                    Padding="0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Background="ForestGreen"
+                    Margin="10, 0, 10, 0"
+                    FontFamily="Sitka Subheading"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Click="addBtn_Click"
+                    Name="addBtn"/>
+
+        </Grid>
+    </StackPanel>
+</Page>

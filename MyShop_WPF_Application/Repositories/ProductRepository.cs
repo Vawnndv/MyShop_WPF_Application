@@ -109,7 +109,7 @@ namespace MyShop_WPF_Application.Repositories
         public ProductModel getProductWithId(int? _productID)
         {
             ObservableCollection<ProductModel> result = new ObservableCollection<ProductModel>();
-            ProductModel product = null;
+            ProductModel product = new ProductModel();
 
             Global.Connection = new SqlConnection(Global.ConnectionString);
             Global.Connection.Open();

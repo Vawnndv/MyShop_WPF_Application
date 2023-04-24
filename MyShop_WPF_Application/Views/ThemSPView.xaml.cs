@@ -24,7 +24,7 @@ namespace MyShop_WPF_Application.Views
     public partial class ThemSPView : Page
     {
         FileInfo _selectImage = null;
-        ThemSPViewModel _viewModel = null;
+        ThemSPViewModel _viewModel;
         int _currentCategoryCombobox = 0;
         bool _selected = false;
 
