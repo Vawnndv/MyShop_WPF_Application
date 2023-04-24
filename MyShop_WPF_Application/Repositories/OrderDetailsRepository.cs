@@ -251,7 +251,7 @@ namespace MyShop_WPF_Application.Repositories
             command.ExecuteNonQuery();
         }
 
-        public void updateCreateDate(int orderID, string newDate)
+        public void updateCreateDate(int orderID, DateTime newDate)
         {
             var sql = "update Purchase set Centered_At = @newDate where Purchase_ID = @orderID";
 

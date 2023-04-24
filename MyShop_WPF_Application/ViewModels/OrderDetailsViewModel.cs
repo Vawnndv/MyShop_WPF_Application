@@ -102,7 +102,7 @@ namespace MyShop_WPF_Application.ViewModels
             _repo.updateCustomerInfo(phone, newVal, type);
         }
 
-        public void updateDate(int orderID, string date)
+        public void updateDate(int orderID, DateTime date)
         {
             _repo.updateCreateDate(orderID, date);
         }

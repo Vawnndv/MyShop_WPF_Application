@@ -169,7 +169,7 @@ namespace MyShop_WPF_Application.Views
         {
             if(oderCreateDateTextBlock.Text != null)
             {
-                _viewModel.updateDate(currentOrderId, oderCreateDateTextBlock.Text);
+                _viewModel.updateDate(currentOrderId, oderCreateDateTextBlock!.SelectedDate ?? default);
             }
         }
 
