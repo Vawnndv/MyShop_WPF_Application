@@ -27,7 +27,7 @@ namespace MyShop_WPF_Application.Repositories
                 command.Parameters.AddWithValue("@promoID", newOrder.PromotionID);
             }
 
-            command.Parameters.AddWithValue("@total", newOrder.OrderTotal);
+            command.Parameters.AddWithValue("@total", 0);
             command.Parameters.AddWithValue("@date", newOrder.OrderDate);
             command.Parameters.AddWithValue("@statusID", newOrder.OrderStatus);
             command.Parameters.AddWithValue("@phone", newOrder.CustomerPhone);
