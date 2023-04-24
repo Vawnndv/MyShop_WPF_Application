@@ -1,4 +1,4 @@
-﻿<Window x:Class="MyShop_WPF_Application.Views.AddNewOrderView"
+﻿<Page x:Class="MyShop_WPF_Application.Views.AddNewOrderView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,7 +13,7 @@
         Loaded="Window_Loaded"
         Title="Thêm đơn hàng mới" >
 
-    <Window.Resources>
+    <Page.Resources>
         <Converter:ToDataRowStringConverter x:Key="toCellConverter"/>
         <Converter:AbsoluteConverter x:Key="absoluteConverter"   />
         <Converter:OrderStatusColorConverter x:Key="orderConverter"/>
@@ -21,9 +21,9 @@
         <Style TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="HorizontalContentAlignment" Value="Center" />
         </Style>
-    </Window.Resources>
-    
-    <StackPanel Orientation="Vertical" Width="850">
+    </Page.Resources>
+    <Grid Background="White">
+        <StackPanel Orientation="Vertical" Width="850">
         <StackPanel Orientation="Horizontal" Margin="20 10 0 0">
             <TextBlock Text="Số điện thoại: " FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
             <TextBox materialDesign:HintAssist.Hint="Nhập số điện thoại" d:Text="1234567890" FontSize="20" Margin="32 0 0 0" x:Name="customerPhoneTextBlock"/>
@@ -77,6 +77,10 @@
             </ComboBox>
         </StackPanel>
 
-        <Button Content="Thêm đơn hàng mới" Width="200" x:Name="addNewOrderButton" Click="addNewOrderButton_Click" Height="50" Margin="0 20 0 0"/>
+            <Button Content="Thêm đơn hàng mới" Width="200" x:Name="addNewOrderButton" Click="addNewOrderButton_Click" Command="{Binding UpdateViewCommand}" CommandParameter="QLDH" Height="50" Margin="0 20 0 0"/>
     </StackPanel>
-</Window>
+        <Grid>
+            <ContentControl Content="{Binding SelectedViewModel}"/>
+        </Grid>
+    </Grid>
+</Page>

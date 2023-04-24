@@ -20,7 +20,7 @@ namespace MyShop_WPF_Application.Views
     /// <summary>
     /// Interaction logic for AddNewPromotionView.xaml
     /// </summary>
-    public partial class AddNewPromotionView : Window
+    public partial class AddNewPromotionView : Page
     {
         AddNewPromotionViewModel _viewModel;
         public AddNewPromotionView()
@@ -60,8 +60,7 @@ namespace MyShop_WPF_Application.Views
             };
 
             _viewModel.addNewPromo(newPromo);
-
-            this.Close();
+            DataContext = new MainViewModel();
         }
     }
 }

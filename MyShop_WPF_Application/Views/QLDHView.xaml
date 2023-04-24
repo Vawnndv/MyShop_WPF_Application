@@ -22,7 +22,8 @@
         </Style>
     </UserControl.Resources>
 
-    <StackPanel>
+    <Grid Background="White">
+        <StackPanel>
         <TextBlock TextAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="#348F6C" Margin="0 20 0 0"> DANH SÁCH ĐƠN HÀNG</TextBlock>
 
         <DockPanel>
@@ -147,5 +148,6 @@
 
         </StackPanel>
     </StackPanel>
-    
+        <Frame Name="screen"></Frame>
+    </Grid>
 </UserControl>

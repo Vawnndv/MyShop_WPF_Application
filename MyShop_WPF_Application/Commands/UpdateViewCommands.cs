@@ -53,6 +53,10 @@ namespace MyShop_WPF_Application.Commands
             {
                 viewModel.SelectedViewModel = new TKSPViewModel();
             }
+            else if (parameter.ToString() == "QLKM")
+            {
+                viewModel.SelectedViewModel = new PromotionViewModel();
+            }
             else if (parameter.ToString() == "TKDTVLN")
             {
                 viewModel.SelectedViewModel = new TK_DoanhThu_LoiNhuanViewModel();

@@ -1,4 +1,4 @@
-﻿<Window x:Class="MyShop_WPF_Application.Views.QLKMView"
+﻿<UserControl x:Class="MyShop_WPF_Application.Views.QLKMView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,11 +10,9 @@
         mc:Ignorable="d" 
              
         Height="750" Width="1065"
-        Loaded="Window_Loaded"
-        Title="Quản lý khuyến mãi"
-        >
+        Loaded="Window_Loaded">
 
-    <Window.Resources>
+    <UserControl.Resources>
         <Converter:OrderStatusColorConverter x:Key="orderConverter"/>
         <Converter:ToDataRowStringConverter x:Key="toCellConverter"/>
         <Converter:RemoveTimeFromDateConverter x:Key="onlyDate"/>
@@ -23,13 +21,14 @@
         <Style TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="HorizontalContentAlignment" Value="Center" />
         </Style>
-    </Window.Resources>
+    </UserControl.Resources>
 
-    <StackPanel>
+    <Grid Background="White">
+        <StackPanel>
         <TextBlock TextAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="#348F6C" Margin="0 20 0 0"> DANH SÁCH KHUYẾN MÃI</TextBlock>
 
         <Button DockPanel.Dock="Left" Content="Thêm khuyến mãi mới" x:Name="addNewPromoButton" Click="addNewPromoButton_Click" Width="200" HorizontalAlignment="Left" Margin="65 0 0 10"/>
-        <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0" Width="941" HorizontalAlignment="Center">
+        <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0" Width="941" HorizontalAlignment="Center" SelectionChanged="lst_SelectionChanged">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -103,7 +102,7 @@
                         <GridViewColumn.CellTemplate >
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button x:Name="deletePromotionButton" Margin="10 0 5 0" Click="deletePromotionButton_Click" Background="#F66A6A" BorderThickness="0">
+                                    <Button x:Name="deletePromotionButton" Margin="10 4 5 4" Click="deletePromotionButton_Click" Background="#F66A6A" BorderThickness="0">
                                         <Image Source="../img/delete.png" Width="20" Height="20" VerticalAlignment="Center" Stretch="UniformToFill"/>
                                     </Button>
                                 </StackPanel>
@@ -136,5 +135,6 @@
 
         </StackPanel>
     </StackPanel>
-
-</Window>
+        <Frame Name="screen"></Frame>
+    </Grid>
+</UserControl>

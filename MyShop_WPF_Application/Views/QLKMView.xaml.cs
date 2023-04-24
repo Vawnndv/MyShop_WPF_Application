@@ -20,11 +20,11 @@ namespace MyShop_WPF_Application.Views
     /// <summary>
     /// Interaction logic for QLKMView.xaml
     /// </summary>
-    public partial class QLKMView : Window
+    public partial class QLKMView : UserControl
     {
         PromotionViewModel _viewModel;
         int _currentPage = 1;
-        int _itemPerPage = 3;
+        int _itemPerPage = 10;
         int _totalPage = 0;
 
         // constructor
@@ -45,11 +45,10 @@ namespace MyShop_WPF_Application.Views
 
         private void addNewPromoButton_Click(object sender, RoutedEventArgs e)
         {
-            Window addWindow = new AddNewPromotionView();
-            addWindow.ShowDialog();
+            screen.Content = new AddNewPromotionView();
 
-            _viewModel = new PromotionViewModel();
-            updatePage(_currentPage);
+            //_viewModel = new PromotionViewModel();
+            //updatePage(_currentPage);
         }
 
         // delete a promotion code base on ID get from list.item
@@ -161,6 +160,9 @@ namespace MyShop_WPF_Application.Views
             MessageBox.Show("Chỉnh sửa giá trị phần trăm thành công");
         }
 
-        
+        private void lst_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

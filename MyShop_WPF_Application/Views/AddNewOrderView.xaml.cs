@@ -20,7 +20,7 @@ namespace MyShop_WPF_Application.Views
     /// <summary>
     /// Interaction logic for AddNewOrderView.xaml
     /// </summary>
-    public partial class AddNewOrderView : Window
+    public partial class AddNewOrderView : Page
     {
         AddNewOrderViewModel _viewModel;
 
@@ -83,6 +83,7 @@ namespace MyShop_WPF_Application.Views
             _viewModel.addNewOrder(newOrder);
 
             MessageBox.Show("Thêm đơn hàng mới thành công, vui lòng vào chi tiết đơn hàng này nếu bạn muốn thêm sản phẩm vào đơn");
+            //DataContext = new MainViewModel();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

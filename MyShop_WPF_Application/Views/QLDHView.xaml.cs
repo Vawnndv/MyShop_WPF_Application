@@ -144,12 +144,7 @@ namespace MyShop_WPF_Application.Views
 
         private void addNewOrderButton_Click(object sender, RoutedEventArgs e)
         {
-            Window addNewOrderWindow = new AddNewOrderView();
-            addNewOrderWindow.ShowDialog();
-
-            _viewModel = new QLDHViewModel();
-
-            updatePage(_currentPage);
+            screen.Content = new AddNewOrderView();
         }
 
      

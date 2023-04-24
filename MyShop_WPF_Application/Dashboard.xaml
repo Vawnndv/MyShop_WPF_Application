@@ -33,7 +33,7 @@
                 <uc:MenuButton Margin="5,10,0,0" Title="Dashboard" Icon="ViewDashboard" NameView="Dashboard"  Height="40" Loaded="MenuButton_Loaded"/>
                 <uc:MenuButton Margin="5,10,0,0" Title="Danh Sách Sản Phẩm" Icon="ClipboardTextPlayOutline" NameView="QLSP"  Height="40" Loaded="MenuButton_Loaded"/>
                 <uc:MenuButton Margin="5,15,0,0" Title="Quản Lý Đơn Hàng" Icon="PlusBox" Height="40" NameView="QLDH"  Loaded="MenuButton_Loaded"/>
-                <uc:MenuButton Margin="5,15,0,0" Title="Tạo mới đơn hàng" Icon="Flower" Height="40" NameView="QLSP" Loaded="MenuButton_Loaded"/>
+                <uc:MenuButton Margin="5,15,0,0" Title="Quản Lý Khuyến Mãi" Icon="Flower" Height="40" NameView="QLKM" Loaded="MenuButton_Loaded"/>
 
                 <Expander Margin="0,10,0,0"  Background="{x:Null}" FontSize="16" Foreground="White">
                     <Expander.Header>
