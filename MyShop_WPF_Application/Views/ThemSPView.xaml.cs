@@ -37,12 +37,12 @@ namespace MyShop_WPF_Application.Views
             {
                 addcomboboxCategory.Items.Add(category.CategoryName);
             }
-            addcomboboxCategory.SelectedIndex =0;
+            addcomboboxCategory.SelectedIndex = 0;
         }
 
         private void ComboPageIndex_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _currentCategoryCombobox = addcomboboxCategory.SelectedIndex + 1;
+            _currentCategoryCombobox = addcomboboxCategory.SelectedIndex;
         }
 
         /// Hiệu ứng khi chọn
@@ -79,43 +79,71 @@ namespace MyShop_WPF_Application.Views
 
         private void BtnRefreshProduct_Click(object sender, RoutedEventArgs e)
         {
-
+            addProductName.Clear();
+            addProductPriceOriginal.Clear();
+            addcomboboxCategory.SelectedIndex = 0;
+            addProductQuantity.Clear();
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel._product.ProductName = addProductName.Text;
-            _viewModel._product.ProductPrice = int.Parse(addProductPrice.Text);
-            _viewModel._product.ProductPriceOriginal = int.Parse(addProductPriceOriginal.Text);
-            _viewModel._product.ProductQuantity = int.Parse(addProductQuantity.Text);
-            _viewModel._product.CategoryID = _currentCategoryCombobox;
-
-            if (_selected)
+            if (MessageBox.Show("Bạn muốn thêm mới một sản phẩm không?",
+                "Thêm sản phẩm",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                var folder = AppDomain.CurrentDomain.BaseDirectory;
-                try
+                if (addProductName.Text.Length == 0 || addProductPrice.Text.Length == 0 || addProductPriceOriginal.Text.Length == 0 || addProductQuantity.Text.Length == 0)
                 {
-                    string newPath = $"{folder}img/{_selectImage.Name}";
+                    string message = "Vui lòng điền đủ thông tin";
+                    string title = "kiểm tra nhập thông tin sản phẩm";
+                    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
 
-                    if (!File.Exists(newPath))
+                }
+                else
+                {
+                    _viewModel._product.ProductName = addProductName.Text;
+                    _viewModel._product.ProductPrice = int.Parse(addProductPrice.Text);
+                    _viewModel._product.ProductPriceOriginal = int.Parse(addProductPriceOriginal.Text);
+                    _viewModel._product.ProductQuantity = int.Parse(addProductQuantity.Text);
+
+                    foreach (var category in _viewModel._categoryList)
                     {
-                        File.Copy(_selectImage.FullName, newPath);
+                        if (category.CategoryName.Equals(addcomboboxCategory.Items.GetItemAt(_currentCategoryCombobox)))
+                        {
+                            _viewModel._product.CategoryID = category.CategoryID;
+                            break;
+                        }
+
                     }
-                    _viewModel._product.ProductAvatar = $"img/{_selectImage.Name}";
+
+                    if (_selected)
+                    {
+                        var folder = AppDomain.CurrentDomain.BaseDirectory;
+                        try
+                        {
+                            string newPath = $"{folder}img/phone/{_selectImage.Name}";
+
+                            if (!File.Exists(newPath))
+                            {
+                                File.Copy(_selectImage.FullName, newPath);
+                            }
+                            _viewModel._product.ProductAvatar = $"img/phone/{_selectImage.Name}";
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+
+                    var add = _viewModel.AddNewProduct(_viewModel._product);
+                    if (add)
+                    {
+                        string message = "Thêm sản phẩm thành công";
+                        string title = "Thêm Sản phẩm";
+                        MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    }
                 }
-                catch (Exception ex)
-                {
-
-                }
-            }
-
-            var add = _viewModel.AddNewProduct(_viewModel._product);
-            if (add)
-            {
-                string message = "Thêm sản phẩm thành công";
-                string title = "Sản phẩm mới";
-                MessageBox.Show(message, title);
-
             }
         }
 

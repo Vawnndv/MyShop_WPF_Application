@@ -4,9 +4,134 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyShop_WPF_Application.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:Converter="clr-namespace:MyShop_WPF_Application.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             Height="750" Width="1065"
+             Loaded="Window_Loaded">
+    <UserControl.Resources>
+        <Converter:ToDataRowStringConverter x:Key="toCellConverter"/>
+
+        <Style TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="#348F6C" > DANH SÁCH LOẠI SẢN PHẨM</TextBlock>
+        <StackPanel Grid.Row ="0" Grid.Column ="2" Orientation="Horizontal" HorizontalAlignment ="Right">
+            <Button Margin="15, 0, 15, 0"  Content="Import" x:Name="importProductButton" Click="importProductButton_Click" Background="#348F6C" BorderThickness="0" Focusable="False"/>
+        </StackPanel>
+        <TextBox Grid.Row="1" Grid.Column="1"
+                 materialDesign:HintAssist.Hint="Tên loại sản phẩm"
+                 Width="300"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Right"
+                 FontSize="15"
+                 Margin="15, 0, 15, 10"
+                 Background="Transparent"
+                 FontFamily="Sitka Subheading"
+                 Foreground="#348F6C"
+                 FontWeight="Bold"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Name="addCategoryName"/>
+
+        <Button Grid.Row="1" Grid.Column = "2" Margin="15, 0, 15, 0" VerticalAlignment="Center" Content="Thêm" x:Name="addCategoryButton" Click="addCategoryButton_Click" Background="#348F6C" BorderThickness="0" Focusable="False"/>
+        <Button Visibility="Hidden" Grid.Row="1" Grid.Column = "2" VerticalAlignment="Center" Margin="15, 0, 15, 0"  Content="Lưu" x:Name="saveCategoryButton" Click="saveCategoryButton_Click" Background="#348F6C" BorderThickness="0" Focusable="False"/>
+
+        <ListView Grid.Row="2" Grid.ColumnSpan="3" x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=4}" Margin="15 0 15 0" SelectionChanged="lst_SelectionChanged">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Background" Value="#E4E4E4"/>
+
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="50">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="ID" Width="50" TextAlignment="Center" FontSize="14" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding id, Converter={StaticResource toCellConverter}}" TextAlignment="Center" FontWeight="Bold"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn x:Name="statusGridColumn" Width="350">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Tên loại" Width="350" FontSize="14" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate >
+                            <DataTemplate>
+                                <TextBlock FontWeight="Medium" FontSize="13" Text="{Binding name}" TextAlignment="Center" Padding="0 3 0 3"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="200">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Số sản phẩm" FontSize="14" Width="200" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate >
+                            <DataTemplate>
+                                <TextBlock FontWeight="Medium" FontSize="13" Text="{Binding numOfProduct}" TextAlignment="Center" Padding="0 3 0 3"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="250">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Tổng giá trị" FontSize="14" Width="250" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate >
+                            <DataTemplate>
+                                <TextBlock FontWeight="Medium" FontSize="13" Text="{Binding sumPrice}" TextAlignment="Center" Padding="0 3 0 3"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="200">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Thao tác" FontSize="14" Width="200" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate >
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button x:Name="viewDetails" Click="edit_Click" Background="#439452" BorderThickness="0" Margin="0 4 0 4">
+                                        <Image Source="../img/view.png" Width="20" Height="20" VerticalAlignment="Center" Stretch="UniformToFill"/>
+                                    </Button>
+                                    <Button x:Name="deleteRowButton" Margin="10 0 5 0" Click="deleteRowButton_Click" Background="#F66A6A" BorderThickness="0">
+                                        <Image Source="../img/delete.png" Width="20" Height="20" VerticalAlignment="Center" Stretch="UniformToFill"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

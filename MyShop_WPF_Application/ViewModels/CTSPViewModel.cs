@@ -11,7 +11,9 @@ namespace MyShop_WPF_Application.ViewModels
 {
     class CTSPViewModel : BaseViewModel
     {
-        public ProductModel _product = null;
+        public ProductModel _product;
+        public ProductModel _restoreProduct;
+
         public ObservableCollection<CategoryModel> _categoryList;
 
         private CategoryRepository _categoryRepository = new CategoryRepository();
@@ -20,8 +22,8 @@ namespace MyShop_WPF_Application.ViewModels
         public CTSPViewModel(int? pId)
         {
             _product = _repository.getProductWithId(pId);
+            _restoreProduct = _repository.getProductWithId(pId);
             _categoryList = _categoryRepository.getAllCategory();
-
         }
 
         public bool EditProduct(ProductModel editProduct)
