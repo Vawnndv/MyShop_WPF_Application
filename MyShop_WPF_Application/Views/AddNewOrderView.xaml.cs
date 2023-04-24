@@ -41,7 +41,8 @@ namespace MyShop_WPF_Application.Views
           
 
             int statusID = orderStatusComboBox.SelectedIndex;
-            int promoID = promotionCombobox.SelectedIndex;
+            PromotionModel promo = (PromotionModel)promotionCombobox.SelectedItem;
+            int promoID = promo._promotionId;
             string name = customerNameTextBlock.Text;
             string email = customerEmailTextBlock.Text;
             string address = customerAddressTextBlock.Text;
