@@ -20,7 +20,7 @@ namespace MyShop_WPF_Application.Views
     /// <summary>
     /// Interaction logic for OrderDetailChooseProductView.xaml
     /// </summary>
-    public partial class OrderDetailChooseProductView : Window
+    public partial class OrderDetailChooseProductView : Page
     {
         private OrderDetailChooseProductViewModel _viewmModel = new OrderDetailChooseProductViewModel();
 
@@ -69,7 +69,7 @@ namespace MyShop_WPF_Application.Views
                         }
                         else
                         {
-                            this.Close();
+                            screen.Content = new OrderDetailsView();
                         }
                     }
                     else
@@ -82,6 +82,11 @@ namespace MyShop_WPF_Application.Views
 
 
             }
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            screen.Content = new OrderDetailsView();
         }
     }
 }

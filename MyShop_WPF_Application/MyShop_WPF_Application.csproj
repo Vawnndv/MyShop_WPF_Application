@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="Fonts\Amsterdam_One.ttf" />
+    <None Remove="img\backBTN.png" />
     <None Remove="img\background.png" />
     <None Remove="img\bglogin.png" />
     <None Remove="img\bg_login.png" />
@@ -46,6 +47,7 @@
     <Resource Include="Fonts\Amsterdam_One.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="img\backBTN.png" />
     <Resource Include="img\background.png" />
     <Resource Include="img\bglogin.png" />
     <Resource Include="img\bg_login.png" />

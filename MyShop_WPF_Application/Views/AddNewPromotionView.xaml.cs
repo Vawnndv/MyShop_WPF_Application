@@ -62,5 +62,10 @@ namespace MyShop_WPF_Application.Views
             _viewModel.addNewPromo(newPromo);
             DataContext = new MainViewModel();
         }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new MainViewModel();
+        }
     }
 }

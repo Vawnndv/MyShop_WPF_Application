@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using MyShop_WPF_Application.Model;
 using MyShop_WPF_Application.Repositories;
+using MyShop_WPF_Application.UserControls;
 using MyShop_WPF_Application.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,8 @@ namespace MyShop_WPF_Application.Views
         {
             InitializeComponent();
             base.DataContext = _viewModel;
+            var select = Dashboard.menuBTN.Children[2] as MenuButton;
+            select?.btn.Focus();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -74,6 +77,9 @@ namespace MyShop_WPF_Application.Views
         // event handler
         private void deleteRowButton_Click(object sender, RoutedEventArgs e)
         {
+            var select = Dashboard.menuBTN.Children[2] as MenuButton;
+            select?.btn.Focus();
+
             Button button = (Button)sender;
             var currrentItem = (OrderModel)button.DataContext;
 
@@ -134,12 +140,12 @@ namespace MyShop_WPF_Application.Views
             var order = (OrderModel)button.DataContext;
 
             Global.selectedOrderID = order.OrderID;
-            Window selectedOrderDetails = new OrderDetailsView();
-            selectedOrderDetails.ShowDialog();
+            screen.Content = new OrderDetailsView();
+            //selectedOrderDetails.ShowDialog();
 
-            _viewModel = new QLDHViewModel();
+            //_viewModel = new QLDHViewModel();
 
-            updatePage(_currentPage);
+            //updatePage(_currentPage);
         }
 
         private void addNewOrderButton_Click(object sender, RoutedEventArgs e)

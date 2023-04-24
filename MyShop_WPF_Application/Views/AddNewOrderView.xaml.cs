@@ -1,5 +1,6 @@
 ﻿using MyShop_WPF_Application.Model;
 using MyShop_WPF_Application.Models;
+using MyShop_WPF_Application.UserControls;
 using MyShop_WPF_Application.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,8 @@ namespace MyShop_WPF_Application.Views
         public AddNewOrderView()
         {
             InitializeComponent();
-
+            var select = Dashboard.menuBTN.Children[2] as MenuButton;
+            select?.btn.Focus();
             _viewModel = new AddNewOrderViewModel();
 
             orderStatusComboBox.ItemsSource = _viewModel.getStatusList();
@@ -38,7 +40,7 @@ namespace MyShop_WPF_Application.Views
         private void addNewOrderButton_Click(object sender, RoutedEventArgs e)
         {
             string phone = customerPhoneTextBlock.Text;
-          
+
 
             int statusID = orderStatusComboBox.SelectedIndex;
             PromotionModel promo = (PromotionModel)promotionCombobox.SelectedItem;
@@ -48,10 +50,10 @@ namespace MyShop_WPF_Application.Views
             string address = customerAddressTextBlock.Text;
 
             DateTime? newDate = oderCreateDateTextBlock.SelectedDate;
-            
 
-            if(phone == null || statusID == -1 || 
-                promoID == -1 || phone == "" || 
+
+            if (phone == null || statusID == -1 ||
+                promoID == -1 || phone == "" ||
                 oderCreateDateTextBlock.Text == null || oderCreateDateTextBlock.Text == "" ||
                 name == null || name == "" || email == null || email == ""
                 )
@@ -75,16 +77,15 @@ namespace MyShop_WPF_Application.Views
 
             if (!_viewModel.addCustomer(newCustomer))
             {
-                if(MessageBox.Show("Khách hàng đã tồn tại, bạn có muốn chỉnh sửa thông tin khách hàng giống với những gì vừa nhập không ?", "Xác nhận",MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show("Khách hàng đã tồn tại, bạn có muốn chỉnh sửa thông tin khách hàng giống với những gì vừa nhập không ?", "Xác nhận", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     _viewModel.updateCustomer(newCustomer);
                 }
             }
 
             _viewModel.addNewOrder(newOrder);
-
+            DataContext = new MainViewModel();
             MessageBox.Show("Thêm đơn hàng mới thành công, vui lòng vào chi tiết đơn hàng này nếu bạn muốn thêm sản phẩm vào đơn");
-            //DataContext = new MainViewModel();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -92,6 +93,9 @@ namespace MyShop_WPF_Application.Views
 
         }
 
-        
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new MainViewModel();
+        }
     }
 }

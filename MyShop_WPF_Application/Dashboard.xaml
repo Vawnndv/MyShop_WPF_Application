@@ -29,7 +29,7 @@
             </TextBlock>
         </Border>
         <Border Background="#348F6C" Grid.Column="0" Grid.Row="1" BorderThickness="0">
-            <StackPanel Margin="0 20 0 0">
+            <StackPanel Margin="0 20 0 0" Name="menu">
                 <uc:MenuButton Margin="5,10,0,0" Title="Dashboard" Icon="ViewDashboard" NameView="Dashboard"  Height="40" Loaded="MenuButton_Loaded"/>
                 <uc:MenuButton Margin="5,10,0,0" Title="Danh Sách Sản Phẩm" Icon="ClipboardTextPlayOutline" NameView="QLSP"  Height="40" Loaded="MenuButton_Loaded"/>
                 <uc:MenuButton Margin="5,15,0,0" Title="Quản Lý Đơn Hàng" Icon="PlusBox" Height="40" NameView="QLDH"  Loaded="MenuButton_Loaded"/>

@@ -9,7 +9,7 @@
         
         mc:Ignorable="d" 
              
-        Height="750" Width="1065"
+        Height="700" Width="1065"
         Loaded="Window_Loaded">
 
     <UserControl.Resources>
@@ -27,7 +27,7 @@
         <StackPanel>
         <TextBlock TextAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="#348F6C" Margin="0 20 0 0"> DANH SÁCH KHUYẾN MÃI</TextBlock>
 
-        <Button DockPanel.Dock="Left" Content="Thêm khuyến mãi mới" x:Name="addNewPromoButton" Click="addNewPromoButton_Click" Width="200" HorizontalAlignment="Left" Margin="65 0 0 10"/>
+        <Button DockPanel.Dock="Left" Content="Thêm khuyến mãi mới" x:Name="addNewPromoButton" Click="addNewPromoButton_Click" Width="200" HorizontalAlignment="Left" Margin="65 20 0 10"/>
         <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0" Width="941" HorizontalAlignment="Center" SelectionChanged="lst_SelectionChanged">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -135,6 +135,6 @@
 
         </StackPanel>
     </StackPanel>
-        <Frame Name="screen"></Frame>
+        <Frame Name="screen"/>
     </Grid>
 </UserControl>
