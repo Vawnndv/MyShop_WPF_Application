@@ -14,8 +14,8 @@ namespace MyShop_WPF_Application.Repositories
         public ObservableCollection<CustomerModel> getAllCustomer()
         {
             ObservableCollection<CustomerModel> result = new ObservableCollection<CustomerModel>();
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
             if (Global.Connection != null)
             {
 
@@ -47,7 +47,7 @@ namespace MyShop_WPF_Application.Repositories
                 reader.Close();
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return result;
         }
 
@@ -93,8 +93,8 @@ namespace MyShop_WPF_Application.Repositories
         public CustomerModel getCustomerWithPhone(string? tel)
         {
             CustomerModel result = new CustomerModel();
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
             if (Global.Connection != null)
             {
 
@@ -124,7 +124,7 @@ namespace MyShop_WPF_Application.Repositories
                 reader.Close();
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return result;
         }
 
@@ -132,8 +132,8 @@ namespace MyShop_WPF_Application.Repositories
         {
             bool result = false;
 
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
 
             if (Global.Connection != null)
             {
@@ -154,7 +154,7 @@ namespace MyShop_WPF_Application.Repositories
                 }
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return result;
         }
 
@@ -163,8 +163,8 @@ namespace MyShop_WPF_Application.Repositories
         {
             bool result = false;
 
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
 
             if (Global.Connection != null)
             {
@@ -184,7 +184,7 @@ namespace MyShop_WPF_Application.Repositories
                 }
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return result;
         }
 
@@ -194,8 +194,8 @@ namespace MyShop_WPF_Application.Repositories
             bool result = false;
 
 
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
             if (Global.Connection != null)
             {
                 // delete related records in PurchaseDetail table
