@@ -17,6 +17,7 @@ namespace MyShop_WPF_Application.Models
         public double ProductPrice { get; set; }
         public double ProductPriceOriginal { get; set; }
 
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public object Clone()
