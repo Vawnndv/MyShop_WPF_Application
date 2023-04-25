@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using Microsoft.Data.SqlClient;
 using MyShop_WPF_Application.Model;
 using MyShop_WPF_Application.Models;
 using System;
@@ -62,6 +63,40 @@ namespace MyShop_WPF_Application.Repositories
                 reader.Close();
             }
 
+            return result;
+        }
+
+        public List<int> GetOrderListWithPhone(string? phone)
+        {
+            List<int> result = new List<int>();
+            if (Global.Connection != null)
+            {
+                string sql = $"select * from Purchase where Customer_Phone = @cPhone";
+
+                var command = new SqlCommand(sql, Global.Connection);
+                command.Parameters.AddWithValue("@cPhone", phone);
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int pId = (int)reader["Purchase_ID"];
+
+                    result.Add(pId);
+                }
+                reader.Close();
+            }
+            return result;
+        }
+
+        public Boolean deleteOrderPhone(string? phone)
+        {
+            var result = false;
+            List<int> orderList = GetOrderListWithPhone(phone);
+
+            foreach(var order in orderList)
+            {
+                result = deleteOrderId(order);
+            }
             return result;
         }
 

@@ -184,8 +184,8 @@ namespace MyShop_WPF_Application.Views
                 string filename = openFileDialog.FileName;
                 // Do something with the selected file path
 
-                //try
-                //{
+                try
+                {
                     var document = SpreadsheetDocument.Open(filename, false);
                     var wbPart = document.WorkbookPart!;
                     var sheets = wbPart.Workbook.Descendants<Sheet>()!;
@@ -257,13 +257,13 @@ namespace MyShop_WPF_Application.Views
                         string message = "Không có dữ liệu hoặc dữ liệu đã tồn tại trong cơ sở dữ liệu";
                         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-                //}
-                //catch (Exception ex)
-                //{
-                //    string title = "Import category từ Excel";
-                //    string message = "Import không thành công";
-                //    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
-                //}
+                }
+                catch (Exception ex)
+                {
+                    string title = "Import category từ Excel";
+                    string message = "Import không thành công";
+                    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
