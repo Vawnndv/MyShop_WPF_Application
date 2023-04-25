@@ -141,6 +141,7 @@
                         FontFamily="Sitka Subheading"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Click="SaveBtn_Click"
+                        Command="{Binding UpdateViewCommand}" CommandParameter="QLKH"
                         Name="saveBtn"/>
                 <Button 
                         Grid.Column="1" Grid.Row="3"

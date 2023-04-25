@@ -24,9 +24,9 @@
 
             <StackPanel Orientation="Horizontal" Margin="20 30 15 10" HorizontalAlignment="Left">
                 <StackPanel Width="200" VerticalAlignment="Bottom" >
-                    <TextBox  Name="searchProductInput" materialDesign:HintAssist.Hint="Tìm kiếm tên sản phẩm" BorderBrush="{DynamicResource MaterialDesignDivider}" Height="25" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="200" />
+                    <TextBox  Name="searchCustomerInput" materialDesign:HintAssist.Hint="Tìm kiếm tên sản phẩm" BorderBrush="{DynamicResource MaterialDesignDivider}" Height="25" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="200" />
                 </StackPanel>
-                <Button Margin="20 10 20 0" Content="Tìm kiếm" x:Name="searchProductButton" Click="searchProductButton_Click" Background="#348F6C" BorderThickness="0" Focusable="False"/>
+                <Button Margin="20 10 20 0" Content="Tìm kiếm" x:Name="searchCustomertButton" Click="searchCustomerButton_Click" Background="#348F6C" BorderThickness="0" Focusable="False"/>
 
                 <Button Margin="10 10 0 0" Content="Thêm" x:Name="addCustomerButton" Click="addCustomerButton_Click" Background="#348F6C" BorderThickness="0"/>
 

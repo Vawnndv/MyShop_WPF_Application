@@ -269,36 +269,37 @@
             </ListView>-->
 
                 <Button 
-                Grid.Column="1" Grid.Row="5" 
-                Width="100" Content="Lưu"
-                FontWeight="Bold"
-                Padding="0"
-                Foreground="White"
-                FontSize="15"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Bottom"
-                Margin="10, 0, 10, 0"
-                Background="ForestGreen"
-                FontFamily="Sitka Subheading"
-                Style="{StaticResource MaterialDesignRaisedButton}"
-                Click="BtnAdd_Click"
-                Name="btnAddBill"/>
+                    Grid.Column="1" Grid.Row="5" 
+                    Width="100" Content="Lưu"
+                    FontWeight="Bold"
+                    Padding="0"
+                    Foreground="White"
+                    FontSize="15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Margin="10, 0, 10, 0"
+                    Background="ForestGreen"
+                    FontFamily="Sitka Subheading"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Click="BtnAdd_Click"
+                    Command="{Binding UpdateViewCommand}" CommandParameter="QLKH"
+                    Name="btnAddBill"/>
 
                 <Button 
-                Grid.Column="1" Grid.Row="6" 
-                Width="100" Content="Làm mới"
-                FontWeight="Bold"
-                Foreground="White"
-                FontSize="15"
-                Padding="0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Background="ForestGreen"
-                FontFamily="Sitka Subheading"
-                Margin="10, 0, 10, 0"
-                Style="{StaticResource MaterialDesignRaisedButton}"
-                Click="BtnRefreshProduct_Click"
-                Name="btnRefreshProduct"/>
+                    Grid.Column="1" Grid.Row="6" 
+                    Width="100" Content="Làm mới"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    FontSize="15"
+                    Padding="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="ForestGreen"
+                    FontFamily="Sitka Subheading"
+                    Margin="10, 0, 10, 0"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Click="BtnRefreshProduct_Click"
+                    Name="btnRefreshProduct"/>
             </Grid>
         </Border>
         <Grid>

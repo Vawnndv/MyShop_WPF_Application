@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using MyShop_WPF_Application.Converters;
 using MyShop_WPF_Application.UserControls;
 using MyShop_WPF_Application.ViewModels;
 using System;
@@ -40,6 +41,14 @@ namespace MyShop_WPF_Application.Views
                 addcomboboxCategory.Items.Add(category.CategoryName);
             }
             addcomboboxCategory.SelectedIndex = 0;
+
+            AbsoluteConverter absoluteConverter = new AbsoluteConverter();
+            // Convert the relative path to an absolute path
+            string imagePath = "img/newProduct.png";
+            // Relative path of the image
+            string absolutePath = (string)absoluteConverter.Convert(imagePath, typeof(string), null, null);
+            // Set the absolute path as the source of the Image control
+            editProductAvatar.Source = new BitmapImage(new Uri(absolutePath));
         }
 
         private void ComboPageIndex_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -95,7 +104,7 @@ namespace MyShop_WPF_Application.Views
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                if (addProductName.Text.Length == 0 || addProductPrice.Text.Length == 0 || addProductPriceOriginal.Text.Length == 0 || addProductQuantity.Text.Length == 0)
+                if (addProductName.Text.Length == 0 || addProductPrice.Text.Length == 0 || addProductPriceOriginal.Text.Length == 0 || addProductQuantity.Text.Length == 0 || _selected == false)
                 {
                     string message = "Vui lòng điền đủ thông tin";
                     string title = "kiểm tra nhập thông tin sản phẩm";
@@ -144,7 +153,7 @@ namespace MyShop_WPF_Application.Views
                         string message = "Thêm sản phẩm thành công";
                         string title = "Thêm Sản phẩm";
                         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
-
+                        base.DataContext = new MainViewModel();
                     }
                 }
             }

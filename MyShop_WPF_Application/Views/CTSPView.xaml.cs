@@ -75,18 +75,19 @@ namespace MyShop_WPF_Application.Views
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Bạn muốn hiệu chỉnh lại sản phẩm này không?",
+
+            if (editProductName.Text.Length == 0 || editProductPrice.Text.Length == 0 || editProductPriceOriginal.Text.Length == 0 || editProductQuantity.Text.Length == 0)
+            {
+                string message = "Vui lòng điền đủ thông tin";
+                string title = "kiểm tra nhập thông tin sản phẩm";
+                MessageBox.Show(message, title);
+            }
+            else
+            {
+                if (MessageBox.Show("Bạn muốn hiệu chỉnh lại sản phẩm này không?",
                 "Hiệu chỉnh",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                if (editProductName.Text.Length == 0 || editProductPrice.Text.Length == 0 || editProductPriceOriginal.Text.Length == 0 || editProductQuantity.Text.Length == 0)
-                {
-                    string message = "Vui lòng điền đủ thông tin";
-                    string title = "kiểm tra nhập thông tin sản phẩm";
-                    MessageBox.Show(message, title);
-                }
-                else
                 {
                     _viewModel._product.ProductName = editProductName.Text;
                     _viewModel._product.ProductPrice = double.Parse(editProductPrice.Text);
@@ -131,19 +132,20 @@ namespace MyShop_WPF_Application.Views
                         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
+                editProductName.IsReadOnly = true;
+                editProductPrice.IsReadOnly = true;
+                editProductPriceOriginal.IsReadOnly = true;
+                editProductQuantity.IsReadOnly = true;
+                btnAddImageProduct.IsEnabled = false;
+                comboboxCategory.IsEnabled = false;
+                btnRemoveProduct.IsEnabled = true;
+
+                saveBtn.Visibility = Visibility.Hidden;
+                restoreBtn.Visibility = Visibility.Hidden;
+                btnEditProduct.Visibility = Visibility.Visible;
             }
 
-            editProductName.IsReadOnly = true;
-            editProductPrice.IsReadOnly = true;
-            editProductPriceOriginal.IsReadOnly = true;
-            editProductQuantity.IsReadOnly = true;
-            btnAddImageProduct.IsEnabled = false;
-            comboboxCategory.IsEnabled = false;
-            btnRemoveProduct.IsEnabled = true;
 
-            saveBtn.Visibility = Visibility.Hidden;
-            restoreBtn.Visibility = Visibility.Hidden;
-            btnEditProduct.Visibility = Visibility.Visible;
         }
 
         private void BtnRemoveProduct_Click(object sender, RoutedEventArgs e)
@@ -188,7 +190,6 @@ namespace MyShop_WPF_Application.Views
 
 
                 AbsoluteConverter absoluteConverter = new AbsoluteConverter();
-
                 // Convert the relative path to an absolute path
                 string imagePath = _viewModel._restoreProduct.ProductAvatar;
                 // Relative path of the image

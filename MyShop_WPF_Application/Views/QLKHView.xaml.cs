@@ -42,16 +42,16 @@ namespace MyShop_WPF_Application.Views
 
         // update the paging system
         // assign new itemsource for listview
-        private void updatePage(int page)
+        private void updatePage(int page, string keyword = "")
         {
             _currentPage = page;
             _listSize = _viewModel.updateCusstomerList().Count;
 
-            if(_viewModel.updateCusstomerList().Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList().Count == 0)
+            if(_viewModel.updateCusstomerList().Where(x => x.name.ToLower().Contains(keyword.ToLower())).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList().Count == 0)
             {
                 _currentPage = page - 1;
             }
-            lst.ItemsSource = _viewModel.updateCusstomerList().Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
+            lst.ItemsSource = _viewModel.updateCusstomerList().Where(x => x.name.ToLower().Contains(keyword.ToLower())).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
             _totalPage = _listSize / rowsPerPage + ((_listSize % rowsPerPage) == 0 ? 0 : 1);
             pageCountLabel.Content = $"{_currentPage}/{_totalPage}";
         }
@@ -129,9 +129,10 @@ namespace MyShop_WPF_Application.Views
             catch { }
         }
 
-        private void searchProductButton_Click(object sender, RoutedEventArgs e)
+        private void searchCustomerButton_Click(object sender, RoutedEventArgs e)
         {
-
+            string keyword = searchCustomerInput.Text;
+            updatePage(_currentPage, keyword);
         }
 
         // Make sure the input are all numbers

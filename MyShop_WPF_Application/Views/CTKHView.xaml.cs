@@ -39,19 +39,20 @@ namespace MyShop_WPF_Application.Views
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Bạn muốn hiệu chỉnh lại thông tin khách hàng này không?",
+            if (editName.Text.Length == 0 || editPhone.Text.Length == 0 || editEmail.Text.Length == 0 || editAddress.Text.Length == 0)
+            {
+                string message = "Vui lòng điền đủ thông tin";
+                string title = "kiểm tra nhập thông tin";
+                MessageBox.Show(message, title);
+            }
+            else
+            {
+                if (MessageBox.Show("Bạn muốn hiệu chỉnh lại thông tin khách hàng này không?",
                 "Hiệu chỉnh",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                if (editName.Text.Length == 0 || editPhone.Text.Length == 0 || editEmail.Text.Length == 0 || editAddress.Text.Length == 0)
                 {
-                    string message = "Vui lòng điền đủ thông tin";
-                    string title = "kiểm tra nhập thông tin";
-                    MessageBox.Show(message, title);
-                }
-                else
-                {
+                
                     _viewModel._customer.name = editName.Text;
                     _viewModel._customer.phone = editPhone.Text;
                     _viewModel._customer.email = editEmail.Text;
@@ -70,17 +71,15 @@ namespace MyShop_WPF_Application.Views
                         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
+                editName.IsReadOnly = true;
+                editEmail.IsReadOnly = true;
+                editPhone.IsReadOnly = true;
+                editAddress.IsReadOnly = true;
+
+                saveBtn.Visibility = Visibility.Hidden;
+                restoreBtn.Visibility = Visibility.Hidden;
+                editBtn.Visibility = Visibility.Visible;
             }
-
-
-            editName.IsReadOnly = true;
-            editEmail.IsReadOnly = true;
-            editPhone.IsReadOnly = true;
-            editAddress.IsReadOnly = true;
-
-            saveBtn.Visibility = Visibility.Hidden;
-            restoreBtn.Visibility = Visibility.Hidden;
-            editBtn.Visibility = Visibility.Visible;
         }
 
         private void BtnRemoveProduct_Click(object sender, RoutedEventArgs e)

@@ -57,6 +57,8 @@ namespace MyShop_WPF_Application.Views
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             comboboxCategory.Items.Add("Tất cả");
+            displayRowPerPageTextBox.Text = rowsPerPage.ToString();
+
             foreach (var category in _viewModel._categoryList)
             {
                 comboboxCategory.Items.Add(category.CategoryName);
@@ -80,7 +82,7 @@ namespace MyShop_WPF_Application.Views
 
         }
 
-        private void updatePage(int category, int page, string keyword = "", int index = -1)
+        private void updatePage(int category, int page, string keyword = "")
         {
             _currentPage = page;
 
@@ -280,8 +282,8 @@ namespace MyShop_WPF_Application.Views
                 string filename = openFileDialog.FileName;
                 // Do something with the selected file path
 
-                //try
-                //{
+                try
+                {
                     var document = SpreadsheetDocument.Open(filename, false);
                     var wbPart = document.WorkbookPart!;
                     var sheets = wbPart.Workbook.Descendants<Sheet>()!;
@@ -374,7 +376,7 @@ namespace MyShop_WPF_Application.Views
                     Console.ReadLine();
                     ProductListView.ItemsSource = _viewModel.getProductList();
 
-                if (countAdd > 0)
+                    if (countAdd > 0)
                     {
                         string title = "Import category từ Excel" + countAdd;
                         string message = "Đã thêm thành công " + countAdd + " loại sản phẩm mới";
@@ -386,14 +388,49 @@ namespace MyShop_WPF_Application.Views
                         string message = "Không có dữ liệu hoặc dữ liệu đã tồn tại trong cơ sở dữ liệu";
                         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-                //}
-                //catch (Exception ex)
-                //{
-                //    string title = "Import category từ Excel";
-                //    string message = "Import không thành công";
-                //    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
-                //}
+                }
+                catch (Exception ex)
+                {
+                string title = "Import category từ Excel";
+                string message = "Import không thành công";
+                MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
+            updatePage(_currentCategoryCombobox, _currentPage);
+                updateTotalPage();
+                currentPageComboBox.SelectedIndex = _currentPage - 1;
+        }
+
+        private void nextPage_Navigated(object sender, NavigationEventArgs e)
+        {
+
+        }
+
+        private void displayRowPerPageTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                //if (Int16.Parse(displayRowPerPageTextBox.Text) > rowsPerPage)
+                //{
+                //    displayRowPerPageTextBox.Text = rowsPerPage.ToString();
+                //}
+                //else
+                //{
+                    rowsPerPage = Int16.Parse(displayRowPerPageTextBox.Text);
+                //}
+                updatePage(_currentCategoryCombobox, _currentPage);
+                updateTotalPage();
+                currentPageComboBox.SelectedIndex = _currentPage - 1;
+
+            }
+            catch { }
+         
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
