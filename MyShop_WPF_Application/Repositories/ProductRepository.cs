@@ -15,8 +15,8 @@ namespace MyShop_WPF_Application.Repositories
         public ObservableCollection<ProductModel> getAllProduct()
         {
             ObservableCollection<ProductModel> result = new ObservableCollection<ProductModel>();
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
             if (Global.Connection != null)
             {
 
@@ -54,15 +54,15 @@ namespace MyShop_WPF_Application.Repositories
                 reader.Close();
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return result;
         }
 
         public ObservableCollection<ProductModel> getCategoryProduct(int? _CategoryID)
         {
             ObservableCollection<ProductModel> result = new ObservableCollection<ProductModel>();
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
             if (Global.Connection != null)
             {
 
@@ -101,7 +101,7 @@ namespace MyShop_WPF_Application.Repositories
                 reader.Close();
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return result;
         }
 
@@ -111,8 +111,8 @@ namespace MyShop_WPF_Application.Repositories
             ObservableCollection<ProductModel> result = new ObservableCollection<ProductModel>();
             ProductModel product = null;
 
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
             if (Global.Connection != null)
             {
 
@@ -140,7 +140,7 @@ namespace MyShop_WPF_Application.Repositories
                 reader.Close();
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return product;
         }
 
@@ -148,8 +148,8 @@ namespace MyShop_WPF_Application.Repositories
         {
             bool result = false;
 
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
 
             if (Global.Connection != null)
             {
@@ -173,7 +173,7 @@ namespace MyShop_WPF_Application.Repositories
                 }
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return result;
         }
 
@@ -182,8 +182,8 @@ namespace MyShop_WPF_Application.Repositories
         {
             bool result = false;
 
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
 
             if (Global.Connection != null)
             {
@@ -207,7 +207,7 @@ namespace MyShop_WPF_Application.Repositories
                 }
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return result;
         }
 
@@ -216,8 +216,8 @@ namespace MyShop_WPF_Application.Repositories
         {
             bool result = false;
 
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
 
             if (Global.Connection != null)
             {
@@ -240,15 +240,15 @@ namespace MyShop_WPF_Application.Repositories
                 }
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return result;
         }
 
         public int getNumOfProductsAvailable()
         {
             int quantity = 0;
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
             if (Global.Connection != null)
             {
 
@@ -265,15 +265,15 @@ namespace MyShop_WPF_Application.Repositories
                 reader.Close();
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return quantity;
         }
 
         public int getNumOfPurchaseSold(DateTime start, DateTime end)
         {
             int quantity = 0;
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
             if (Global.Connection != null)
             {
 
@@ -290,15 +290,15 @@ namespace MyShop_WPF_Application.Repositories
                 reader.Close();
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return quantity;
         }
 
         public ObservableCollection<ProductModel> getTop5Product()
         {
             ObservableCollection<ProductModel> result = new ObservableCollection<ProductModel>();
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
             if (Global.Connection != null)
             {
 
@@ -336,7 +336,7 @@ namespace MyShop_WPF_Application.Repositories
                 reader.Close();
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return result;
         }
     }

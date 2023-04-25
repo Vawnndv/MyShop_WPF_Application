@@ -16,8 +16,8 @@ namespace MyShop_WPF_Application.Repositories
         public ObservableCollection<CategoryTypeStatistic> getAllCategory(DateTime start, DateTime end)
         {
             ObservableCollection<CategoryTypeStatistic> result = new ObservableCollection<CategoryTypeStatistic>();
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
             if (Global.Connection != null)
             {
                 //string sql = "SELECT p.Category_ID, Count(*) as NumOfProduct, c.Category_Name\r\nFROM Product p, Category c\r\nwhere p.Category_ID = c.Category_ID\r\nGROUP BY p.Category_ID, c.Category_Name";
