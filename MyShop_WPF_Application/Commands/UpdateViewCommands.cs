@@ -41,6 +41,14 @@ namespace MyShop_WPF_Application.Commands
                 viewModel.SelectedViewModel = new QLSPViewModel();
                 Console.WriteLine(parameter.ToString());
             }
+            else if (parameter.ToString() == "QLLOAISP")
+            {
+                viewModel.SelectedViewModel = new QLLOAISPViewModel();
+            }
+            else if (parameter.ToString() == "QLKH")
+            {
+                viewModel.SelectedViewModel = new QLKHViewModel();
+            }
             else if (parameter.ToString() == "QLDH")
             {
                 viewModel.SelectedViewModel = new QLDHViewModel();

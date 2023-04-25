@@ -42,7 +42,7 @@ namespace MyShop_WPF_Application.Views
             int i = 0;
             foreach (var category in _viewModel._categoryList)
             {
-                if(_viewModel._product.CategoryID == category.CategoryID)
+                if (_viewModel._product.CategoryID == category.CategoryID)
                 {
                     comboboxCategory.SelectedIndex = i;
                     _currentCategoryCombobox = i;
@@ -158,7 +158,7 @@ namespace MyShop_WPF_Application.Views
                 {
                     string message = "Đã xóa sản phẩm thành công";
                     string title = "Xóa thông tin sản phẩm";
-                    MessageBox.Show(message, title, MessageBoxButton.OK,MessageBoxImage.Information);
+                    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }
@@ -190,7 +190,7 @@ namespace MyShop_WPF_Application.Views
                 AbsoluteConverter absoluteConverter = new AbsoluteConverter();
 
                 // Convert the relative path to an absolute path
-                string imagePath = _viewModel._restoreProduct.ProductAvatar; 
+                string imagePath = _viewModel._restoreProduct.ProductAvatar;
                 // Relative path of the image
                 string absolutePath = (string)absoluteConverter.Convert(imagePath, typeof(string), null, null);
                 // Set the absolute path as the source of the Image control
@@ -269,6 +269,11 @@ namespace MyShop_WPF_Application.Views
                 textBox.Text = value.ToString("N0", CultureInfo.InvariantCulture);
                 textBox.CaretIndex = textBox.Text.Length;
             }
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new MainViewModel();
         }
     }
 }

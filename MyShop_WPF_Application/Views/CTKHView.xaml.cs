@@ -62,7 +62,7 @@ namespace MyShop_WPF_Application.Views
                     MessageBox.Show(message1, title1, MessageBoxButton.OK, MessageBoxImage.Information);
 
                     var edit = _viewModel.EditCustomer(_viewModel._customer);
-                    _viewModel._customerRestore= _viewModel._customer;
+                    _viewModel._customerRestore = _viewModel._customer;
                     if (edit)
                     {
                         string message = "Đã cập nhật thông tin khách hàng thành công";
@@ -144,6 +144,11 @@ namespace MyShop_WPF_Application.Views
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
 
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new MainViewModel();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace MyShop_WPF_Application.Views
         public ThemKHView()
         {
             InitializeComponent();
-            _viewModel = new QLKHViewModel();    
+            _viewModel = new QLKHViewModel();
         }
 
         private void addBtn_Click(object sender, RoutedEventArgs e)
@@ -50,7 +50,7 @@ namespace MyShop_WPF_Application.Views
                     _viewModel._customer.phone = editPhone.Text;
                     _viewModel._customer.address = editAddress.Text;
                     _viewModel._customer.email = editEmail.Text;
-         
+
                     var add = _viewModel.AddCustomer(_viewModel._customer);
                     if (add)
                     {
@@ -74,6 +74,11 @@ namespace MyShop_WPF_Application.Views
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
 
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new MainViewModel();
         }
     }
 }
