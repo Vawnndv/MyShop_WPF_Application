@@ -270,10 +270,5 @@ namespace MyShop_WPF_Application.Views
                 textBox.CaretIndex = textBox.Text.Length;
             }
         }
-
-        private void backButton_Click(object sender, RoutedEventArgs e)
-        {
-            DataContext = new MainViewModel();
-        }
     }
 }

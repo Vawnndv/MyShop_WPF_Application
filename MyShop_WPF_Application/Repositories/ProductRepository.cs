@@ -19,6 +19,8 @@ namespace MyShop_WPF_Application.Repositories
             //Global.Connection.Open();
             if (Global.Connection != null)
             {
+
+                // query to get user's role
                 string sql = $"select * from Product";
 
                 var command = new SqlCommand(sql, Global.Connection);

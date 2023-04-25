@@ -137,7 +137,7 @@ namespace MyShop_WPF_Application.Repositories
 
             if (Global.Connection != null)
             {
-                var sql = "INSERT INTO Customer(Customer_Name, Address, Email) VALUES(@CustomerName, @CustomerAddress, @CustomerEmail) Where Tel =  @CustomerTel";
+                var sql = "INSERT INTO Customer(Customer_Name, Tel, Address, Email) VALUES(@CustomerName, @CustomerTel, @CustomerAddress, @CustomerEmail)";
 
                 var command = new SqlCommand(sql, Global.Connection);
 

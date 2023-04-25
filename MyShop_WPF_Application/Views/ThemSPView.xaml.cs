@@ -1,9 +1,7 @@
 ﻿using Microsoft.Win32;
-using MyShop_WPF_Application.UserControls;
 using MyShop_WPF_Application.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -83,9 +81,8 @@ namespace MyShop_WPF_Application.Views
         {
             addProductName.Clear();
             addProductPriceOriginal.Clear();
-            addProductQuantity.Clear();
-            addProductPrice.Clear();
             addcomboboxCategory.SelectedIndex = 0;
+            addProductQuantity.Clear();
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
@@ -158,12 +155,6 @@ namespace MyShop_WPF_Application.Views
         private void addProductName_TextChanged(object sender, TextChangedEventArgs e)
         {
 
-        }
-
-        private void backButton_Click(object sender, RoutedEventArgs e)
-        {
-            Debug.WriteLine("123 ko bam dc");
-            base.DataContext = new MainViewModel();
         }
     }
 }

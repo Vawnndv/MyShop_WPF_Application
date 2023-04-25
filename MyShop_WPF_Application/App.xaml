@@ -95,12 +95,6 @@
             <DataTemplate DataType="{x:Type viewmodels:QLDHViewModel}">
                 <views:QLDHView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:QLKHViewModel}">
-                <views:QLKHView/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:QLLOAISPViewModel}">
-                <views:QLLOAISPView/>
-            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:PromotionViewModel}">
                 <views:QLKMView/>
             </DataTemplate>

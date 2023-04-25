@@ -105,6 +105,8 @@
                  MaxDropDownHeight="100"
                  Name="chooseWeek"/>
 
+            <Button Margin="33 10 0 0" Content="Làm mới" x:Name="resetButton" Click="resetButton_Click" Background="#348F6C" FontFamily="Sitka Subheading" />
+
 
         </StackPanel>
 

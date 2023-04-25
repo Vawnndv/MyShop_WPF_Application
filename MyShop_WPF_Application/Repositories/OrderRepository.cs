@@ -63,6 +63,7 @@ namespace MyShop_WPF_Application.Repositories
                 reader.Close();
             }
 
+
             return result;
         }
 
