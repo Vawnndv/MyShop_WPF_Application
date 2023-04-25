@@ -20,8 +20,6 @@ namespace MyShop_WPF_Application.Views
         int[] listMonth = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         int[] listWeek = { 1, 2, 3, 4};
         TKSPViewModel _viewModel = new TKSPViewModel();
-        DateTime _start;
-        DateTime _end;
 
         private void refresh (DateTime start, DateTime end)
         {
@@ -57,19 +55,13 @@ namespace MyShop_WPF_Application.Views
             chooseYear.ItemsSource = listYear;
             chooseMonth.ItemsSource = listMonth;
             chooseWeek.ItemsSource = listWeek;
-         
-            _start = new DateTime(2000, 1, 1);
-            _end = DateTime.Now;
-            updateDuration(_start, _end);
-            refresh(_start, _end);
+            
         }
 
         private void filterDateButton_Click(object sender, RoutedEventArgs e)
         {
             DateTime start = DateTime.Parse(startDatePicker.Text + " 12:00");
             DateTime end = DateTime.Parse(endDatePicker.Text + " 12:00");
-            _start = start;
-            _end = end;
 
             updateDuration(start, end);
             refresh(start, end);
@@ -79,8 +71,6 @@ namespace MyShop_WPF_Application.Views
         {
             DateTime start = new DateTime(listYear[chooseYear.SelectedIndex], 1, 1);
             DateTime end = new DateTime(listYear[chooseYear.SelectedIndex], 12, 31);
-            _start = start;
-            _end = end;
 
             updateDuration(start, end);
             refresh(start, end);
@@ -90,8 +80,6 @@ namespace MyShop_WPF_Application.Views
         {
             DateTime end = DateTime.Now;
             DateTime start = end.AddMonths(-listMonth[chooseMonth.SelectedIndex]);
-            _start = start;
-            _end = end;
 
             updateDuration(start, end);
             refresh(start, end);
@@ -101,8 +89,6 @@ namespace MyShop_WPF_Application.Views
         {
             DateTime end = DateTime.Now;
             DateTime start = end.AddDays(- listWeek[chooseWeek.SelectedIndex] * 7);
-            _start = start;
-            _end = end;
 
             updateDuration(start, end);
             refresh(start, end);
@@ -110,8 +96,7 @@ namespace MyShop_WPF_Application.Views
 
         private void CategoryColumn_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            CategoryTypeStatistic selected = first_chart.SelectedItem as CategoryTypeStatistic;
-            screen.Content = new TKCTSP(_start, _end, selected.id, selected.name);
+            DataContext = new MainViewModel();
         }
     }
 }

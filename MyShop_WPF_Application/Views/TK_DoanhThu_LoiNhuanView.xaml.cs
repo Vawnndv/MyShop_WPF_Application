@@ -75,11 +75,6 @@ namespace MyShop_WPF_Application.Views
             chooseYear.ItemsSource = listYear;
             chooseMonth.ItemsSource = listMonth;
             chooseWeek.ItemsSource = listWeek;
-
-            DateTime _start = new DateTime(2000, 1, 1);
-            DateTime _end = DateTime.Now;
-            updateDuration(_start, _end);
-            refresh(_start, _end);
         }
 
         private void filterDateButton_Click(object sender, RoutedEventArgs e)

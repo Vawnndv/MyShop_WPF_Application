@@ -148,6 +148,6 @@
 
         </StackPanel>
     </StackPanel>
-        <Frame Name="screen"></Frame>
+        <Frame Name="screen" Navigated="screen_Navigated"></Frame>
     </Grid>
 </UserControl>

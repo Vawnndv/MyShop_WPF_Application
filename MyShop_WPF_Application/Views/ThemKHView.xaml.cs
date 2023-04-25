@@ -75,5 +75,10 @@ namespace MyShop_WPF_Application.Views
         {
 
         }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new MainViewModel();
+        }
     }
 }

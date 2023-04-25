@@ -125,6 +125,19 @@
 
                     <TextBlock DockPanel.Dock="Bottom" x:Name="infoTextBlock" Foreground="#348F6C" FontWeight="Bold" d:Text="Đang hiển thị 7 / 32 sản phẩm. " HorizontalAlignment="Center" VerticalAlignment="Top">
                     </TextBlock>
+
+                    <!--<StackPanel DockPanel.Dock="Bottom"  HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
+                        <TextBlock Text="Đang hiển thị " VerticalAlignment="Center"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="displayRowPerPageTextBox" 
+                             d:Text="5" Style="{StaticResource MaterialDesignTextBoxBase}" 
+                             BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="5 5 10 5" 
+                             TextChanged="displayRowPerPageTextBox_TextChanged"
+                             Width="30"
+                             Height="30"
+                             TextAlignment="Center"
+                             BorderThickness="2" />
+                    </StackPanel>-->
+
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="40" Margin="5, 0, 5, 5">
                         <ComboBox BorderBrush="#348F6C" BorderThickness="2" Padding="10, 5, 10, 5" Foreground="#348F6C" DropDownOpened="ComboProductTypes_DropDownOpened"
                         DropDownClosed="ComboProductTypes_DropDownClosed" FontWeight="Bold" Height="30" SelectionChanged="currentPageComboBox_SelectionChanged" Name="currentPageComboBox" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100">

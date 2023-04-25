@@ -13,59 +13,36 @@
         <Converter:PriceConverter x:Key="priceFormat" />
         <Converter:AbsoluteConverter x:Key="absolute" />
     </Page.Resources>
-    <StackPanel Background="White">
-        <!--<Button
-            HorizontalAlignment="Left"
-            Background="Transparent"
-            BorderBrush="#303030"
-            VerticalAlignment="Top"
-            Height="25" Width="25"
-            Command="{x:Static NavigationCommands.BrowseBack}"
-            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
-            <materialDesign:PackIcon
-                Kind="KeyboardArrowLeft"
-                Height="20"
-                Width="20" />
+    <Canvas Background="White">
+        <Button  Grid.Row="0" Grid.Column="0" BorderBrush="{x:Null}"  x:Name="closeButton"  VerticalAlignment="Top" Background="Transparent"  Height="50" Margin="0 10 0 0" Click="backButton_Click" HorizontalAlignment="Left" 
+             Command="{Binding UpdateViewCommand}" CommandParameter="QLSP">
+            <Image Source="../img/backBTN.png" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
         </Button>
+        <Border Width="900"  BorderThickness="2" BorderBrush="#348F6C" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="84" Canvas.Top="78">
+            <Grid Height="550">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
 
-        <Button
-            HorizontalAlignment="Left"
-            Background="Transparent"
-            BorderBrush="#303030"
-            VerticalAlignment="Top"
-            Height="25" Width="25"
-            Margin="28,0,0,0"
-            Command="{x:Static NavigationCommands.BrowseForward}"
-            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
-            <materialDesign:PackIcon
-                Kind="KeyboardArrowRight"
-                Height="20"
-                Width="20" />
-        </Button>-->
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="30" FontWeight="Bold" FontFamily="Sitka Subheading" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#348F6C" Margin="0 20 0 0"> THÊM SẢN PHẨM</TextBlock>
 
-        <TextBlock TextAlignment="Center" FontSize="30" FontWeight="Bold" FontFamily="Sitka Subheading" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#348F6C" Margin="0 20 0 0"> THÊM SẢN PHẨM</TextBlock>
-        <Grid Margin="0, 50, 0, 0" Height="550">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1.5*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-
-
-            <TextBox Grid.Row="0" 
+                <TextBox Grid.Row="1" 
                  materialDesign:HintAssist.Hint="Tên sản phẩm"
                  Width="180"
                  VerticalAlignment="Top"
                  FontSize="15"
-                 Margin="92,20,83,0"
+                 Margin="20,20,83,0"
                  Background="Transparent"
                  FontFamily="Sitka Subheading"
                  FontWeight="Bold"
@@ -73,10 +50,10 @@
                  Text="{Binding ProductName, UpdateSourceTrigger=PropertyChanged}"
                  Name="addProductName" TextChanged="addProductName_TextChanged"/>
 
-            <ComboBox Name="addcomboboxCategory"
-                  Grid.Row="0" Grid.Column="1"
+                <ComboBox Name="addcomboboxCategory"
+                  Grid.Row="1" Grid.Column="1"
                   BorderBrush="#348F6C"
-                  Margin="93,20,82,0"
+                  Margin="0,20,0,0"
                   Width="180"
                   FontSize="15"
                   FontWeight="Bold"
@@ -88,12 +65,12 @@
                   DropDownOpened="ComboProductTypes_DropDownOpened"
                   DropDownClosed="ComboProductTypes_DropDownClosed"
                   ItemsSource="{Binding LongListToTestComboVirtualization}">
-            </ComboBox>
+                </ComboBox>
 
 
-            <TextBox Grid.Row="1" Grid.Column="0"
+                <TextBox Grid.Row="2" Grid.Column="0"
                 Width="180"
-                Margin="92,20,83,0"
+                Margin="20,20,83,0"
                 FontSize="15"
                 FontWeight="Bold"
                 FontFamily="Sitka Subheading"
@@ -102,31 +79,31 @@
                 VerticalAlignment="Top"
                 VerticalScrollBarVisibility="Auto"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                materialDesign:HintAssist.Hint="Tồn kho hiện tại/ban đầu"
+                materialDesign:HintAssist.Hint="Tồn kho hiện tại"
                 Text="{Binding ProductQuantity}"
                 Name="addProductQuantity" TextChanged="addQuantity_TextChanged"/>
 
 
-            <TextBox Grid.Row="1" Grid.Column="2"
+                <TextBox Grid.Row="2" Grid.Column="2"
                  Width="180"
                  VerticalAlignment="Top"
-                 Margin="92,20,83,0"
+                 Margin="92,20,20,0"
                  Text="{Binding ProductPrice, Converter={StaticResource priceFormat}}"
                  FontWeight="Bold"
                  FontSize="15"
                  FontFamily="Sitka Subheading"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Name="addProductPrice">
-                <materialDesign:HintAssist.Hint>
-                    <TextBlock>
+                    <materialDesign:HintAssist.Hint>
+                        <TextBlock>
                     <Bold>Giá sản phẩm</Bold> (₫)
-                    </TextBlock>
-                </materialDesign:HintAssist.Hint>
-            </TextBox>
+                        </TextBlock>
+                    </materialDesign:HintAssist.Hint>
+                </TextBox>
 
-            <TextBox Grid.Row="0" Grid.Column="2"
+                <TextBox Grid.Row="1" Grid.Column="2"
             Width="180"
-            Margin="93,20,82,0"
+            Margin="93,20,20,0"
             FontSize="15"
             FontWeight="Bold"
             FontFamily="Sitka Subheading"
@@ -137,14 +114,14 @@
             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
             Text="{Binding ProductPriceOriginal}"
             Name="addProductPriceOriginal">
-                <materialDesign:HintAssist.Hint>
-                    <TextBlock>
+                    <materialDesign:HintAssist.Hint>
+                        <TextBlock>
                     <Bold>Giá vốn</Bold> (₫)
-                    </TextBlock>
-                </materialDesign:HintAssist.Hint>
-            </TextBox>
-            <StackPanel  Grid.Column="1" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center"  Margin="92,20,83,0" HorizontalAlignment="Left" >
-                <Button 
+                        </TextBlock>
+                    </materialDesign:HintAssist.Hint>
+                </TextBox>
+                <StackPanel  Grid.Column="1" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center"  Margin="0,20,0,0" HorizontalAlignment="Center" >
+                    <Button 
                     Margin="0, 0, 10, 0"
                     Width="25" Height="25"
                     VerticalAlignment="Bottom"
@@ -152,9 +129,9 @@
                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                     Click="BtnAddImageProduct_Click"
                     Name="btnAddImageProduct">
-                    <materialDesign:PackIcon Kind="Add" Height="20" Width="20"/>
-                </Button>
-                <Label 
+                        <materialDesign:PackIcon Kind="Add" Height="20" Width="20"/>
+                    </Button>
+                    <Label 
                    Height="25"
                    Content="Ảnh sản phẩm"
                    FontSize="15"
@@ -163,25 +140,25 @@
                    FontFamily="Sitka Subheading"
                    FontWeight="Bold"/>
 
-            </StackPanel>
+                </StackPanel>
 
-            <Border Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" VerticalAlignment="Top">
-                <Border.Effect>
-                    <DropShadowEffect
+                <Border Grid.Column="1" Grid.Row="3" Grid.RowSpan="3" VerticalAlignment="Top">
+                    <Border.Effect>
+                        <DropShadowEffect
                                     Color="Black"
                                     Direction="270"
                                     ShadowDepth="1"
                                     BlurRadius="10"/>
-                </Border.Effect>
-                <Image Stretch="UniformToFill"
+                    </Border.Effect>
+                    <Image Stretch="UniformToFill"
                    Width="180" Height="180"
                    Name="editProductAvatar"
                    RenderOptions.BitmapScalingMode="HighQuality"
                    Source="{Binding Path=ProductAvatar,Converter={StaticResource absolute}}">
-                </Image>
-            </Border>
+                    </Image>
+                </Border>
 
-            <!--<ListView Name="listBill" Grid.Row="1" Grid.RowSpan="5" Grid.Column="2"
+                <!--<ListView Name="listBill" Grid.Row="1" Grid.RowSpan="5" Grid.Column="2"
                   FontFamily="Sitka Subheading"
                   FontSize="12"
                   Margin="10,8,8,15"
@@ -291,8 +268,8 @@
 
             </ListView>-->
 
-            <Button 
-                Grid.Column="1" Grid.Row="4" 
+                <Button 
+                Grid.Column="1" Grid.Row="5" 
                 Width="100" Content="Lưu"
                 FontWeight="Bold"
                 Padding="0"
@@ -307,34 +284,25 @@
                 Click="BtnAdd_Click"
                 Name="btnAddBill"/>
 
-            <Button 
-                Grid.Column="1" Grid.Row="5" 
+                <Button 
+                Grid.Column="1" Grid.Row="6" 
                 Width="100" Content="Làm mới"
                 FontWeight="Bold"
                 Foreground="White"
                 FontSize="15"
                 Padding="0"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Bottom"
+                VerticalAlignment="Center"
                 Background="ForestGreen"
                 FontFamily="Sitka Subheading"
                 Margin="10, 0, 10, 0"
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Click="BtnRefreshProduct_Click"
                 Name="btnRefreshProduct"/>
-
-
-            <Label Content="Chưa có hóa đơn nào"
-               FontFamily="Sitka Subheading"
-               FontStyle="Italic" 
-               Grid.Column="3" Grid.Row="2"
-               VerticalAlignment="Top"
-               FontSize="13"
-               HorizontalAlignment="Center"
-               Name="noBillAnnounce"
-               Visibility="Hidden" Margin="0,39,0,0"/>
-
+            </Grid>
+        </Border>
+        <Grid>
+            <ContentControl Content="{Binding SelectedViewModel}"/>
         </Grid>
-
-    </StackPanel>
+    </Canvas>
 </Page>

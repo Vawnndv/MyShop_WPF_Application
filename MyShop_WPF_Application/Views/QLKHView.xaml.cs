@@ -44,6 +44,8 @@ namespace MyShop_WPF_Application.Views
         // assign new itemsource for listview
         private void updatePage(int page)
         {
+
+
             _currentPage = page;
             _listSize = _viewModel.updateCusstomerList().Count;
 
