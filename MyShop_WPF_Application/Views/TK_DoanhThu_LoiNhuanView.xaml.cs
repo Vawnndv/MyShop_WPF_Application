@@ -97,6 +97,8 @@ namespace MyShop_WPF_Application.Views
             DateTime _end = DateTime.Now;
             updateDuration(_start, _end);
             refresh(_start, _end);
+
+            Global.SaveScreen("TKDTVLN");
         }
 
         private void filterDateButton_Click(object sender, RoutedEventArgs e)

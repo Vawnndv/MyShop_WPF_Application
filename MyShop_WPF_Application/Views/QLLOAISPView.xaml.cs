@@ -34,6 +34,8 @@ namespace MyShop_WPF_Application.Views
         {
             InitializeComponent();
             base.DataContext = _viewModel;
+
+            Global.SaveScreen("QLLOAISP");
         }
 
         private void lst_SelectionChanged(object sender, SelectionChangedEventArgs e)

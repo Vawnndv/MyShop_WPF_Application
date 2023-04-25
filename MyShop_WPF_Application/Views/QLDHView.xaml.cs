@@ -41,6 +41,8 @@ namespace MyShop_WPF_Application.Views
             base.DataContext = _viewModel;
             var select = Dashboard.menuBTN.Children[2] as MenuButton;
             select?.btn.Focus();
+
+            Global.SaveScreen("QLDH");
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -52,7 +52,7 @@ namespace MyShop_WPF_Application.Views
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                
+
                     _viewModel._customer.name = editName.Text;
                     _viewModel._customer.phone = editPhone.Text;
                     _viewModel._customer.email = editEmail.Text;
@@ -71,6 +71,7 @@ namespace MyShop_WPF_Application.Views
                         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
+
                 editName.IsReadOnly = true;
                 editEmail.IsReadOnly = true;
                 editPhone.IsReadOnly = true;

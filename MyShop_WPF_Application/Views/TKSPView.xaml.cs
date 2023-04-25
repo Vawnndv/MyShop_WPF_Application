@@ -70,6 +70,8 @@ namespace MyShop_WPF_Application.Views
             _end = DateTime.Now;
             updateDuration(_start, _end);
             refresh(_start, _end);
+
+            Global.SaveScreen("TKSP");
         }
 
         private void filterDateButton_Click(object sender, RoutedEventArgs e)

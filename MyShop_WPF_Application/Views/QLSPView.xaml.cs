@@ -47,6 +47,7 @@ namespace MyShop_WPF_Application.Views
             InitializeComponent();
             base.DataContext = _viewModel;
 
+            Global.SaveScreen("QLSP");
         }
 
         //private void Button_Click(object sender, RoutedEventArgs e)
@@ -334,40 +335,40 @@ namespace MyShop_WPF_Application.Views
                             Cell quantinyCell = cells.FirstOrDefault(
                                 c => c?.CellReference == $"D{row}"
                             )!;
-                        string quantiny = quantinyCell!.InnerText;
+                            string quantiny = quantinyCell!.InnerText;
 
-                        //Price
+                            //Price
                             Cell priceCell = cells.FirstOrDefault(
                                c => c?.CellReference == $"E{row}"
                            )!;
-                            string price= priceCell!.InnerText;
+                            string price = priceCell!.InnerText;
 
-                        //Price_Orginal
-                        Cell priceOrginalCell = cells.FirstOrDefault(
-                                c => c?.CellReference == $"F{row}"
-                            )!;
+                            //Price_Orginal
+                            Cell priceOrginalCell = cells.FirstOrDefault(
+                                    c => c?.CellReference == $"F{row}"
+                                )!;
                             string priceOrginal = priceCell!.InnerText;
 
-                        bool productExists = _viewModel._productList
-                            .Where(p => p.CategoryID != null && p.ProductName != null && p.ProductAvatar != null && p.ProductQuantity != null && p.ProductPrice != null && p.ProductPriceOriginal != null) // Filter products based on criteria
-                            .Any(p => p.CategoryID == int.Parse(id) && p.ProductName == name && p.ProductAvatar == avatar && p.ProductQuantity == int.Parse(quantiny) && p.ProductPrice == double.Parse(price) && p.ProductPriceOriginal == double.Parse(priceOrginal)); // Check if desired product exists in filtered array
+                            bool productExists = _viewModel._productList
+                                .Where(p => p.CategoryID != null && p.ProductName != null && p.ProductAvatar != null && p.ProductQuantity != null && p.ProductPrice != null && p.ProductPriceOriginal != null) // Filter products based on criteria
+                                .Any(p => p.CategoryID == int.Parse(id) && p.ProductName == name && p.ProductAvatar == avatar && p.ProductQuantity == int.Parse(quantiny) && p.ProductPrice == double.Parse(price) && p.ProductPriceOriginal == double.Parse(priceOrginal)); // Check if desired product exists in filtered array
 
-                        if(!productExists )
-                        {
-                            _viewModel._product.CategoryID = int.Parse(id);
-                            _viewModel._product.ProductName = name; 
-                            _viewModel._product.ProductAvatar = avatar; 
-                            _viewModel._product.ProductQuantity = int.Parse(quantiny);
-                            _viewModel._product.ProductPrice = double.Parse(price);
-                            _viewModel._product.ProductPriceOriginal = double.Parse(priceOrginal);
-
-                            var add = _viewModel.AddNewProduct(_viewModel._product);
-                            if (add)
+                            if (!productExists)
                             {
-                                countAdd++;
+                                _viewModel._product.CategoryID = int.Parse(id);
+                                _viewModel._product.ProductName = name;
+                                _viewModel._product.ProductAvatar = avatar;
+                                _viewModel._product.ProductQuantity = int.Parse(quantiny);
+                                _viewModel._product.ProductPrice = double.Parse(price);
+                                _viewModel._product.ProductPriceOriginal = double.Parse(priceOrginal);
+
+                                var add = _viewModel.AddNewProduct(_viewModel._product);
+                                if (add)
+                                {
+                                    countAdd++;
+                                }
                             }
-                        }
-                        Trace.WriteLine($"{id} - {name} - {avatar} - {quantiny} - {price} - {priceOrginal}");
+                            Trace.WriteLine($"{id} - {name} - {avatar} - {quantiny} - {price} - {priceOrginal}");
                         }
                         row++;
 
@@ -391,14 +392,14 @@ namespace MyShop_WPF_Application.Views
                 }
                 catch (Exception ex)
                 {
-                string title = "Import category từ Excel";
-                string message = "Import không thành công";
-                MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                    string title = "Import category từ Excel";
+                    string message = "Import không thành công";
+                    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             updatePage(_currentCategoryCombobox, _currentPage);
-                updateTotalPage();
-                currentPageComboBox.SelectedIndex = _currentPage - 1;
+            updateTotalPage();
+            currentPageComboBox.SelectedIndex = _currentPage - 1;
         }
 
         private void nextPage_Navigated(object sender, NavigationEventArgs e)
@@ -416,7 +417,7 @@ namespace MyShop_WPF_Application.Views
                 //}
                 //else
                 //{
-                    rowsPerPage = Int16.Parse(displayRowPerPageTextBox.Text);
+                rowsPerPage = Int16.Parse(displayRowPerPageTextBox.Text);
                 //}
                 updatePage(_currentCategoryCombobox, _currentPage);
                 updateTotalPage();
@@ -424,7 +425,7 @@ namespace MyShop_WPF_Application.Views
 
             }
             catch { }
-         
+
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)

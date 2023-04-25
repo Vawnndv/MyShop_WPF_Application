@@ -33,7 +33,8 @@ namespace MyShop_WPF_Application.Views
             InitializeComponent();
 
             _viewModel = new PromotionViewModel();
-            
+
+            Global.SaveScreen("QLKM");
         }
 
         // Make sure the input are all numbers

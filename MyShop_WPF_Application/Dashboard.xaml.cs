@@ -36,9 +36,42 @@ namespace MyShop_WPF_Application
             menuBTN = menu;
 
             var select = menu.Children[0] as MenuButton;
-            select?.btn.Focus();
+            //select?.btn.Focus();
             select.btn.Command = current.UpdateViewCommand;
-            select?.btn.Command.Execute("Dashboard");
+            //select?.btn.Command.Execute("Dashboard");
+
+            string _screen = System.Configuration.ConfigurationManager.AppSettings["Screen"]!;
+            if (_screen.Equals("Dashboard"))
+            {
+                select?.btn.Command.Execute("Dashboard");
+            } else if (_screen.Equals("QLKH"))
+            {
+                select?.btn.Command.Execute("QLKH");
+            }
+            else if (_screen.Equals("QLLOAISP"))
+            {
+                select?.btn.Command.Execute("QLLOAISP");
+            }
+            else if (_screen.Equals("QLSP"))
+            {
+                select?.btn.Command.Execute("QLSP");
+            }
+            else if (_screen.Equals("QLDH"))
+            {
+                select?.btn.Command.Execute("QLDH");
+            }
+            else if (_screen.Equals("QLKM"))
+            {
+                select?.btn.Command.Execute("QLKM");
+            }
+            else if (_screen.Equals("TKDTVLN"))
+            {
+                select?.btn.Command.Execute("TKDTVLN");
+            }
+            else if (_screen.Equals("TKSP"))
+            {
+                select?.btn.Command.Execute("TKSP");
+            }
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)

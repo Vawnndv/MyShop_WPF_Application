@@ -32,6 +32,8 @@ namespace MyShop_WPF_Application.Views
         {
             InitializeComponent();
             base.DataContext = _viewModel;
+
+            Global.SaveScreen("QLKH");
         }
             
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -47,7 +49,7 @@ namespace MyShop_WPF_Application.Views
             _currentPage = page;
             _listSize = _viewModel.updateCusstomerList().Count;
 
-            if(_viewModel.updateCusstomerList().Where(x => x.name.ToLower().Contains(keyword.ToLower())).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList().Count == 0)
+            if (_viewModel.updateCusstomerList().Where(x => x.name.ToLower().Contains(keyword.ToLower())).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList().Count == 0)
             {
                 _currentPage = page - 1;
             }

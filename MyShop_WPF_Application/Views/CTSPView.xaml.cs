@@ -75,7 +75,6 @@ namespace MyShop_WPF_Application.Views
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-
             if (editProductName.Text.Length == 0 || editProductPrice.Text.Length == 0 || editProductPriceOriginal.Text.Length == 0 || editProductQuantity.Text.Length == 0)
             {
                 string message = "Vui lòng điền đủ thông tin";
@@ -144,8 +143,6 @@ namespace MyShop_WPF_Application.Views
                 restoreBtn.Visibility = Visibility.Hidden;
                 btnEditProduct.Visibility = Visibility.Visible;
             }
-
-
         }
 
         private void BtnRemoveProduct_Click(object sender, RoutedEventArgs e)
@@ -190,6 +187,7 @@ namespace MyShop_WPF_Application.Views
 
 
                 AbsoluteConverter absoluteConverter = new AbsoluteConverter();
+
                 // Convert the relative path to an absolute path
                 string imagePath = _viewModel._restoreProduct.ProductAvatar;
                 // Relative path of the image
