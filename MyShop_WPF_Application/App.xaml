@@ -110,6 +110,9 @@
             <DataTemplate DataType="{x:Type viewmodels:TMSPViewModel}">
                 <views:TMSPView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:TKBHViewModel}">
+                <views:TKBHView/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:TKSPViewModel}">
                 <views:TKSPView/>
             </DataTemplate>
