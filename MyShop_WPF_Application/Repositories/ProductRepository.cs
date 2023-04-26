@@ -343,7 +343,7 @@ namespace MyShop_WPF_Application.Repositories
         public ObservableCollection<ProductBestSellModel> getTop10ProductBestSelling(DateTime start, DateTime end)
         {
             ObservableCollection<ProductBestSellModel> result = new ObservableCollection<ProductBestSellModel>();
-            
+
             if (Global.Connection != null)
             {
 
@@ -380,8 +380,7 @@ namespace MyShop_WPF_Application.Repositories
             {
                 result[i].percentage = Math.Round((result[i].numOfSellProduct / total) * 100, 2);
             }
-            return result;
-
+          return result;
         }
     }
 }

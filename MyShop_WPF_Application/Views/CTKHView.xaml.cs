@@ -39,7 +39,9 @@ namespace MyShop_WPF_Application.Views
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (editName.Text.Length == 0 || editPhone.Text.Length == 0 || editEmail.Text.Length == 0 || editAddress.Text.Length == 0)
+            string pattern = @"^[a-zA-Z0-9._%+-]+@gmail\.com$";
+            bool isMatch = Regex.IsMatch(editAddress.Text, pattern);
+            if (editName.Text.Length == 0 || editPhone.Text.Length == 0 || editEmail.Text.Length != 10 || editAddress.Text.Length == 0 || isMatch)
             {
                 string message = "Vui lòng điền đủ thông tin";
                 string title = "kiểm tra nhập thông tin";
@@ -47,7 +49,7 @@ namespace MyShop_WPF_Application.Views
             }
             else
             {
-               if(_viewModel.getCustomerPhone(editPhone.Text) == false)
+               if(!_viewModel.getCustomerPhone(editPhone.Text.Replace("-", "")))
                 {
                     if (MessageBox.Show("Bạn muốn hiệu chỉnh lại thông tin khách hàng này không?",
                        "Hiệu chỉnh",
@@ -56,7 +58,7 @@ namespace MyShop_WPF_Application.Views
                     {
 
                         _viewModel._customer.name = editName.Text;
-                        _viewModel._customer.phone = editPhone.Text;
+                        _viewModel._customer.phone = editPhone.Text.Replace("-", "");
                         _viewModel._customer.email = editEmail.Text;
                         _viewModel._customer.address = editAddress.Text;
 
@@ -85,7 +87,7 @@ namespace MyShop_WPF_Application.Views
                     string message = "Số điện thoại đã tồn tại";
                     string title = "Hiệu chỉnh";
                     MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
-                    editName.Clear();
+                    editPhone.Clear();
                 }
             }
         }
@@ -148,15 +150,15 @@ namespace MyShop_WPF_Application.Views
             editBtn.Visibility = Visibility.Hidden;
         }
 
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new MainViewModel();
+        }
+
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             var textBox = sender as TextBox;
             e.Handled = Regex.IsMatch(e.Text, "[^0-9]+");
-        }
-
-        private void backButton_Click(object sender, RoutedEventArgs e)
-        {
-            DataContext = new MainViewModel();
         }
 
         private void Price_TextChanged(object sender, TextChangedEventArgs e)

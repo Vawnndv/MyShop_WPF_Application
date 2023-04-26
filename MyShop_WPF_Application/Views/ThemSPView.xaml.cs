@@ -115,8 +115,8 @@ namespace MyShop_WPF_Application.Views
                 else
                 {
                     _viewModel._product.ProductName = addProductName.Text;
-                    _viewModel._product.ProductPrice = int.Parse(addProductPrice.Text);
-                    _viewModel._product.ProductPriceOriginal = int.Parse(addProductPriceOriginal.Text);
+                    _viewModel._product.ProductPrice = int.Parse(addProductPrice.Text.Replace(",", ""));
+                    _viewModel._product.ProductPriceOriginal = int.Parse(addProductPriceOriginal.Text.Replace(",", ""));
                     _viewModel._product.ProductQuantity = int.Parse(addProductQuantity.Text);
 
                     foreach (var category in _viewModel._categoryList)

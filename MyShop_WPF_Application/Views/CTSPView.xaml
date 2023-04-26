@@ -42,7 +42,6 @@
                      FontSize="15"
                      Margin="20,20,270,10"
                      Background="Transparent"
-                     FontFamily="Sitka Subheading"
                      FontWeight="Bold"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      Text="{Binding ProductName, UpdateSourceTrigger=PropertyChanged}"
@@ -56,9 +55,8 @@
                       Width="180"
                       FontSize="15"
                       FontWeight="Bold"
-                      FontFamily="Sitka Subheading"
                       VerticalAlignment="Top"
-                       Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                       materialDesign:HintAssist.Hint="Loại sản phẩm"
                       SelectionChanged="ComboPageIndex_SelectionChanged"
                       DropDownOpened="ComboProductTypes_DropDownOpened"
@@ -73,7 +71,6 @@
                     Margin="20,20,100,0"
                     FontSize="15"
                     FontWeight="Bold"
-                    FontFamily="Sitka Subheading"
                     AcceptsReturn="True"
                     TextWrapping="Wrap"
                     VerticalAlignment="Top"
@@ -90,10 +87,9 @@
                      Width="180"
                      VerticalAlignment="Top"
                      Margin="20,20,100,0"
-                     Text="{Binding ProductPrice, Converter={StaticResource priceFormat}}"
+                     Text="{Binding ProductPrice}"
                      FontWeight="Bold"
                      FontSize="15"
-                     FontFamily="Sitka Subheading"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      TextChanged="Price_TextChanged" PreviewTextInput="NumberOnly_PreviewTextInput"
                      Name="editProductPrice">
@@ -110,14 +106,13 @@
                 Margin="0,20,0,0"
                 FontSize="15"
                 FontWeight="Bold"
-                FontFamily="Sitka Subheading"
                 AcceptsReturn="True"
                 TextWrapping="Wrap"
                 VerticalAlignment="Top"
                 VerticalScrollBarVisibility="Auto"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                 TextChanged="Price_TextChanged" PreviewTextInput="NumberOnly_PreviewTextInput"
-                Text="{Binding ProductPriceOriginal, Converter={StaticResource priceFormat}}"
+                Text="{Binding ProductPriceOriginal}"
                 Name="editProductPriceOriginal">
                     <materialDesign:HintAssist.Hint>
                         <TextBlock>
@@ -144,7 +139,6 @@
                        FontSize="15"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Bottom"
-                       FontFamily="Sitka Subheading"
                        FontWeight="Bold"/>
 
                 </StackPanel>
@@ -176,11 +170,13 @@
                     Margin="10, 0, 10, 0"
                     Background="ForestGreen"
                     FontFamily="Sitka Subheading"
+                    Visibility="Hidden"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Click="restoreBtn_Click"
                     Name="restoreBtn"/>
 
                 <Button 
+                    Visibility="Hidden"
                     HorizontalAlignment="Left"
                     Grid.Column="1" Grid.Row="4"
                     Width="100" Content="Save"
@@ -197,7 +193,6 @@
                     Command="{Binding UpdateViewCommand}" CommandParameter="QLSP"
                     Name="saveBtn"/>
                 <Button 
-                    Visibility="Hidden"
                     Grid.Column="1" Grid.Row="4"
                     Width="100" Content="Sửa"
                     FontWeight="Bold"

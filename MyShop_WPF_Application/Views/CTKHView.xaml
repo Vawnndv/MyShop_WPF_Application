@@ -58,7 +58,7 @@
                     VerticalAlignment="Top"
                     VerticalScrollBarVisibility="Auto"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    Text="{Binding phone, Converter={StaticResource phoneFormat}}"
+                    Text="{Binding phone}"
                     Name="editPhone" 
                     TextChanged="Price_TextChanged" PreviewTextInput="NumberOnly_PreviewTextInput">
                     <materialDesign:HintAssist.Hint>
@@ -115,7 +115,6 @@
                     VerticalAlignment="Center"
                     Margin="10, 0, 10, 0"
                     Background="ForestGreen"
-                    FontFamily="Sitka Subheading"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Click="restoreBtn_Click"
                     Name="restoreBtn"/>
@@ -132,7 +131,6 @@
                         VerticalAlignment="Center"
                         Margin="100, 0, 10, 0"
                         Background="ForestGreen"
-                        FontFamily="Sitka Subheading"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Click="SaveBtn_Click"
                         Command="{Binding UpdateViewCommand}" CommandParameter="QLKH"
@@ -147,7 +145,6 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Background="ForestGreen"
-                        FontFamily="Sitka Subheading"
                         Margin="100, 0, 10, 0"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Click="editBtn_Click"

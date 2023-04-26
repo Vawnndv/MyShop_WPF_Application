@@ -23,12 +23,12 @@
         <StackPanel Background="White">
             <TextBlock TextAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="#348F6C" Margin="0 20 0 0"> DANH SÁCH KHÁCH HÀNG</TextBlock>
 
-            <StackPanel Orientation="Horizontal" Margin="20 30 15 10" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" Margin="20 30 15 10" HorizontalAlignment="Left" Width="1025">
                 <StackPanel Width="200" VerticalAlignment="Bottom" >
                     <TextBox  Name="searchCustomerInput" materialDesign:HintAssist.Hint="Tìm kiếm tên sản phẩm" BorderBrush="{DynamicResource MaterialDesignDivider}" Height="25" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="200" />
                 </StackPanel>
                 <Button Margin="20 10 20 0" Content="Tìm kiếm" x:Name="searchCustomertButton" Click="searchCustomerButton_Click" Background="#348F6C" BorderThickness="0" Focusable="False"/>
-
+                <TextBlock Width="617"></TextBlock>
                 <Button Margin="10 10 0 0" Content="Thêm" x:Name="addCustomerButton" Click="addCustomerButton_Click" Background="#348F6C" BorderThickness="0"/>
 
             </StackPanel>
