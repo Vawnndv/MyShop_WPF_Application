@@ -138,7 +138,7 @@ namespace MyShop_WPF_Application.Views
             {
                 if (isFiltering)
                 {
-                    _newProductList = _productListCategory.Where(x => x.ProductPrice >= double.Parse(fromPrice.Text) && x.ProductPrice <= double.Parse(toPrice.Text)).ToList();
+                    _newProductList = _productListCategory.Where(x => x.ProductPrice >= double.Parse(fromPrice.Text.Replace(",", "")) && x.ProductPrice <= double.Parse(toPrice.Text.Replace(",", ""))).ToList();
                     _newProductItem = _newProductList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList();
 
                 }
@@ -434,18 +434,37 @@ namespace MyShop_WPF_Application.Views
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        //private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        //{
+        //    TextBox textBox = sender as TextBox;
+
+        //    Regex regex = new Regex("[^0-9]+");
+        //    e.Handled = regex.IsMatch(e.Text);
+
+        //    if (textBox.Text.Length > 0)
+        //    {
+        //        double value = 0;
+        //        double.TryParse(textBox.Text, out value);
+        //        textBox.Text = value.ToString("N0", CultureInfo.InvariantCulture);
+        //        textBox.CaretIndex = textBox.Text.Length;
+        //    }
+        //}
+
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = Regex.IsMatch(e.Text, "[^0-9]+");
+        }
+
+        private void Price_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
 
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-
+            // Chuyển định dạng abc,xyz cho giá cả
             if (textBox.Text.Length > 0)
             {
                 double value = 0;
                 double.TryParse(textBox.Text, out value);
-                textBox.Text = value.ToString("N0", CultureInfo.InvariantCulture);
+                textBox.Text = value.ToString("N0");
                 textBox.CaretIndex = textBox.Text.Length;
             }
         }

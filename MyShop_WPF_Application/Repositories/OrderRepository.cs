@@ -67,6 +67,34 @@ namespace MyShop_WPF_Application.Repositories
             return result;
         }
 
+        public bool editOrderWithPhone(string? phone)
+        {
+            bool result = false;
+
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
+
+            if (Global.Connection != null)
+            {
+                var sql = "UPDATE Purchase SET Customer_Phone = @CustomerPhone WHERE Customer_Phone = @CustomerPhone";
+
+                var command = new SqlCommand(sql, Global.Connection);
+
+                command.Parameters.AddWithValue("@CustomerPhone", phone);
+        
+
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    result = true;
+                }
+            }
+
+            //Global.Connection?.Close();
+            return result;
+        }
+
         public List<int> GetOrderListWithPhone(string? phone)
         {
             List<int> result = new List<int>();

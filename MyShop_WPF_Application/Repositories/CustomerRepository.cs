@@ -159,33 +159,21 @@ namespace MyShop_WPF_Application.Repositories
         }
 
 
-        public bool editProduct(CustomerModel customer)
+        public bool editCustomer(CustomerModel customer)
         {
             bool result = false;
 
-            //Global.Connection = new SqlConnection(Global.ConnectionString);
-            //Global.Connection.Open();
+            OrderRepository _repository = new OrderRepository();
+            bool add = addCustomer(customer);
+            _repository.editOrderWithPhone(customer.phone);
+            bool remove = removeCustomer(customer.phone);
 
-            if (Global.Connection != null)
+            if (add && remove)
             {
-                var sql = "UPDATE Customer SET Customer_Name = @CustomerName, Address = @CustomerAddress, Email = @CustomerEmail WHERE Tel = @CustomerPhone";
-
-                var command = new SqlCommand(sql, Global.Connection);
-                command.Parameters.AddWithValue("@CustomerName", customer.name);
-                command.Parameters.AddWithValue("@CustomerPhone", customer.phone);
-                command.Parameters.AddWithValue("@CustomerAddress", customer.address);
-                command.Parameters.AddWithValue("@CustomerEmail", customer.email);
-
-                int rowsAffected = command.ExecuteNonQuery();
-
-                if (rowsAffected > 0)
-                {
-                    result = true;
-                }
+                return  true;
             }
 
-            //Global.Connection?.Close();
-            return result;
+            return false;
         }
 
 

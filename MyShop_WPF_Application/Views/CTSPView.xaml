@@ -79,10 +79,10 @@
                     VerticalAlignment="Top"
                     VerticalScrollBarVisibility="Auto"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    materialDesign:HintAssist.Hint="Tồn kho hiện tại/ban đầu"
+                    materialDesign:HintAssist.Hint="Tồn kho hiện tại"
                     Text="{Binding ProductQuantity}"
                     PreviewTextInput="NumberOnly_PreviewTextInput"
-                    Name="editProductQuantity" TextChanged="editAmount_TextChanged"/>
+                    Name="editProductQuantity"/>
 
 
                 <TextBox Grid.Row="3"
@@ -90,12 +90,12 @@
                      Width="180"
                      VerticalAlignment="Top"
                      Margin="20,20,100,0"
-                     Text="{Binding ProductPrice}"
+                     Text="{Binding ProductPrice, Converter={StaticResource priceFormat}}"
                      FontWeight="Bold"
                      FontSize="15"
                      FontFamily="Sitka Subheading"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     PreviewTextInput="NumberOnly_PreviewTextInput"
+                     TextChanged="Price_TextChanged" PreviewTextInput="NumberOnly_PreviewTextInput"
                      Name="editProductPrice">
                     <materialDesign:HintAssist.Hint>
                         <TextBlock>
@@ -116,8 +116,8 @@
                 VerticalAlignment="Top"
                 VerticalScrollBarVisibility="Auto"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                PreviewTextInput="NumberOnly_PreviewTextInput"
-                Text="{Binding ProductPriceOriginal}"
+                TextChanged="Price_TextChanged" PreviewTextInput="NumberOnly_PreviewTextInput"
+                Text="{Binding ProductPriceOriginal, Converter={StaticResource priceFormat}}"
                 Name="editProductPriceOriginal">
                     <materialDesign:HintAssist.Hint>
                         <TextBlock>
@@ -164,29 +164,10 @@
                        Source="{Binding Path=ProductAvatar,Converter={StaticResource absolute}}">
                     </Image>
                 </Border>
-
-                <Button 
-                HorizontalAlignment="Right"
-                Visibility="Hidden"
-                Grid.Column="0" Grid.Row="4"
-                Width="100" Content="Khôi phục"
-                FontWeight="Bold"
-                Padding="0"
-                Foreground="White"
-                FontSize="15"
-                VerticalAlignment="Center"
-                Margin="10, 0, 10, 0"
-                Background="ForestGreen"
-                FontFamily="Sitka Subheading"
-                Style="{StaticResource MaterialDesignRaisedButton}"
-                Click="restoreBtn_Click"
-                Name="restoreBtn"/>
-
                 <Button 
                     HorizontalAlignment="Right"
                     Grid.Column="0" Grid.Row="4"
-                    Visibility="Hidden"
-                    Width="100" Content="Save"
+                    Width="100" Content="Khôi phục"
                     FontWeight="Bold"
                     Padding="0"
                     Foreground="White"
@@ -196,10 +177,27 @@
                     Background="ForestGreen"
                     FontFamily="Sitka Subheading"
                     Style="{StaticResource MaterialDesignRaisedButton}"
+                    Click="restoreBtn_Click"
+                    Name="restoreBtn"/>
+
+                <Button 
+                    HorizontalAlignment="Left"
+                    Grid.Column="1" Grid.Row="4"
+                    Width="100" Content="Save"
+                    FontWeight="Bold"
+                    Padding="0"
+                    Foreground="White"
+                    FontSize="15"
+                    VerticalAlignment="Center"
+                    Margin="20, 0, 20, 0"
+                    Background="ForestGreen"
+                    FontFamily="Sitka Subheading"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
                     Click="SaveBtn_Click"
-                    Command="{Binding UpdateViewCommand}" CommandParameter="QLSH"
+                    Command="{Binding UpdateViewCommand}" CommandParameter="QLSP"
                     Name="saveBtn"/>
                 <Button 
+                    Visibility="Hidden"
                     Grid.Column="1" Grid.Row="4"
                     Width="100" Content="Sửa"
                     FontWeight="Bold"

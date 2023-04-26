@@ -67,7 +67,6 @@
                   ItemsSource="{Binding LongListToTestComboVirtualization}">
                 </ComboBox>
 
-
                 <TextBox Grid.Row="2" Grid.Column="0"
                 Width="180"
                 Margin="20,20,83,0"
@@ -81,8 +80,29 @@
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                 materialDesign:HintAssist.Hint="Tồn kho hiện tại"
                 Text="{Binding ProductQuantity}"
-                Name="addProductQuantity" TextChanged="addQuantity_TextChanged"/>
+                Name="addProductQuantity" 
+                PreviewTextInput="NumberOnly_PreviewTextInput"/>
 
+                <TextBox Grid.Row="1" Grid.Column="2"
+                Width="180"
+                Margin="93,20,20,0"
+                FontSize="15"
+                FontWeight="Bold"
+                FontFamily="Sitka Subheading"
+                AcceptsReturn="True"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                VerticalScrollBarVisibility="Auto"
+                TextChanged="Price_TextChanged" PreviewTextInput="NumberOnly_PreviewTextInput"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding ProductPriceOriginal}"
+                Name="addProductPriceOriginal">
+                    <materialDesign:HintAssist.Hint>
+                        <TextBlock>
+                    <Bold>Giá vốn</Bold> (₫)
+                        </TextBlock>
+                    </materialDesign:HintAssist.Hint>
+                </TextBox>
 
                 <TextBox Grid.Row="2" Grid.Column="2"
                  Width="180"
@@ -92,6 +112,7 @@
                  FontWeight="Bold"
                  FontSize="15"
                  FontFamily="Sitka Subheading"
+                 TextChanged="Price_TextChanged" PreviewTextInput="NumberOnly_PreviewTextInput"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Name="addProductPrice">
                     <materialDesign:HintAssist.Hint>
@@ -101,25 +122,6 @@
                     </materialDesign:HintAssist.Hint>
                 </TextBox>
 
-                <TextBox Grid.Row="1" Grid.Column="2"
-            Width="180"
-            Margin="93,20,20,0"
-            FontSize="15"
-            FontWeight="Bold"
-            FontFamily="Sitka Subheading"
-            AcceptsReturn="True"
-            TextWrapping="Wrap"
-            VerticalAlignment="Top"
-            VerticalScrollBarVisibility="Auto"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-            Text="{Binding ProductPriceOriginal}"
-            Name="addProductPriceOriginal">
-                    <materialDesign:HintAssist.Hint>
-                        <TextBlock>
-                    <Bold>Giá vốn</Bold> (₫)
-                        </TextBlock>
-                    </materialDesign:HintAssist.Hint>
-                </TextBox>
                 <StackPanel  Grid.Column="1" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center"  Margin="0,20,0,0" HorizontalAlignment="Center" >
                     <Button 
                     Margin="0, 0, 10, 0"

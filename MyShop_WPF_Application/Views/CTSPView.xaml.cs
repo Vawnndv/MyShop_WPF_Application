@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using DocumentFormat.OpenXml.Vml;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Win32;
 using MyShop_WPF_Application.Converters;
 using MyShop_WPF_Application.Models;
@@ -53,11 +54,6 @@ namespace MyShop_WPF_Application.Views
             }
         }
 
-        private void ListBill_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
         private void BtnEditProduct_Click(object sender, RoutedEventArgs e)
         {
             editProductName.IsReadOnly = false;
@@ -68,8 +64,8 @@ namespace MyShop_WPF_Application.Views
             comboboxCategory.IsEnabled = true;
             btnRemoveProduct.IsEnabled = false;
 
-            saveBtn.Visibility = Visibility.Visible;
             restoreBtn.Visibility = Visibility.Visible;
+            saveBtn.Visibility = Visibility.Visible;
             btnEditProduct.Visibility = Visibility.Hidden;
         }
 
@@ -253,19 +249,22 @@ namespace MyShop_WPF_Application.Views
         {
 
         }
-
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            e.Handled = Regex.IsMatch(e.Text, "[^0-9]+");
+        }
+
+        private void Price_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
 
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-
+            // Chuyển định dạng abc,xyz cho giá cả
             if (textBox.Text.Length > 0)
             {
                 double value = 0;
                 double.TryParse(textBox.Text, out value);
-                textBox.Text = value.ToString("N0", CultureInfo.InvariantCulture);
+                textBox.Text = value.ToString("N0");
                 textBox.CaretIndex = textBox.Text.Length;
             }
         }

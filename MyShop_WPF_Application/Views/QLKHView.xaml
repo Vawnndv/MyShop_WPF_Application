@@ -13,6 +13,7 @@
         <Converter:OrderStatusColorConverter x:Key="orderConverter"/>
         <Converter:ToDataRowStringConverter x:Key="toCellConverter"/>
         <Converter:RemoveTimeFromDateConverter x:Key="onlyDate"/>
+        <Converter:PhoneNumberConverter x:Key="phoneFormat"/>
 
         <Style TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -51,7 +52,7 @@
                             </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate >
                                 <DataTemplate>
-                                    <TextBlock d:Text="Lê Trần Phi Hùng Lê Trần " FontWeight="Medium" FontSize="13" Text="{Binding name}" TextAlignment="Center" Padding="0 3 0 3"/>
+                                    <TextBlock d:Text="Phạm Trần Minh Ngọc" FontWeight="Medium" FontSize="13" Text="{Binding name}" TextAlignment="left" Padding="0 3 0 3"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -64,7 +65,7 @@
                             </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate >
                                 <DataTemplate>
-                                    <TextBlock d:Text="1234567890" FontWeight="Medium" FontSize="13" Text="{Binding phone}" TextAlignment="Center" Padding="0 3 0 3"/>
+                                    <TextBlock d:Text="1234567890" FontWeight="Medium" FontSize="13" Text="{Binding phone, Converter={StaticResource phoneFormat}}" TextAlignment="Center" Padding="0 3 0 3"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -89,7 +90,7 @@
                             </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate >
                                 <DataTemplate>
-                                    <TextBlock d:Text="quocbaonguyen@gmail.com" FontWeight="Medium" FontSize="13" Text="{Binding email}" TextAlignment="Center" Padding="0 3 0 3" TextWrapping="WrapWithOverflow"/>
+                                    <TextBlock d:Text="quocbaonguyen@gmail.com" FontWeight="Medium" FontSize="13" Text="{Binding email}" TextAlignment="Left" Padding="0 3 0 3" TextWrapping="WrapWithOverflow"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -104,7 +105,7 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Button x:Name="viewDetails" Click="viewDetails_Click" Background="#439452" BorderThickness="0" Margin="0 4 0 4">
-                                            <Image Source="../img/view.png" Width="20" Height="20" VerticalAlignment="Center" Stretch="UniformToFill"/>
+                                            <Image Source="../img/edit.png" Width="20" Height="20" VerticalAlignment="Center" Stretch="UniformToFill"/>
                                         </Button>
                                         <Button x:Name="deleteRowButton" Margin="10 0 5 0" Click="deleteRowButton_Click" Background="#F66A6A" BorderThickness="0">
                                             <Image Source="../img/delete.png" Width="20" Height="20" VerticalAlignment="Center" Stretch="UniformToFill"/>
