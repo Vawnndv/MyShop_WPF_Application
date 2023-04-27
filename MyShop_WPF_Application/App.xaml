@@ -4,8 +4,8 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:views="clr-namespace:MyShop_WPF_Application.Views"
              xmlns:viewmodels="clr-namespace:MyShop_WPF_Application.ViewModels"
-             xmlns:local="clr-namespace:MyShop_WPF_Application"
-             StartupUri="Views/LoginView.xaml">
+             xmlns:local="clr-namespace:MyShop_WPF_Application">
+    <!--StartupUri="Views/LoginView.xaml">-->
     <Application.Resources>
 
         <ResourceDictionary>
@@ -89,17 +89,29 @@
             <DataTemplate DataType="{x:Type viewmodels:DashboardViewModel}">
                 <views:DashboardView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:QLKHViewModel}">
+                <views:QLKHView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:QLLOAISPViewModel}">
+                <views:QLLOAISPView/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:QLSPViewModel}">
                 <views:QLSPView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:QLDHViewModel}">
                 <views:QLDHView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:PromotionViewModel}">
+                <views:QLKMView/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:TK_DoanhThu_LoiNhuanViewModel}">
                 <views:TK_DoanhThu_LoiNhuanView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:TMSPViewModel}">
                 <views:TMSPView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:TKBHViewModel}">
+                <views:TKBHView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:TKSPViewModel}">
                 <views:TKSPView/>

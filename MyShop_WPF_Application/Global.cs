@@ -16,5 +16,12 @@ namespace MyShop_WPF_Application
         public static Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         public static SqlConnection? Connection;
         public static int selectedOrderID = 2;
+
+        public static void SaveScreen (string screenName)
+        {
+            Global.config.AppSettings.Settings["Screen"].Value = screenName;
+            Global.config.Save(ConfigurationSaveMode.Full);
+            System.Configuration.ConfigurationManager.RefreshSection("appSettings");
+        }
     }
 }

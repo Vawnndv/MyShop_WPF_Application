@@ -45,6 +45,9 @@ namespace MyShop_WPF_Application.ViewModels
             for (int i = 0; i < numOfDays; i++)
             {
                 days[i] = i + 1;
+                if (index >= temp.Count)
+                    continue;
+
                 if (curDate == temp[index].date)
                 {
                     revenue[i] = temp[index].revenue;

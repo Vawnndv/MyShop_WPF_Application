@@ -1,17 +1,16 @@
-﻿<Window x:Class="MyShop_WPF_Application.Views.OrderDetailsView"
+﻿<Page x:Class="MyShop_WPF_Application.Views.OrderDetailsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyShop_WPF_Application.Views"
-        Title="OrderDetailsView" Height="750" Width="1065"
+        Title="OrderDetailsView" Height="700" Width="1065"
         xmlns:Converter="clr-namespace:MyShop_WPF_Application.Converters"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d" 
-        Loaded="Window_Loaded"
-        >
+        Loaded="Window_Loaded">
 
-    <Window.Resources>
+    <Page.Resources>
         <Converter:ToDataRowStringConverter x:Key="toCellConverter"/>
         <Converter:AbsoluteConverter x:Key="absoluteConverter"   />
         <Converter:OrderStatusColorConverter x:Key="orderConverter"/>
@@ -19,24 +18,28 @@
         <Style TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="HorizontalContentAlignment" Value="Center" />
         </Style>
-    </Window.Resources>
-
-    <StackPanel>
+    </Page.Resources>
+    <Canvas Background="White">
+        <Button BorderBrush="{x:Null}"  x:Name="closeButton" Background="Transparent" Height="50" Margin="0 10 0 0" Click="backButton_Click" HorizontalAlignment="Left" 
+                VerticalAlignment="Center" Command="{Binding UpdateViewCommand}" CommandParameter="QLDH">
+            <Image Source="../img/backBTN.png" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
+        </Button>
+        <StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock Text="ĐƠN HÀNG #" FontSize="45" TextAlignment="Center" FontWeight="Black"/>
-            <TextBlock d:Text="Order ID" x:Name="orderIDTextBlock" FontSize="45" TextAlignment="Center" FontWeight="Black"/>
+                <TextBlock Text="ĐƠN HÀNG #" FontSize="40" TextAlignment="Center" FontWeight="Bold" Foreground="#348F6C"/>
+                <TextBlock d:Text="Order ID" x:Name="orderIDTextBlock" FontSize="40" TextAlignment="Center" Foreground="#348F6C" FontWeight="Black"/>
 
         </StackPanel>
         <DockPanel>
             <StackPanel Orientation="Vertical" DockPanel.Dock="Left" Width="850">
-                <StackPanel Orientation="Horizontal" Margin="20 10 0 0">
-                    <TextBlock Text="Số điện thoại: " FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
-                    <TextBlock Foreground="Red" FontWeight="SemiBold" d:Text="1234567890" FontSize="20" Margin="32 0 0 0" x:Name="customerPhoneTextBlock"/>
+                <StackPanel Orientation="Horizontal" Margin="20 30 0 0">
+                    <TextBlock Text="Số điện thoại: " FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="Red" FontWeight="SemiBold" d:Text="1234567890" FontSize="16" Margin="32 0 0 0" x:Name="customerPhoneTextBlock"/>
                 </StackPanel>
                 
-                <StackPanel Orientation="Horizontal" Margin="20 10 0 0">
-                    <TextBlock Text="Tên khách hàng: " FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
-                    <TextBox d:Text="Nguyễn Văn A" FontSize="20" Margin="10 0 0 0" x:Name="customerNameTextBlock"/>
+                <StackPanel Orientation="Horizontal" Margin="20 5 0 0">
+                    <TextBlock Text="Tên khách hàng: " FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBox d:Text="Nguyễn Văn A" FontSize="16" Margin="10 0 0 0" x:Name="customerNameTextBlock"/>
                     
                     <Button x:Name="editCustomerNameButton" Click="editCustomerNameButton_Click" BorderThickness="0" Height="15" Width="15" Margin="10 0 0 0">
                         <Button.Background>
@@ -47,9 +50,9 @@
 
                
 
-                <StackPanel Orientation="Horizontal" Margin="20 10 0 0">
-                    <TextBlock Text="Địa chỉ email: " FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
-                    <TextBox d:Text="123 Nguyễn Văn Cừ P5 Q10" FontSize="20" Margin="35 0 0 0" x:Name="customerEmailTextBlock" TextWrapping="WrapWithOverflow"/>
+                <StackPanel Orientation="Horizontal" Margin="20 5 0 0">
+                    <TextBlock Text="Địa chỉ email: " FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBox d:Text="123 Nguyễn Văn Cừ P5 Q10" FontSize="16" Margin="35 0 0 0" x:Name="customerEmailTextBlock" TextWrapping="WrapWithOverflow"/>
 
                     <Button x:Name="editCustomerEmailButton" Click="editCustomerEmailButton_Click" BorderThickness="0" Height="15" Width="15" Margin="10 0 0 0">
                         <Button.Background>
@@ -58,9 +61,9 @@
                     </Button>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="20 10 0 20">
-                    <TextBlock Text="Địa chỉ nhà: " FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
-                    <TextBox d:Text="123 Nguyễn Văn Cừ P5 Q10" FontSize="20" Margin="50 0 0 0" x:Name="customerAddressTextBlock" TextWrapping="WrapWithOverflow"/>
+                <StackPanel Orientation="Horizontal" Margin="20 5 0 20">
+                    <TextBlock Text="Địa chỉ nhà: " FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBox d:Text="123 Nguyễn Văn Cừ P5 Q10" FontSize="16" Margin="50 0 0 0" x:Name="customerAddressTextBlock" TextWrapping="WrapWithOverflow"/>
 
                     <Button x:Name="editCustomerAddressButton" Click="editCustomerAddressButton_Click"  BorderThickness="0" Height="15" Width="15" Margin="10 0 0 0">
                         <Button.Background>
@@ -88,12 +91,13 @@
 
 
         <StackPanel Orientation="Horizontal">
-            <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}"  Width="733" Margin="10 0 0 0" Height="402">
+                <Border BorderThickness="1" BorderBrush="Black" Background="#E1E1E1" Margin="16 0 0 0">
+                    <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}"  Width="700" Margin="0 0 0 0" Height="402">
 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        <Setter Property="Background" Value="#E4E4E4"/>
+                        <Setter Property="Background" Value="White"/>
                         <Setter Property="Focusable" Value="false"/>
 
                     </Style>
@@ -154,10 +158,10 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="200" >
+                        <GridViewColumn Width="180" >
                             <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock HorizontalAlignment="Center" Text="Giá mỗi sản phẩm" FontSize="14" Width="200" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                                    <TextBlock HorizontalAlignment="Center" Text="Giá mỗi sản phẩm" FontSize="14" Width="180" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
 
                                 </DataTemplate>
                             </GridViewColumn.HeaderTemplate>
@@ -169,10 +173,10 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="110">
+                        <GridViewColumn Width="120">
                             <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Thao tác" FontSize="14" Width="110" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
+                                    <TextBlock Text="Thao tác" FontSize="14" Width="120" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
                                 </DataTemplate>
                             </GridViewColumn.HeaderTemplate>
 
@@ -191,14 +195,15 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-
-            <StackPanel HorizontalAlignment="Center" Width="320">
+            </Border>
+                <StackPanel HorizontalAlignment="Center" Width="320" Background="#EFEFEF">
                 <StackPanel HorizontalAlignment="Right" Margin="0 10 20 0">
                     <TextBlock Text="Trạng thái đơn hàng" FontSize="20" FontWeight="Bold" Margin="0 0 0 10"/>
-                    <ComboBox SelectionChanged="orderStatusComboBox_SelectionChanged" Name="orderStatusComboBox" Width="290" Height="50" Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                    <ComboBox SelectionChanged="orderStatusComboBox_SelectionChanged" Name="orderStatusComboBox" Width="290" Height="50" Background="white"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock  FontWeight="Medium" FontSize="12" Text="{Binding displayText}" TextAlignment="Center" VerticalAlignment="Top"
+                                <TextBlock FontWeight="Medium" FontSize="12" Text="{Binding displayText}" TextAlignment="Center" VerticalAlignment="Top"
                                                 Background="{Binding displayText, Converter={StaticResource orderConverter}}"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
@@ -207,7 +212,8 @@
 
                 <StackPanel HorizontalAlignment="Right" Margin="0 10 20 0">
                     <TextBlock Text="Loại khuyến mãi" FontSize="20" FontWeight="Bold" Margin="0 0 0 10"/>
-                    <ComboBox SelectionChanged="promotionCombobox_SelectionChanged" Name="promotionCombobox" Width="290" Height="50" Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        <ComboBox SelectionChanged="promotionCombobox_SelectionChanged" Name="promotionCombobox" Width="290" Height="50" Background="white" 
+                                  Style="{StaticResource MaterialDesignOutlinedComboBox}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock  FontWeight="Medium" FontSize="10"  TextAlignment="Center" VerticalAlignment="Top">
@@ -220,13 +226,19 @@
                     </ComboBox>
                 </StackPanel>
 
-                <Button HorizontalAlignment="Center" Margin="0 20 0 0" x:Name="addNewProductButton" Content="Thêm sản phẩm" Click="addNewProductButton_Click" Width="200"/>
+                    <Button Margin="0 30 0 10" x:Name="addNewProductButton" Content="Thêm sản phẩm" Click="addNewProductButton_Click" FontSize="23" Height="50" Width="290" Background="#2A7D5D"
+                            Foreground="#FAFF00"/>
             </StackPanel>
             
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+        <StackPanel Orientation="Horizontal" Margin="20 10 0 0">
             <TextBlock Text="Tổng giá trị đơn hàng: " FontSize="30" FontWeight="Bold" TextAlignment="Center"/>
             <TextBlock x:Name="totalMoneyTextBlock" d:Text="200.000" FontSize="30" FontWeight="Bold" TextAlignment="Center" Foreground="Red"/>
         </StackPanel>
     </StackPanel>
-</Window>
+        <Frame Name="screen"></Frame>
+        <Grid>
+            <ContentControl Content="{Binding SelectedViewModel}"/>
+        </Grid>
+    </Canvas>
+</Page>

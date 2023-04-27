@@ -1,5 +1,6 @@
 ﻿using MyShop_WPF_Application.Model;
 using MyShop_WPF_Application.Models;
+using MyShop_WPF_Application.UserControls;
 using MyShop_WPF_Application.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace MyShop_WPF_Application.Views
     /// <summary>
     /// Interaction logic for OrderDetailsView.xaml
     /// </summary>
-    public partial class OrderDetailsView : Window
+    public partial class OrderDetailsView : Page
     {
         int currentOrderId = Global.selectedOrderID;
         OrderDetailsViewModel _viewModel;
@@ -30,7 +31,8 @@ namespace MyShop_WPF_Application.Views
         public OrderDetailsView()
         {
             InitializeComponent();
-
+            var select = Dashboard.menuBTN.Children[2] as MenuButton;
+            select?.btn.Focus();
             _viewModel = new OrderDetailsViewModel(currentOrderId);
 
             // get order's customer info
@@ -106,13 +108,13 @@ namespace MyShop_WPF_Application.Views
 
         private async void addNewProductButton_Click(object sender, RoutedEventArgs e)
         {
-            Window addProductWindow = new OrderDetailChooseProductView();
-            addProductWindow.ShowDialog();
+            screen.Content = new OrderDetailChooseProductView();
+            //addProductWindow.ShowDialog();
 
-            _viewModel = new OrderDetailsViewModel(currentOrderId);
-            lst.ItemsSource = _viewModel.productList;
+            //_viewModel = new OrderDetailsViewModel(currentOrderId);
+            //lst.ItemsSource = _viewModel.productList;
 
-            updateMoneyTextBlock();
+            //updateMoneyTextBlock();
         }
 
         private void orderStatusComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -179,6 +181,11 @@ namespace MyShop_WPF_Application.Views
             totalMoneyTextBlock.Text = newTotal.ToString();
 
             _viewModel.updateTotal(currentOrderId, newTotal);
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new MainViewModel();
         }
     }
 }

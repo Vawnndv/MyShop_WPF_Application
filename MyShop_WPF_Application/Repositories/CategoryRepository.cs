@@ -16,8 +16,8 @@ namespace MyShop_WPF_Application.Repositories
         public ObservableCollection<CategoryModel> getAllCategory()
         {
             ObservableCollection<CategoryModel> result = new ObservableCollection<CategoryModel>();
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
             if (Global.Connection != null)
             {
 
@@ -44,15 +44,15 @@ namespace MyShop_WPF_Application.Repositories
                 reader.Close();
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return result;
         }
 
         public ObservableCollection<CategoryTypeStatistic> getCategoryWithProduct()
         {
             ObservableCollection<CategoryTypeStatistic> result = new ObservableCollection<CategoryTypeStatistic>();
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
             if (Global.Connection != null)
             {
                 //string sql = "SELECT p.Category_ID, Count(*) as NumOfProduct, c.Category_Name\r\nFROM Product p, Category c\r\nwhere p.Category_ID = c.Category_ID\r\nGROUP BY p.Category_ID, c.Category_Name";
@@ -84,7 +84,7 @@ namespace MyShop_WPF_Application.Repositories
 
                 reader.Close();
             }
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             double total = 0;
             for (int i = 0; i < result.Count; i++)
             {
@@ -145,7 +145,7 @@ namespace MyShop_WPF_Application.Repositories
                 unsetIdInsertCommand.ExecuteNonQuery();
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return result;
         }
 
@@ -153,8 +153,8 @@ namespace MyShop_WPF_Application.Repositories
         {
             bool result = false;
 
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
 
             if (Global.Connection != null)
             {
@@ -173,7 +173,7 @@ namespace MyShop_WPF_Application.Repositories
                 }
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return result;
         }
 
@@ -193,8 +193,8 @@ namespace MyShop_WPF_Application.Repositories
                 }
             }
 
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
 
             if (Global.Connection != null)
             {
@@ -211,7 +211,7 @@ namespace MyShop_WPF_Application.Repositories
                 }
             }
 
-            Global.Connection?.Close();
+            //Global.Connection?.Close();
             return result;
         }
     }

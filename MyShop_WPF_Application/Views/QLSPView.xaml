@@ -60,12 +60,13 @@
                 </StackPanel>
                 <StackPanel Width="115">
                     <TextBlock Text="Từ khoảng" Foreground="#348F6C" FontWeight="Bold" HorizontalAlignment="Left"/>
-                    <TextBox  PreviewTextInput="NumberOnly_PreviewTextInput" Style="{StaticResource MaterialDesignTextBoxBase}" 
+                    <TextBox  TextChanged="Price_TextChanged" PreviewTextInput
+                              ="NumberOnly_PreviewTextInput" Style="{StaticResource MaterialDesignTextBoxBase}" 
                          BorderBrush="{DynamicResource MaterialDesignDivider}" Height="25" HorizontalAlignment="Left" Name="fromPrice" VerticalAlignment="Center" Width="115" />
                 </StackPanel>
                 <StackPanel Width="115" Margin="30 0 0 0">
                     <TextBlock Text="Đến khoảng" Foreground="#348F6C" FontWeight="Bold" HorizontalAlignment="Left"/>
-                    <TextBox PreviewTextInput="NumberOnly_PreviewTextInput" Style="{StaticResource MaterialDesignTextBoxBase}" 
+                    <TextBox TextChanged="Price_TextChanged" PreviewTextInput="NumberOnly_PreviewTextInput" Style="{StaticResource MaterialDesignTextBoxBase}" 
                          BorderBrush="{DynamicResource MaterialDesignDivider}" Height="25" HorizontalAlignment="Center" Margin="0,0,0,0" Name="toPrice" VerticalAlignment="Center" Width="115" />
                 </StackPanel>
                 <Button Margin="20 10 0 0" Content="Lọc Theo Giá" x:Name="filterPriceButton" Click="filterPriceButton_Click" Background="#348F6C" BorderThickness="0"/>
@@ -138,9 +139,20 @@
                         </ComboBox>
                     </StackPanel>
                 </DockPanel>
+                <StackPanel Margin="0 0 0 0" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock FontWeight="Bold" Foreground="#348F6C" Text="Số sanr phẩm mỗi trang" VerticalAlignment="Center"/>
+                    <TextBox FontWeight="Bold" Foreground="#348F6C" PreviewTextInput="NumberValidationTextBox" x:Name="displayRowPerPageTextBox" 
+                         d:Text="5" Style="{StaticResource MaterialDesignTextBoxBase}" 
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="5 5 5 5" 
+                         TextChanged="displayRowPerPageTextBox_TextChanged"
+                         Width="30"
+                         Height="30"
+                         TextAlignment="Center"
+                         BorderThickness="2" />
+                </StackPanel>
             </StackPanel>
         </StackPanel>
-        <Frame Name="nextPage"></Frame>
+        <Frame Name="nextPage" Navigated="nextPage_Navigated"></Frame>
     </Grid>
 
 </UserControl>

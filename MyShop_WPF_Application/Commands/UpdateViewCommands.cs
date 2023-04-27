@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows;
 using MyShop_WPF_Application.ViewModels;
 using System.Diagnostics;
+using MyShop_WPF_Application.WindowScreen;
 
 namespace MyShop_WPF_Application.Commands
 {
@@ -41,6 +42,14 @@ namespace MyShop_WPF_Application.Commands
                 viewModel.SelectedViewModel = new QLSPViewModel();
                 Console.WriteLine(parameter.ToString());
             }
+            else if (parameter.ToString() == "QLLOAISP")
+            {
+                viewModel.SelectedViewModel = new QLLOAISPViewModel();
+            }
+            else if (parameter.ToString() == "QLKH")
+            {
+                viewModel.SelectedViewModel = new QLKHViewModel();
+            }
             else if (parameter.ToString() == "QLDH")
             {
                 viewModel.SelectedViewModel = new QLDHViewModel();
@@ -53,9 +62,17 @@ namespace MyShop_WPF_Application.Commands
             {
                 viewModel.SelectedViewModel = new TKSPViewModel();
             }
+            else if (parameter.ToString() == "QLKM")
+            {
+                viewModel.SelectedViewModel = new PromotionViewModel();
+            }
             else if (parameter.ToString() == "TKDTVLN")
             {
                 viewModel.SelectedViewModel = new TK_DoanhThu_LoiNhuanViewModel();
+            }
+            else if (parameter.ToString() == "TKBH")
+            {
+                viewModel.SelectedViewModel = new TKBHViewModel();
             }
             else if (parameter.ToString() == "Dashboard")
             {
@@ -63,6 +80,8 @@ namespace MyShop_WPF_Application.Commands
             }
             else if (parameter.ToString() == "dang_xuat")
             {
+                Login screen = new Login();
+                screen.Show();
                 Window myWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.Name == "dashboard");
 
                 // Kiểm tra nếu cửa sổ tồn tại và đang được hiển thị

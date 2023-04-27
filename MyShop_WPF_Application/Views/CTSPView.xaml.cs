@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using MyShop_WPF_Application.ViewModels;
+using DocumentFormat.OpenXml.Vml;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Win32;
 using MyShop_WPF_Application.Converters;
 using MyShop_WPF_Application.Models;
-using MyShop_WPF_Application.ViewModels;
 using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -12,7 +14,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -21,6 +22,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
+
 
 namespace MyShop_WPF_Application.Views
 {
@@ -42,7 +44,7 @@ namespace MyShop_WPF_Application.Views
             int i = 0;
             foreach (var category in _viewModel._categoryList)
             {
-                if(_viewModel._product.CategoryID == category.CategoryID)
+                if (_viewModel._product.CategoryID == category.CategoryID)
                 {
                     comboboxCategory.SelectedIndex = i;
                     _currentCategoryCombobox = i;
@@ -51,11 +53,6 @@ namespace MyShop_WPF_Application.Views
                 i++;
 
             }
-        }
-
-        private void ListBill_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-
         }
 
         private void BtnEditProduct_Click(object sender, RoutedEventArgs e)
@@ -68,29 +65,29 @@ namespace MyShop_WPF_Application.Views
             comboboxCategory.IsEnabled = true;
             btnRemoveProduct.IsEnabled = false;
 
-            saveBtn.Visibility = Visibility.Visible;
             restoreBtn.Visibility = Visibility.Visible;
+            saveBtn.Visibility = Visibility.Visible;
             btnEditProduct.Visibility = Visibility.Hidden;
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Bạn muốn hiệu chỉnh lại sản phẩm này không?",
+            if (editProductName.Text.Length == 0 || editProductPrice.Text.Length == 0 || editProductPriceOriginal.Text.Length == 0 || editProductQuantity.Text.Length == 0)
+            {
+                string message = "Vui lòng điền đủ thông tin";
+                string title = "kiểm tra nhập thông tin sản phẩm";
+                MessageBox.Show(message, title);
+            }
+            else
+            {
+                if (MessageBox.Show("Bạn muốn hiệu chỉnh lại sản phẩm này không?",
                 "Hiệu chỉnh",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                if (editProductName.Text.Length == 0 || editProductPrice.Text.Length == 0 || editProductPriceOriginal.Text.Length == 0 || editProductQuantity.Text.Length == 0)
-                {
-                    string message = "Vui lòng điền đủ thông tin";
-                    string title = "kiểm tra nhập thông tin sản phẩm";
-                    MessageBox.Show(message, title);
-                }
-                else
                 {
                     _viewModel._product.ProductName = editProductName.Text;
-                    _viewModel._product.ProductPrice = double.Parse(editProductPrice.Text);
-                    _viewModel._product.ProductPriceOriginal = double.Parse(editProductPriceOriginal.Text);
+                    _viewModel._product.ProductPrice = double.Parse(editProductPrice.Text.Replace(",", ""));
+                    _viewModel._product.ProductPriceOriginal = double.Parse(editProductPriceOriginal.Text.Replace(",", ""));
                     _viewModel._product.ProductQuantity = int.Parse(editProductQuantity.Text);
                     foreach (var category in _viewModel._categoryList)
                     {
@@ -131,19 +128,18 @@ namespace MyShop_WPF_Application.Views
                         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
+                editProductName.IsReadOnly = true;
+                editProductPrice.IsReadOnly = true;
+                editProductPriceOriginal.IsReadOnly = true;
+                editProductQuantity.IsReadOnly = true;
+                btnAddImageProduct.IsEnabled = false;
+                comboboxCategory.IsEnabled = false;
+                btnRemoveProduct.IsEnabled = true;
+
+                saveBtn.Visibility = Visibility.Hidden;
+                restoreBtn.Visibility = Visibility.Hidden;
+                btnEditProduct.Visibility = Visibility.Visible;
             }
-
-            editProductName.IsReadOnly = true;
-            editProductPrice.IsReadOnly = true;
-            editProductPriceOriginal.IsReadOnly = true;
-            editProductQuantity.IsReadOnly = true;
-            btnAddImageProduct.IsEnabled = false;
-            comboboxCategory.IsEnabled = false;
-            btnRemoveProduct.IsEnabled = true;
-
-            saveBtn.Visibility = Visibility.Hidden;
-            restoreBtn.Visibility = Visibility.Hidden;
-            btnEditProduct.Visibility = Visibility.Visible;
         }
 
         private void BtnRemoveProduct_Click(object sender, RoutedEventArgs e)
@@ -158,7 +154,7 @@ namespace MyShop_WPF_Application.Views
                 {
                     string message = "Đã xóa sản phẩm thành công";
                     string title = "Xóa thông tin sản phẩm";
-                    MessageBox.Show(message, title, MessageBoxButton.OK,MessageBoxImage.Information);
+                    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }
@@ -190,7 +186,7 @@ namespace MyShop_WPF_Application.Views
                 AbsoluteConverter absoluteConverter = new AbsoluteConverter();
 
                 // Convert the relative path to an absolute path
-                string imagePath = _viewModel._restoreProduct.ProductAvatar; 
+                string imagePath = _viewModel._restoreProduct.ProductAvatar;
                 // Relative path of the image
                 string absolutePath = (string)absoluteConverter.Convert(imagePath, typeof(string), null, null);
                 // Set the absolute path as the source of the Image control
@@ -254,21 +250,31 @@ namespace MyShop_WPF_Application.Views
         {
 
         }
-
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            TextBox textBox = sender as TextBox;
+            //var textBox = sender as TextBox;
+            e.Handled = Regex.IsMatch(e.Text, "[^0-9]+");
+        }
 
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
+        private void Price_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //TextBox textBox = sender as TextBox;
 
+            System.Windows.Controls.TextBox textBox = sender as System.Windows.Controls.TextBox;
+
+            // Chuyển định dạng abc,xyz cho giá cả
             if (textBox.Text.Length > 0)
             {
                 double value = 0;
                 double.TryParse(textBox.Text, out value);
-                textBox.Text = value.ToString("N0", CultureInfo.InvariantCulture);
+                textBox.Text = value.ToString("N0");
                 textBox.CaretIndex = textBox.Text.Length;
             }
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new MainViewModel();
         }
     }
 }

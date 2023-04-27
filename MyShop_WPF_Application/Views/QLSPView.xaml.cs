@@ -47,6 +47,7 @@ namespace MyShop_WPF_Application.Views
             InitializeComponent();
             base.DataContext = _viewModel;
 
+            Global.SaveScreen("QLSP");
         }
 
         //private void Button_Click(object sender, RoutedEventArgs e)
@@ -57,6 +58,8 @@ namespace MyShop_WPF_Application.Views
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             comboboxCategory.Items.Add("Tất cả");
+            displayRowPerPageTextBox.Text = rowsPerPage.ToString();
+
             foreach (var category in _viewModel._categoryList)
             {
                 comboboxCategory.Items.Add(category.CategoryName);
@@ -80,7 +83,7 @@ namespace MyShop_WPF_Application.Views
 
         }
 
-        private void updatePage(int category, int page, string keyword = "", int index = -1)
+        private void updatePage(int category, int page, string keyword = "")
         {
             _currentPage = page;
 
@@ -135,7 +138,7 @@ namespace MyShop_WPF_Application.Views
             {
                 if (isFiltering)
                 {
-                    _newProductList = _productListCategory.Where(x => x.ProductPrice >= double.Parse(fromPrice.Text) && x.ProductPrice <= double.Parse(toPrice.Text)).ToList();
+                    _newProductList = _productListCategory.Where(x => x.ProductPrice >= double.Parse(fromPrice.Text.Replace(",", "")) && x.ProductPrice <= double.Parse(toPrice.Text.Replace(",", ""))).ToList();
                     _newProductItem = _newProductList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList();
 
                 }
@@ -280,8 +283,8 @@ namespace MyShop_WPF_Application.Views
                 string filename = openFileDialog.FileName;
                 // Do something with the selected file path
 
-                //try
-                //{
+                try
+                {
                     var document = SpreadsheetDocument.Open(filename, false);
                     var wbPart = document.WorkbookPart!;
                     var sheets = wbPart.Workbook.Descendants<Sheet>()!;
@@ -332,40 +335,40 @@ namespace MyShop_WPF_Application.Views
                             Cell quantinyCell = cells.FirstOrDefault(
                                 c => c?.CellReference == $"D{row}"
                             )!;
-                        string quantiny = quantinyCell!.InnerText;
+                            string quantiny = quantinyCell!.InnerText;
 
-                        //Price
+                            //Price
                             Cell priceCell = cells.FirstOrDefault(
                                c => c?.CellReference == $"E{row}"
                            )!;
-                            string price= priceCell!.InnerText;
+                            string price = priceCell!.InnerText;
 
-                        //Price_Orginal
-                        Cell priceOrginalCell = cells.FirstOrDefault(
-                                c => c?.CellReference == $"F{row}"
-                            )!;
+                            //Price_Orginal
+                            Cell priceOrginalCell = cells.FirstOrDefault(
+                                    c => c?.CellReference == $"F{row}"
+                                )!;
                             string priceOrginal = priceCell!.InnerText;
 
-                        bool productExists = _viewModel._productList
-                            .Where(p => p.CategoryID != null && p.ProductName != null && p.ProductAvatar != null && p.ProductQuantity != null && p.ProductPrice != null && p.ProductPriceOriginal != null) // Filter products based on criteria
-                            .Any(p => p.CategoryID == int.Parse(id) && p.ProductName == name && p.ProductAvatar == avatar && p.ProductQuantity == int.Parse(quantiny) && p.ProductPrice == double.Parse(price) && p.ProductPriceOriginal == double.Parse(priceOrginal)); // Check if desired product exists in filtered array
+                            bool productExists = _viewModel._productList
+                                .Where(p => p.CategoryID != null && p.ProductName != null && p.ProductAvatar != null && p.ProductQuantity != null && p.ProductPrice != null && p.ProductPriceOriginal != null) // Filter products based on criteria
+                                .Any(p => p.CategoryID == int.Parse(id) && p.ProductName == name && p.ProductAvatar == avatar && p.ProductQuantity == int.Parse(quantiny) && p.ProductPrice == double.Parse(price) && p.ProductPriceOriginal == double.Parse(priceOrginal)); // Check if desired product exists in filtered array
 
-                        if(!productExists )
-                        {
-                            _viewModel._product.CategoryID = int.Parse(id);
-                            _viewModel._product.ProductName = name; 
-                            _viewModel._product.ProductAvatar = avatar; 
-                            _viewModel._product.ProductQuantity = int.Parse(quantiny);
-                            _viewModel._product.ProductPrice = double.Parse(price);
-                            _viewModel._product.ProductPriceOriginal = double.Parse(priceOrginal);
-
-                            var add = _viewModel.AddNewProduct(_viewModel._product);
-                            if (add)
+                            if (!productExists)
                             {
-                                countAdd++;
+                                _viewModel._product.CategoryID = int.Parse(id);
+                                _viewModel._product.ProductName = name;
+                                _viewModel._product.ProductAvatar = avatar;
+                                _viewModel._product.ProductQuantity = int.Parse(quantiny);
+                                _viewModel._product.ProductPrice = double.Parse(price);
+                                _viewModel._product.ProductPriceOriginal = double.Parse(priceOrginal);
+
+                                var add = _viewModel.AddNewProduct(_viewModel._product);
+                                if (add)
+                                {
+                                    countAdd++;
+                                }
                             }
-                        }
-                        Trace.WriteLine($"{id} - {name} - {avatar} - {quantiny} - {price} - {priceOrginal}");
+                            Trace.WriteLine($"{id} - {name} - {avatar} - {quantiny} - {price} - {priceOrginal}");
                         }
                         row++;
 
@@ -374,7 +377,7 @@ namespace MyShop_WPF_Application.Views
                     Console.ReadLine();
                     ProductListView.ItemsSource = _viewModel.getProductList();
 
-                if (countAdd > 0)
+                    if (countAdd > 0)
                     {
                         string title = "Import category từ Excel" + countAdd;
                         string message = "Đã thêm thành công " + countAdd + " loại sản phẩm mới";
@@ -386,28 +389,82 @@ namespace MyShop_WPF_Application.Views
                         string message = "Không có dữ liệu hoặc dữ liệu đã tồn tại trong cơ sở dữ liệu";
                         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-                //}
-                //catch (Exception ex)
-                //{
-                //    string title = "Import category từ Excel";
-                //    string message = "Import không thành công";
-                //    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
-                //}
+                }
+                catch (Exception ex)
+                {
+                    string title = "Import category từ Excel";
+                    string message = "Import không thành công";
+                    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
+            updatePage(_currentCategoryCombobox, _currentPage);
+            updateTotalPage();
+            currentPageComboBox.SelectedIndex = _currentPage - 1;
         }
+
+        private void nextPage_Navigated(object sender, NavigationEventArgs e)
+        {
+
+        }
+
+        private void displayRowPerPageTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                //if (Int16.Parse(displayRowPerPageTextBox.Text) > rowsPerPage)
+                //{
+                //    displayRowPerPageTextBox.Text = rowsPerPage.ToString();
+                //}
+                //else
+                //{
+                rowsPerPage = Int16.Parse(displayRowPerPageTextBox.Text);
+                //}
+                updatePage(_currentCategoryCombobox, _currentPage);
+                updateTotalPage();
+                currentPageComboBox.SelectedIndex = _currentPage - 1;
+
+            }
+            catch { }
+
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        //private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        //{
+        //    TextBox textBox = sender as TextBox;
+
+        //    Regex regex = new Regex("[^0-9]+");
+        //    e.Handled = regex.IsMatch(e.Text);
+
+        //    if (textBox.Text.Length > 0)
+        //    {
+        //        double value = 0;
+        //        double.TryParse(textBox.Text, out value);
+        //        textBox.Text = value.ToString("N0", CultureInfo.InvariantCulture);
+        //        textBox.CaretIndex = textBox.Text.Length;
+        //    }
+        //}
 
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
+            e.Handled = Regex.IsMatch(e.Text, "[^0-9]+");
+        }
+
+        private void Price_TextChanged(object sender, TextChangedEventArgs e)
+        {
             TextBox textBox = sender as TextBox;
 
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-
+            // Chuyển định dạng abc,xyz cho giá cả
             if (textBox.Text.Length > 0)
             {
                 double value = 0;
                 double.TryParse(textBox.Text, out value);
-                textBox.Text = value.ToString("N0", CultureInfo.InvariantCulture);
+                textBox.Text = value.ToString("N0");
                 textBox.CaretIndex = textBox.Text.Length;
             }
         }

@@ -1,4 +1,4 @@
-﻿<Window x:Class="MyShop_WPF_Application.Views.AddNewPromotionView"
+﻿<Page x:Class="MyShop_WPF_Application.Views.AddNewPromotionView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,24 +9,35 @@
         
         mc:Ignorable="d" 
              
-        Height="750" Width="1065"
-        Loaded="Window_Loaded"
-        
-        >
-    
-    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-        <TextBlock Text="THÊM LOẠI KHUYẾN MÃI MỚI" TextAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="#348F6C" Margin="0 20 0 0"/>
-        <StackPanel Orientation="Horizontal" Margin="20 10 0 0">
-            <TextBlock Text="Tên loại khuyến mãi: " FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox materialDesign:HintAssist.Hint="Nhập tên khuyến mãi" d:Text="Hihi 365" FontSize="20" Margin="20 0 0 0" x:Name="promoNameTextBox"/>
-        </StackPanel>
+        Height="700" Width="1065"
+        Loaded="Window_Loaded">
+    <Canvas Background="White">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Canvas.Left="183" Canvas.Top="87">
+            <Border Width="700" Padding="30 70 30 70"  BorderThickness="2" BorderBrush="#348F6C" CornerRadius="30">
+                <StackPanel>
+                    <TextBlock Text="THÊM LOẠI KHUYẾN MÃI MỚI" TextAlignment="Center" FontSize="30" FontWeight="Bold" Foreground="#348F6C" Margin="0 20 0 0"/>
+                    <StackPanel Orientation="Horizontal" Margin="20 70 0 0"  HorizontalAlignment="Center">
+                        <TextBlock Text="Tên loại khuyến mãi: " FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                        <TextBox materialDesign:HintAssist.Hint="Nhập tên khuyến mãi" d:Text="Hihi 365" FontSize="20" Width="300" Margin="20 0 0 0" x:Name="promoNameTextBox"/>
+                    </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Margin="20 10 0 0" HorizontalAlignment="Center">
-            <TextBlock Text="Giá trị khuyến mãi: " FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
-            <TextBox PreviewTextInput="numberValidation" materialDesign:HintAssist.Hint="Nhập giá trị % khuyến mãi" d:Text="Nguyễn Văn A" FontSize="20" Margin="35 0 0 0" x:Name="promoPercentageTextBox"/>
-            <TextBlock Text="%" FontSize="20" VerticalAlignment="Center"/>
-        </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="20 30 0 0" HorizontalAlignment="Center">
+                        <TextBlock Text="Giá trị khuyến mãi: " FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                        <TextBox PreviewTextInput="numberValidation" materialDesign:HintAssist.Hint="Nhập giá trị % khuyến mãi" d:Text="Nguyễn Văn A" Width="300" FontSize="20" Margin="20 0 0 0" x:Name="promoPercentageTextBox"/>
+                        <TextBlock Text="%" FontSize="20" VerticalAlignment="Center"/>
+                    </StackPanel>
 
-        <Button Content="Thêm khuyến mãi mới" Margin="0 20 0 0" Width="180" HorizontalAlignment="Center" Click="Button_Click"/>
-    </StackPanel>
-</Window>
+                    <Button Content="Thêm khuyến mãi mới" Margin="0 60 0 20" HorizontalAlignment="Center" Click="Button_Click" Command="{Binding UpdateViewCommand}" 
+                            CommandParameter="QLKM" FontSize="25" Height="60" Background="#2A7D5D"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <Button BorderBrush="{x:Null}"  x:Name="closeButton" Background="Transparent" Height="50" Margin="0 10 0 0" Click="backButton_Click" HorizontalAlignment="Left" 
+                VerticalAlignment="Center" Command="{Binding UpdateViewCommand}" CommandParameter="QLKM">
+            <Image Source="../img/backBTN.png" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
+        </Button>
+        <Grid>
+            <ContentControl Content="{Binding SelectedViewModel}"/>
+        </Grid>
+    </Canvas>
+</Page>

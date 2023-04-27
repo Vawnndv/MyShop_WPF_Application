@@ -2,14 +2,16 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <UserSecretsId>8d8f381a-c96a-4771-ab7a-3bbd086cfab1</UserSecretsId>
+    <UseWindowsForms>False</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Fonts\Amsterdam_One.ttf" />
+    <None Remove="img\backBTN.png" />
     <None Remove="img\background.png" />
     <None Remove="img\bglogin.png" />
     <None Remove="img\bg_login.png" />
@@ -46,6 +48,7 @@
     <Resource Include="Fonts\Amsterdam_One.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="img\backBTN.png" />
     <Resource Include="img\background.png" />
     <Resource Include="img\bglogin.png" />
     <Resource Include="img\bg_login.png" />
@@ -56,6 +59,9 @@
   </ItemGroup>
 
   <ItemGroup>
+	<None Update="img\newProduct.png">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
     <None Update="img\phone\1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

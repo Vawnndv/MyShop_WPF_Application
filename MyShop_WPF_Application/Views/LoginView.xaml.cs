@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Identity.Client;
 using MyShop_WPF_Application.Views;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,8 @@ namespace MyShop_WPF_Application.WindowScreen
         {
 
             InitializeComponent();
-            
+
+            Global.SaveScreen("Login");
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
