@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows;
 using MyShop_WPF_Application.ViewModels;
 using System.Diagnostics;
+using MyShop_WPF_Application.WindowScreen;
 
 namespace MyShop_WPF_Application.Commands
 {
@@ -75,8 +76,10 @@ namespace MyShop_WPF_Application.Commands
             }
             else if (parameter.ToString() == "dang_xuat")
             {
-                Window myWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.Name == "dashboard");
+                Login screen = new Login();
+                screen.Show();
 
+                Window myWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.Name == "dashboard");
                 // Kiểm tra nếu cửa sổ tồn tại và đang được hiển thị
                 if (myWindow != null && myWindow.IsVisible)
                 {
