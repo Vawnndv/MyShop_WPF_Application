@@ -15,37 +15,37 @@
             <StackPanel Margin="0 20 0 20" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Border Margin="0 0 30 0" CornerRadius="10" BorderThickness="1" Background="{StaticResource mybrush}" Height="150" Width =" 315">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="../img/icon/total_product.png" Height="80" Width="75" VerticalAlignment="Center" Margin="5 10 0 0"/>
+                        <Image Source="/img/icon/total_product.png" Height="80" Width="75" VerticalAlignment="Center" Margin="5 10 0 0"/>
                         <StackPanel Orientation="Vertical" Width="180" VerticalAlignment="Center">
                             <TextBlock Text="Tổng sản phẩm đang bán" Foreground="white" FontSize="24" Padding="0 10 0 0"  TextWrapping="Wrap"/>
                             <TextBlock Name ="TongSanPhamDangBan" Foreground="white" FontSize="36" FontWeight="Bold"/>
                         </StackPanel>
-                        <Image Source="../img/icon/graph.png" Height="50" Width="50" VerticalAlignment="Bottom" Margin="0 0 10 10"/>
+                        <Image Source="/img/icon/graph.png" Height="50" Width="50" VerticalAlignment="Bottom" Margin="0 0 10 10"/>
                     </StackPanel>
                 </Border>
                 <Border Margin="0 0 30 0" CornerRadius="10" BorderThickness="1" Background="{StaticResource gradient_2}" Height="150" Width ="315">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="../img/icon/box.png" Height="80" Width="75" VerticalAlignment="Center" Margin="5 0 0 0"/>
+                        <Image Source="/img/icon/box.png" Height="80" Width="75" VerticalAlignment="Center" Margin="5 0 0 0"/>
                         <StackPanel Orientation="Vertical" Width="180" VerticalAlignment="Center">
                             <TextBlock Text="Tổng đơn hàng mới trong tuần" Foreground="white" FontSize="24" Padding="0 10 0 0"  TextWrapping="Wrap"/>
                             <TextBlock Name ="TongDonHangTrongTuan" Foreground="white" FontSize="36" FontWeight="Bold"/>
                         </StackPanel>
-                        <Image Source="../img/icon/diagram.png" Height="50" Width="50" VerticalAlignment="Bottom" Margin="0 0 10 10"/>
+                        <Image Source="/img/icon/diagram.png" Height="50" Width="50" VerticalAlignment="Bottom" Margin="0 0 10 10"/>
                     </StackPanel>
                 </Border>
                 <Border CornerRadius="10" BorderThickness="1" Background="{StaticResource gradient_3}" Height="150" Width =" 315">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="../img/icon/product_in_month.png" Height="80" Width="75" VerticalAlignment="Center" Margin="5 0 0 0"/>
+                        <Image Source="/img/icon/product_in_month.png" Height="80" Width="75" VerticalAlignment="Center" Margin="5 0 0 0"/>
                         <StackPanel Orientation="Vertical" Width="180" VerticalAlignment="Center">
                             <TextBlock Text="Tổng đơn hàng mới trong tháng" Foreground="white" FontSize="24" Padding="0 10 0 0"  TextWrapping="Wrap"/>
                             <TextBlock Name ="TongDonHangTrongThang" Foreground="white" FontSize="36" FontWeight="Bold"/>
                         </StackPanel>
-                        <Image Source="../img/icon/cube.png" Height="50" Width="50" VerticalAlignment="Bottom" Margin="0 0 10 10"/>
+                        <Image Source="/img/icon/cube.png" Height="50" Width="50" VerticalAlignment="Bottom" Margin="0 0 10 10"/>
                     </StackPanel>
                 </Border>
             </StackPanel>
             <StackPanel Margin="0 30 0 0" Orientation="Horizontal">
-                <Image Source="../img/icon/fire.png" Margin="10 0 0 0" Height="30" Width="30" VerticalAlignment="Center"/>
+                <Image Source="/img/icon/fire.png" Margin="10 0 0 0" Height="30" Width="30" VerticalAlignment="Center"/>
                 <TextBlock FontSize="23" Foreground="#DD0000" FontWeight="Medium">Top 5 sản phẩm sắp hết hàng</TextBlock>
             </StackPanel>
             <ListView x:Name="Top5Product" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Center" Margin="0 20 0 0" SelectionChanged="Top5Product_SelectionChanged">

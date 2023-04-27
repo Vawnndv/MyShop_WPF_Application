@@ -55,6 +55,13 @@
     <Resource Include="img\close.png" />
     <Resource Include="img\delete.png" />
     <Resource Include="img\edit.png" />
+    <Resource Include="img\icon\box.png" />
+    <Resource Include="img\icon\cube.png" />
+    <Resource Include="img\icon\diagram.png" />
+    <Resource Include="img\icon\fire.png" />
+    <Resource Include="img\icon\graph.png" />
+    <Resource Include="img\icon\product_in_month.png" />
+    <Resource Include="img\icon\total_product.png" />
     <Resource Include="img\view.png" />
   </ItemGroup>
 
