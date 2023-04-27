@@ -70,6 +70,10 @@ namespace MyShop_WPF_Application.Commands
             {
                 viewModel.SelectedViewModel = new TK_DoanhThu_LoiNhuanViewModel();
             }
+            else if (parameter.ToString() == "TKBH")
+            {
+                viewModel.SelectedViewModel = new TKBHViewModel();
+            }
             else if (parameter.ToString() == "Dashboard")
             {
                 viewModel.SelectedViewModel = new DashboardViewModel();
@@ -78,8 +82,8 @@ namespace MyShop_WPF_Application.Commands
             {
                 Login screen = new Login();
                 screen.Show();
-
                 Window myWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.Name == "dashboard");
+
                 // Kiểm tra nếu cửa sổ tồn tại và đang được hiển thị
                 if (myWindow != null && myWindow.IsVisible)
                 {

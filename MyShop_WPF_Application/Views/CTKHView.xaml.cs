@@ -39,47 +39,56 @@ namespace MyShop_WPF_Application.Views
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (editName.Text.Length == 0 || editPhone.Text.Length == 0 || editEmail.Text.Length == 0 || editAddress.Text.Length == 0)
+            string pattern = @"^[a-zA-Z0-9._%+-]+@gmail\.com$";
+            bool isMatch = Regex.IsMatch(editAddress.Text, pattern);
+            if (editName.Text.Length == 0 || editPhone.Text.Length == 0 || editEmail.Text.Length != 10 || editAddress.Text.Length == 0 || isMatch)
             {
                 string message = "Vui lòng điền đủ thông tin";
                 string title = "kiểm tra nhập thông tin";
-                MessageBox.Show(message, title);
+                MessageBox.Show(message, title, MessageBoxButton.OK,MessageBoxImage.Warning);
             }
             else
             {
-                if (MessageBox.Show("Bạn muốn hiệu chỉnh lại thông tin khách hàng này không?",
-                "Hiệu chỉnh",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question) == MessageBoxResult.Yes)
+               if(!_viewModel.getCustomerPhone(editPhone.Text.Replace("-", "")))
                 {
-
-                    _viewModel._customer.name = editName.Text;
-                    _viewModel._customer.phone = editPhone.Text;
-                    _viewModel._customer.email = editEmail.Text;
-                    _viewModel._customer.address = editAddress.Text;
-
-                    string message1 = _viewModel._customer.phone + " ," + _viewModel._customer.name;
-                    string title1 = "Hiệu chỉnh";
-                    MessageBox.Show(message1, title1, MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    var edit = _viewModel.EditCustomer(_viewModel._customer);
-                    _viewModel._customerRestore = _viewModel._customer;
-                    if (edit)
+                    if (MessageBox.Show("Bạn muốn hiệu chỉnh lại thông tin khách hàng này không?",
+                       "Hiệu chỉnh",
+                       MessageBoxButton.YesNo,
+                       MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
-                        string message = "Đã cập nhật thông tin khách hàng thành công";
-                        string title = "Hiệu chỉnh";
-                        MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        _viewModel._customer.name = editName.Text;
+                        _viewModel._customer.phone = editPhone.Text.Replace("-", "");
+                        _viewModel._customer.email = editEmail.Text;
+                        _viewModel._customer.address = editAddress.Text;
+
+                        var edit = _viewModel.EditCustomer(_viewModel._customer);
+                        _viewModel._customerRestore = _viewModel._customer;
+                        if (edit)
+                        {
+                            string message = "Đã cập nhật thông tin khách hàng thành công";
+                            string title = "Hiệu chỉnh";
+                            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+                            base.DataContext = new MainViewModel();
+                        }
                     }
+
+                    editName.IsReadOnly = true;
+                    editEmail.IsReadOnly = true;
+                    editPhone.IsReadOnly = true;
+                    editAddress.IsReadOnly = true;
+
+                    saveBtn.Visibility = Visibility.Hidden;
+                    restoreBtn.Visibility = Visibility.Hidden;
+                    editBtn.Visibility = Visibility.Visible;
                 }
-
-                editName.IsReadOnly = true;
-                editEmail.IsReadOnly = true;
-                editPhone.IsReadOnly = true;
-                editAddress.IsReadOnly = true;
-
-                saveBtn.Visibility = Visibility.Hidden;
-                restoreBtn.Visibility = Visibility.Hidden;
-                editBtn.Visibility = Visibility.Visible;
+               else
+                {
+                    string message = "Số điện thoại đã tồn tại";
+                    string title = "Hiệu chỉnh";
+                    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                    editPhone.Clear();
+                }
             }
         }
 
@@ -133,7 +142,7 @@ namespace MyShop_WPF_Application.Views
         {
             editName.IsReadOnly = false;
             editEmail.IsReadOnly = false;
-            editPhone.IsReadOnly = true;
+            editPhone.IsReadOnly = false;
             editAddress.IsReadOnly = false;
 
             saveBtn.Visibility = Visibility.Visible;
@@ -141,14 +150,31 @@ namespace MyShop_WPF_Application.Views
             editBtn.Visibility = Visibility.Hidden;
         }
 
-        private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-
-        }
-
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
             DataContext = new MainViewModel();
+        }
+
+        private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            e.Handled = Regex.IsMatch(e.Text, "[^0-9]+");
+        }
+
+        private void Price_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            if (!string.IsNullOrEmpty(textBox.Text))
+            {
+                string digitsOnly = Regex.Replace(textBox.Text, @"\D", "");
+
+                string formattedNumber = Regex.Replace(digitsOnly, @"(\d{3})(\d{3})(\d{4})", "$1-$2-$3");
+
+                // Update the text in the TextBox
+                textBox.Text = formattedNumber;
+                textBox.SelectionStart = textBox.Text.Length;
+            }
         }
     }
 }

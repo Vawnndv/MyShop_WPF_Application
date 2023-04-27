@@ -12,6 +12,7 @@
     <Page.Resources>
         <Converter:PriceConverter x:Key="priceFormat" />
         <Converter:AbsoluteConverter x:Key="absolute" />
+        <Converter:PhoneNumberConverter x:Key="phoneFormat"/>
     </Page.Resources>
     <Canvas Background="White">
         <Button  Grid.Row="0" Grid.Column="0" BorderBrush="{x:Null}"  x:Name="closeButton"  VerticalAlignment="Top" Background="Transparent"  Height="50" Margin="0 10 0 0" Click="backButton_Click" HorizontalAlignment="Left" 
@@ -34,6 +35,28 @@
                 <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  FontSize="30" FontWeight="Bold" FontFamily="Sitka Subheading" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#348F6C" Margin="0 20 0 50" Text="THÊM MỚI KHÁCH HÀNG"/>
 
 
+                <TextBox Grid.Row="1" Grid.Column="1"
+                Width="200"
+                Margin="200,20,20,0"
+                FontSize="15"
+                FontWeight="Bold"
+                AcceptsReturn="True"            
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                VerticalScrollBarVisibility="Auto"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding phone}"
+                Name="editPhone"
+                TextChanged="Price_TextChanged" PreviewTextInput="NumberOnly_PreviewTextInput">
+
+                    <materialDesign:HintAssist.Hint>
+                        <TextBlock>
+                        <Bold>Số điện thoại</Bold>
+                        </TextBlock>
+                    </materialDesign:HintAssist.Hint>
+                </TextBox>
+
+               
                 <TextBox Grid.Row="1" 
                      materialDesign:HintAssist.Hint="Họ và tên khách hàng"
                      Width="350"
@@ -41,7 +64,6 @@
                      FontSize="15"
                      Margin="20,20,200,10"
                      Background="Transparent"
-                     FontFamily="Sitka Subheading"
                      FontWeight="Bold"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      Text="{Binding name, UpdateSourceTrigger=PropertyChanged}"
@@ -52,7 +74,6 @@
                     Margin="20,20,20,10"
                     FontSize="15"
                     FontWeight="Bold"
-                    FontFamily="Sitka Subheading"
                     AcceptsReturn="True"
                     TextWrapping="Wrap"
                     VerticalAlignment="Top"
@@ -62,14 +83,11 @@
                     Text="{Binding address}"
                     Name="editAddress"/>
 
-
-
                 <TextBox Grid.Row="2" Grid.Column="2"
                 Width="200"
                 Margin="200,20,20,0"
                 FontSize="15"
                 FontWeight="Bold"
-                FontFamily="Sitka Subheading"
                 AcceptsReturn="True"
                 TextWrapping="Wrap"
                 VerticalAlignment="Top"
@@ -84,27 +102,6 @@
                     </materialDesign:HintAssist.Hint>
                 </TextBox>
 
-                <TextBox Grid.Row="1" Grid.Column="1"
-                Width="200"
-                Margin="200,20,20,0"
-                FontSize="15"
-                FontWeight="Bold"
-                FontFamily="Sitka Subheading"
-                AcceptsReturn="True"
-                TextWrapping="Wrap"
-                VerticalAlignment="Top"
-                VerticalScrollBarVisibility="Auto"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                PreviewTextInput="NumberOnly_PreviewTextInput"
-                Text="{Binding phone}"
-                Name="editPhone">
-                    <materialDesign:HintAssist.Hint>
-                        <TextBlock>
-                        <Bold>Số điện thoại</Bold>
-                        </TextBlock>
-                    </materialDesign:HintAssist.Hint>
-                </TextBox>
-
                 <Button 
                     Grid.Column="0" Grid.Row="3"
                     Width="100" Content="Làm mới"
@@ -115,7 +112,6 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Background="ForestGreen"
-                    FontFamily="Sitka Subheading"
                     Margin="10, 0, 10, 0"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Click="refreshBtn_Click"
@@ -133,9 +129,9 @@
                     VerticalAlignment="Center"
                     Background="ForestGreen"
                     Margin="10, 0, 10, 0"
-                    FontFamily="Sitka Subheading"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Click="addBtn_Click"
+                    Command="{Binding UpdateViewCommand}" CommandParameter="QLKH" 
                     Name="addBtn"/>
 
             </Grid>

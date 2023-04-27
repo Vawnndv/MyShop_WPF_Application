@@ -52,8 +52,8 @@ namespace MyShop_WPF_Application.Views
             DateTime? newDate = oderCreateDateTextBlock.SelectedDate;
 
 
-            if (phone == null || statusID == -1 ||
-                promoID == -1 || phone == "" ||
+            if(phone == null || statusID == -1 ||
+                promotionCombobox.SelectedIndex == -1 || phone == "" || 
                 oderCreateDateTextBlock.Text == null || oderCreateDateTextBlock.Text == "" ||
                 name == null || name == "" || email == null || email == ""
                 )

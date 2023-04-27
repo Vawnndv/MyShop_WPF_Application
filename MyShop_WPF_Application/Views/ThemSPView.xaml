@@ -44,7 +44,6 @@
                  FontSize="15"
                  Margin="20,20,83,0"
                  Background="Transparent"
-                 FontFamily="Sitka Subheading"
                  FontWeight="Bold"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Text="{Binding ProductName, UpdateSourceTrigger=PropertyChanged}"
@@ -57,7 +56,6 @@
                   Width="180"
                   FontSize="15"
                   FontWeight="Bold"
-                  FontFamily="Sitka Subheading"
                   VerticalAlignment="Top"
                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                   materialDesign:HintAssist.Hint="Loại sản phẩm"
@@ -67,13 +65,11 @@
                   ItemsSource="{Binding LongListToTestComboVirtualization}">
                 </ComboBox>
 
-
                 <TextBox Grid.Row="2" Grid.Column="0"
                 Width="180"
                 Margin="20,20,83,0"
                 FontSize="15"
                 FontWeight="Bold"
-                FontFamily="Sitka Subheading"
                 AcceptsReturn="True"
                 TextWrapping="Wrap"
                 VerticalAlignment="Top"
@@ -81,17 +77,37 @@
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                 materialDesign:HintAssist.Hint="Tồn kho hiện tại"
                 Text="{Binding ProductQuantity}"
-                Name="addProductQuantity" TextChanged="addQuantity_TextChanged"/>
+                Name="addProductQuantity" 
+                PreviewTextInput="NumberOnly_PreviewTextInput"/>
 
+                <TextBox Grid.Row="1" Grid.Column="2"
+                Width="180"
+                Margin="93,20,20,0"
+                FontSize="15"
+                FontWeight="Bold"
+                AcceptsReturn="True"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top"
+                VerticalScrollBarVisibility="Auto"
+                TextChanged="Price_TextChanged" PreviewTextInput="NumberOnly_PreviewTextInput"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding ProductPriceOriginal}"
+                Name="addProductPriceOriginal">
+                    <materialDesign:HintAssist.Hint>
+                        <TextBlock>
+                    <Bold>Giá vốn</Bold> (₫)
+                        </TextBlock>
+                    </materialDesign:HintAssist.Hint>
+                </TextBox>
 
                 <TextBox Grid.Row="2" Grid.Column="2"
                  Width="180"
                  VerticalAlignment="Top"
                  Margin="92,20,20,0"
-                 Text="{Binding ProductPrice, Converter={StaticResource priceFormat}}"
+                 Text="{Binding ProductPrice}"
                  FontWeight="Bold"
                  FontSize="15"
-                 FontFamily="Sitka Subheading"
+                 TextChanged="Price_TextChanged" PreviewTextInput="NumberOnly_PreviewTextInput"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Name="addProductPrice">
                     <materialDesign:HintAssist.Hint>
@@ -101,25 +117,6 @@
                     </materialDesign:HintAssist.Hint>
                 </TextBox>
 
-                <TextBox Grid.Row="1" Grid.Column="2"
-            Width="180"
-            Margin="93,20,20,0"
-            FontSize="15"
-            FontWeight="Bold"
-            FontFamily="Sitka Subheading"
-            AcceptsReturn="True"
-            TextWrapping="Wrap"
-            VerticalAlignment="Top"
-            VerticalScrollBarVisibility="Auto"
-            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-            Text="{Binding ProductPriceOriginal}"
-            Name="addProductPriceOriginal">
-                    <materialDesign:HintAssist.Hint>
-                        <TextBlock>
-                    <Bold>Giá vốn</Bold> (₫)
-                        </TextBlock>
-                    </materialDesign:HintAssist.Hint>
-                </TextBox>
                 <StackPanel  Grid.Column="1" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center"  Margin="0,20,0,0" HorizontalAlignment="Center" >
                     <Button 
                     Margin="0, 0, 10, 0"
@@ -132,12 +129,10 @@
                         <materialDesign:PackIcon Kind="Add" Height="20" Width="20"/>
                     </Button>
                     <Label 
-                   Height="25"
                    Content="Ảnh sản phẩm"
                    FontSize="15"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Bottom"
-                   FontFamily="Sitka Subheading"
                    FontWeight="Bold"/>
 
                 </StackPanel>
@@ -279,10 +274,9 @@
                 VerticalAlignment="Bottom"
                 Margin="10, 0, 10, 0"
                 Background="ForestGreen"
-                FontFamily="Sitka Subheading"
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Click="BtnAdd_Click"
-                Command="{Binding UpdateViewCommand}" CommandParameter="QLKH"
+                Command="{Binding UpdateViewCommand}" CommandParameter="QLSP"
                 Name="btnAddBill"/>
 
                 <Button 
@@ -295,7 +289,6 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Background="ForestGreen"
-                FontFamily="Sitka Subheading"
                 Margin="10, 0, 10, 0"
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Click="BtnRefreshProduct_Click"

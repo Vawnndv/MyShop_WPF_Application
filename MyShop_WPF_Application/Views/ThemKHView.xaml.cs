@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,34 +32,45 @@ namespace MyShop_WPF_Application.Views
 
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
-
-            if (MessageBox.Show("Bạn muốn thêm mới một khách hàng không?",
-                "Thêm sản phẩm",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question) == MessageBoxResult.Yes)
+            string pattern = @"^[a-zA-Z0-9._%+-]+@gmail\.com$";
+            bool isMatch = Regex.IsMatch(editAddress.Text, pattern);
+            if (editName.Text.Length == 0 || editAddress.Text.Length == 0 || editPhone.Text.Length != 10 || editEmail.Text.Length == 0 || isMatch)
             {
-                if (editName.Text.Length == 0 || editAddress.Text.Length == 0 || editPhone.Text.Length == 0 || editEmail.Text.Length == 0)
-                {
-                    string message = "Vui lòng điền đủ thông tin khách hàng";
-                    string title = "kiểm tra nhập thông tin";
-                    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                string message = "Vui lòng điền đủ thông tin khách hàng";
+                string title = "kiểm tra nhập thông tin";
+                MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
 
+            }
+            else
+            {
+                if(!_viewModel.getCustomerPhone(editPhone.Text.Replace("-", "")))
+                {
+                    if (MessageBox.Show("Bạn muốn thêm mới một khách hàng không?",
+                    "Thêm sản phẩm",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        _viewModel._customer.name = editName.Text;
+                        _viewModel._customer.phone = editPhone.Text.Replace("-", "");
+                        _viewModel._customer.address = editAddress.Text;
+                        _viewModel._customer.email = editEmail.Text;
+
+                        var add = _viewModel.AddCustomer(_viewModel._customer);
+                        if (add)
+                        {
+                            string message = "Thêm khách hàng thành công";
+                            string title = "Thêm khách hàng";
+                            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+                            DataContext = new MainViewModel();
+                        }
+                    }
                 }
                 else
                 {
-                    _viewModel._customer.name = editName.Text;
-                    _viewModel._customer.phone = editPhone.Text;
-                    _viewModel._customer.address = editAddress.Text;
-                    _viewModel._customer.email = editEmail.Text;
-
-                    var add = _viewModel.AddCustomer(_viewModel._customer);
-                    if (add)
-                    {
-                        string message = "Thêm khách hàng thành công";
-                        string title = "Thêm khách hàng";
-                        MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    }
+                    string message = "Số điện thoại đã tồn tại";
+                    string title = "Thêm khách hàng";
+                    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                    editPhone.Clear();
                 }
             }
         }
@@ -68,12 +80,29 @@ namespace MyShop_WPF_Application.Views
             editName.Clear();
             editPhone.Clear();
             editAddress.Clear();
-            editAddress.Clear();
+            editEmail.Clear();
         }
 
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
+            var textBox = sender as TextBox;
+            e.Handled = Regex.IsMatch(e.Text, "[^0-9]+");
+        }
 
+        private void Price_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            if (!string.IsNullOrEmpty(textBox.Text))
+            {
+                string digitsOnly = Regex.Replace(textBox.Text, @"\D", "");
+
+                string formattedNumber = Regex.Replace(digitsOnly, @"(\d{3})(\d{3})(\d{4})", "$1-$2-$3");
+
+                // Update the text in the TextBox
+                textBox.Text = formattedNumber;
+                textBox.SelectionStart = textBox.Text.Length;
+            }
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)

@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using MyShop_WPF_Application.ViewModels;
+using DocumentFormat.OpenXml.Vml;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Win32;
 using MyShop_WPF_Application.Converters;
 using MyShop_WPF_Application.Models;
-using MyShop_WPF_Application.ViewModels;
 using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -12,7 +14,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -21,6 +22,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
+
 
 namespace MyShop_WPF_Application.Views
 {
@@ -53,11 +55,6 @@ namespace MyShop_WPF_Application.Views
             }
         }
 
-        private void ListBill_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
         private void BtnEditProduct_Click(object sender, RoutedEventArgs e)
         {
             editProductName.IsReadOnly = false;
@@ -68,8 +65,8 @@ namespace MyShop_WPF_Application.Views
             comboboxCategory.IsEnabled = true;
             btnRemoveProduct.IsEnabled = false;
 
-            saveBtn.Visibility = Visibility.Visible;
             restoreBtn.Visibility = Visibility.Visible;
+            saveBtn.Visibility = Visibility.Visible;
             btnEditProduct.Visibility = Visibility.Hidden;
         }
 
@@ -89,8 +86,8 @@ namespace MyShop_WPF_Application.Views
                 MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     _viewModel._product.ProductName = editProductName.Text;
-                    _viewModel._product.ProductPrice = double.Parse(editProductPrice.Text);
-                    _viewModel._product.ProductPriceOriginal = double.Parse(editProductPriceOriginal.Text);
+                    _viewModel._product.ProductPrice = double.Parse(editProductPrice.Text.Replace(",", ""));
+                    _viewModel._product.ProductPriceOriginal = double.Parse(editProductPriceOriginal.Text.Replace(",", ""));
                     _viewModel._product.ProductQuantity = int.Parse(editProductQuantity.Text);
                     foreach (var category in _viewModel._categoryList)
                     {
@@ -253,19 +250,24 @@ namespace MyShop_WPF_Application.Views
         {
 
         }
-
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            TextBox textBox = sender as TextBox;
+            //var textBox = sender as TextBox;
+            e.Handled = Regex.IsMatch(e.Text, "[^0-9]+");
+        }
 
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
+        private void Price_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //TextBox textBox = sender as TextBox;
 
+            System.Windows.Controls.TextBox textBox = sender as System.Windows.Controls.TextBox;
+
+            // Chuyển định dạng abc,xyz cho giá cả
             if (textBox.Text.Length > 0)
             {
                 double value = 0;
                 double.TryParse(textBox.Text, out value);
-                textBox.Text = value.ToString("N0", CultureInfo.InvariantCulture);
+                textBox.Text = value.ToString("N0");
                 textBox.CaretIndex = textBox.Text.Length;
             }
         }
