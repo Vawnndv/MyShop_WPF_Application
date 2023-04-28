@@ -40,12 +40,24 @@ namespace MyShop_WPF_Application.Views
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
             string pattern = @"^[a-zA-Z0-9._%+-]+@gmail\.com$";
-            bool isMatch = Regex.IsMatch(editAddress.Text, pattern);
-            if (editName.Text.Length == 0 || editPhone.Text.Length == 0 || editEmail.Text.Length != 10 || editAddress.Text.Length == 0 || isMatch)
+            bool isMatch = Regex.IsMatch(editEmail.Text, pattern);
+            if (editName.Text.Length == 0 || editPhone.Text.Length == 0 || editPhone.Text.Length == 0 || editAddress.Text.Length == 0 || editEmail.Text.Length == 0)
             {
-                string message = "Vui lòng điền đủ thông tin";
                 string title = "kiểm tra nhập thông tin";
+                string message = "Vui lòng điền đủ thông tin";
                 MessageBox.Show(message, title, MessageBoxButton.OK,MessageBoxImage.Warning);
+            }
+            else if(!isMatch)
+            {
+                string title = "Kiểm tra";
+                string message = "Vui lòng nhập đúng địa chỉ Email theo @gmail.com";
+                MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else if (editPhone.Text.Replace("-", "").Length != 10)
+            {
+                string title = "Kiểm tra";
+                string message = "Vui lòng nhập đúng số điện thoại đủ 10 số";
+                MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {
@@ -66,8 +78,8 @@ namespace MyShop_WPF_Application.Views
                         _viewModel._customerRestore = _viewModel._customer;
                         if (edit)
                         {
-                            string message = "Đã cập nhật thông tin khách hàng thành công";
                             string title = "Hiệu chỉnh";
+                            string message = "Đã cập nhật thông tin khách hàng thành công";
                             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
                             base.DataContext = new MainViewModel();
                         }
@@ -88,23 +100,7 @@ namespace MyShop_WPF_Application.Views
                     string title = "Hiệu chỉnh";
                     MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
                     editPhone.Clear();
-                }
-            }
-        }
-
-        private void BtnRemoveProduct_Click(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Bạn có muốn xóa thông tin khách hàng này không?",
-                "Xóa",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                var remove = _viewModel.RemoveCustomer(_viewModel._customer.phone);
-                if (remove)
-                {
-                    string message = "Đã xóa thông tin khách hàng thành công";
-                    string title = "Xóa";
-                    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+                    base.DataContext = new MainViewModel();
                 }
             }
         }

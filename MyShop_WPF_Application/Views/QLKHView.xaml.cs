@@ -49,11 +49,18 @@ namespace MyShop_WPF_Application.Views
             _currentPage = page;
             _listSize = _viewModel.updateCusstomerList().Count;
 
-            if (_viewModel.updateCusstomerList().Where(x => x.name.ToLower().Contains(keyword.ToLower())).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList().Count == 0)
+            if (_viewModel.updateCusstomerList().Where(x => x.name.ToLower().Contains(keyword.ToLower())).ToList().Count == 0)
             {
-                _currentPage = page - 1;
+                string title = "Timef kiếm theo tên";
+                string message = "Không tìm thấy tên khách hàng";
+                MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+                lst.ItemsSource = _viewModel.updateCusstomerList().Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
+
             }
-            lst.ItemsSource = _viewModel.updateCusstomerList().Where(x => x.name.ToLower().Contains(keyword.ToLower())).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
+            else
+            {
+                lst.ItemsSource = _viewModel.updateCusstomerList().Where(x => x.name.ToLower().Contains(keyword.ToLower())).Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage);
+            }
             _totalPage = _listSize / rowsPerPage + ((_listSize % rowsPerPage) == 0 ? 0 : 1);
             pageCountLabel.Content = $"{_currentPage}/{_totalPage}";
         }

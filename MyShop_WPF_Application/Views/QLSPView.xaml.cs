@@ -64,6 +64,8 @@ namespace MyShop_WPF_Application.Views
             {
                 comboboxCategory.Items.Add(category.CategoryName);
             }
+            comboboxCategory.Items.Add("Sắp hết hàng");
+
             updateTotalPage();
             updatePage(_currentCategoryCombobox, 1);
 
@@ -113,6 +115,10 @@ namespace MyShop_WPF_Application.Views
             {
                 _productListCategory = _viewModel._productList.ToList();
             }
+            else if(category == comboboxCategory.Items.Count - 1)
+            {
+                _productListCategory = _viewModel._productList.Where(x => x.ProductQuantity < 5).ToList();
+            }
             else
             {
                 _productListCategory = _viewModel._productList.Where(x => x.CategoryID == category).ToList();
@@ -132,7 +138,6 @@ namespace MyShop_WPF_Application.Views
                     _newProductItem = _newProductList.Skip((_currentPage - 1) * rowsPerPage).Take(rowsPerPage).ToList();
                 }
 
-                searchProductInput.Clear();
             }
             else
             {
@@ -163,6 +168,7 @@ namespace MyShop_WPF_Application.Views
 
             updatePage(_currentCategoryCombobox, 1, keyword);
             updateTotalPage();
+                searchProductInput.Clear();
 
             currentPageComboBox.SelectedIndex = _currentPage - 1;
         }
@@ -290,6 +296,15 @@ namespace MyShop_WPF_Application.Views
                     var sheets = wbPart.Workbook.Descendants<Sheet>()!;
                     var sheet = sheets.FirstOrDefault(
                         s => s.Name == "Product");
+                    if (sheet == null)
+                    {
+                        {
+                            string title = "Import category từ Excel";
+                            string message = "Import không thành công, File excel không có sheet là Product";
+                            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
                     var wsPart = (WorksheetPart)(wbPart!.GetPartById(sheet.Id!));
                     var cells = wsPart.Worksheet.Descendants<Cell>();
 
@@ -379,20 +394,20 @@ namespace MyShop_WPF_Application.Views
 
                     if (countAdd > 0)
                     {
-                        string title = "Import category từ Excel" + countAdd;
-                        string message = "Đã thêm thành công " + countAdd + " loại sản phẩm mới";
+                        string title = "Import sản phẩm từ Excel" + countAdd;
+                        string message = "Đã thêm thành công " + countAdd + " sản phẩm mới";
                         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
-                        string title = "Import category từ Excel";
+                        string title = "Import sản phẩm từ Excel";
                         string message = "Không có dữ liệu hoặc dữ liệu đã tồn tại trong cơ sở dữ liệu";
                         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
                 catch (Exception ex)
                 {
-                    string title = "Import category từ Excel";
+                    string title = "Import sản phẩm từ Excel";
                     string message = "Import không thành công";
                     MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -433,22 +448,6 @@ namespace MyShop_WPF_Application.Views
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-
-        //private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        //{
-        //    TextBox textBox = sender as TextBox;
-
-        //    Regex regex = new Regex("[^0-9]+");
-        //    e.Handled = regex.IsMatch(e.Text);
-
-        //    if (textBox.Text.Length > 0)
-        //    {
-        //        double value = 0;
-        //        double.TryParse(textBox.Text, out value);
-        //        textBox.Text = value.ToString("N0", CultureInfo.InvariantCulture);
-        //        textBox.CaretIndex = textBox.Text.Length;
-        //    }
-        //}
 
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

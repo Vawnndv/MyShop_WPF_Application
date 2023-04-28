@@ -33,13 +33,25 @@ namespace MyShop_WPF_Application.Views
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             string pattern = @"^[a-zA-Z0-9._%+-]+@gmail\.com$";
-            bool isMatch = Regex.IsMatch(editAddress.Text, pattern);
-            if (editName.Text.Length == 0 || editAddress.Text.Length == 0 || editPhone.Text.Length != 10 || editEmail.Text.Length == 0 || isMatch)
+            bool isMatch = Regex.IsMatch(editEmail.Text, pattern);
+            if (editName.Text.Length == 0 || editAddress.Text.Length == 0 || editPhone.Text.Length == 0 || editEmail.Text.Length == 0)
             {
-                string message = "Vui lòng điền đủ thông tin khách hàng";
                 string title = "kiểm tra nhập thông tin";
+                string message = "Vui lòng điền đủ thông tin khách hàng";
                 MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
 
+            }
+            else if (!isMatch)
+            {
+                string title = "Kiểm tra";
+                string message = "Vui lòng nhập đúng địa chỉ Email theo @gmail.com";
+                MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else if (editPhone.Text.Replace("-", "").Length != 10)
+            {
+                string title = "Kiểm tra";
+                string message = "Vui lòng nhập đúng số điện thoại đủ 10 số";
+                MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {
@@ -58,8 +70,8 @@ namespace MyShop_WPF_Application.Views
                         var add = _viewModel.AddCustomer(_viewModel._customer);
                         if (add)
                         {
-                            string message = "Thêm khách hàng thành công";
                             string title = "Thêm khách hàng";
+                            string message = "Thêm khách hàng thành công";
                             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
                             DataContext = new MainViewModel();
                         }
@@ -67,8 +79,8 @@ namespace MyShop_WPF_Application.Views
                 }
                 else
                 {
-                    string message = "Số điện thoại đã tồn tại";
                     string title = "Thêm khách hàng";
+                    string message = "Số điện thoại đã tồn tại";
                     MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
                     editPhone.Clear();
                 }

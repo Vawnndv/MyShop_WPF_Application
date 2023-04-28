@@ -102,8 +102,8 @@ namespace MyShop_WPF_Application.Repositories
             bool result = false;
             int lastId = 0;
 
-            Global.Connection = new SqlConnection(Global.ConnectionString);
-            Global.Connection.Open();
+            //Global.Connection = new SqlConnection(Global.ConnectionString);
+            //Global.Connection.Open();
 
             if (Global.Connection != null)
             {

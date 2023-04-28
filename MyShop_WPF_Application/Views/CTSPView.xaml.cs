@@ -126,6 +126,7 @@ namespace MyShop_WPF_Application.Views
                         string message = "Đã cập nhật sản phẩm thành công";
                         string title = "Sửa thông tin sản phẩm";
                         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+                        DataContext = new MainViewModel();
                     }
                 }
                 editProductName.IsReadOnly = true;
@@ -155,6 +156,7 @@ namespace MyShop_WPF_Application.Views
                     string message = "Đã xóa sản phẩm thành công";
                     string title = "Xóa thông tin sản phẩm";
                     MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+                    DataContext = new MainViewModel();
                 }
             }
         }

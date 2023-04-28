@@ -140,7 +140,7 @@
                     </StackPanel>
                 </DockPanel>
                 <StackPanel Margin="0 0 0 0" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock FontWeight="Bold" Foreground="#348F6C" Text="Số sanr phẩm mỗi trang" VerticalAlignment="Center"/>
+                    <TextBlock FontWeight="Bold" Foreground="#348F6C" Text="Số sản phẩm mỗi trang" VerticalAlignment="Center"/>
                     <TextBox FontWeight="Bold" Foreground="#348F6C" PreviewTextInput="NumberValidationTextBox" x:Name="displayRowPerPageTextBox" 
                          d:Text="5" Style="{StaticResource MaterialDesignTextBoxBase}" 
                          BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="5 5 5 5" 

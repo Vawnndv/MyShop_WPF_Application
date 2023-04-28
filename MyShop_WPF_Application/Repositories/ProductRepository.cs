@@ -147,17 +147,34 @@ namespace MyShop_WPF_Application.Repositories
         public bool addProduct(ProductModel product)
         {
             bool result = false;
+            int lastId = 0;
 
             //Global.Connection = new SqlConnection(Global.ConnectionString);
             //Global.Connection.Open();
 
             if (Global.Connection != null)
             {
-                var sql = "INSERT INTO Product(Category_ID, Product_Name, Avatar, Quantity, Price, Price_Original) " +
-                          "VALUES(@categoryID, @productName, @avatar, @quantity, @price, @priceOriginal)";
+                var getLastIdSql = "SELECT TOP 1 Product_ID FROM Product ORDER BY Product_ID DESC";
+                var getLastIdCommand = new SqlCommand(getLastIdSql, Global.Connection);
+                var lastIdReader = getLastIdCommand.ExecuteReader();
+
+                if (lastIdReader.Read())
+                {
+                    lastId = lastIdReader.GetInt32(0);
+                }
+
+                lastIdReader.Close();
+
+                // Turn on IDENTITY_INSERT for the Category table
+                var setIdInsertSql = "SET IDENTITY_INSERT Product ON";
+                var setIdInsertCommand = new SqlCommand(setIdInsertSql, Global.Connection);
+                setIdInsertCommand.ExecuteNonQuery();
+
+                var sql = "INSERT INTO Product(Product_ID, Category_ID, Product_Name, Avatar, Quantity, Price, Price_Original) " +
+                          "VALUES(@productId, @categoryID, @productName, @avatar, @quantity, @price, @priceOriginal)";
 
                 var command = new SqlCommand(sql, Global.Connection);
-
+                command.Parameters.AddWithValue("@productId", lastId + 1);
                 command.Parameters.AddWithValue("@categoryID", product.CategoryID);
                 command.Parameters.AddWithValue("@productName", product.ProductName);
                 command.Parameters.AddWithValue("@avatar", product.ProductAvatar);
@@ -171,6 +188,11 @@ namespace MyShop_WPF_Application.Repositories
                 {
                     result = true;
                 }
+
+                // Turn off IDENTITY_INSERT for the Category table
+                var unsetIdInsertSql = "SET IDENTITY_INSERT Product OFF";
+                var unsetIdInsertCommand = new SqlCommand(unsetIdInsertSql, Global.Connection);
+                unsetIdInsertCommand.ExecuteNonQuery();
             }
 
             //Global.Connection?.Close();

@@ -193,6 +193,15 @@ namespace MyShop_WPF_Application.Views
                     var sheets = wbPart.Workbook.Descendants<Sheet>()!;
                     var sheet = sheets.FirstOrDefault(
                         s => s.Name == "Category");
+                    if(sheet == null )
+                    {
+                        {
+                            string title = "Import category từ Excel";
+                            string message = "Import không thành công, File excel không có sheet là Category";
+                            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
                     var wsPart = (WorksheetPart)(wbPart!.GetPartById(sheet.Id!));
                     var cells = wsPart.Worksheet.Descendants<Cell>();
 
@@ -200,6 +209,10 @@ namespace MyShop_WPF_Application.Views
                     Cell nameCell;
 
                     int countAdd = 0;
+                    foreach (var category in _viewModel._categoryList)
+                    {
+                        _viewModel.RemoveCategory(category.id);
+                    }
                     do
                     {
                         nameCell = cells.FirstOrDefault(
@@ -221,23 +234,12 @@ namespace MyShop_WPF_Application.Views
                             InnerText;
 
                             bool isExist = false;
-                            foreach (var category in _viewModel._categoryList)
-                            {
-                                if (category.name.Equals(name))
-                                {
-                                    isExist = true;
-                                    break;
 
-                                }
-                            }
-                            if (!isExist)
+                             _viewModel._category.CategoryName = name;
+                             var add = _viewModel.AddNewCategory(_viewModel._category);
+                            if (add)
                             {
-                                _viewModel._category.CategoryName = name;
-                                var add = _viewModel.AddNewCategory(_viewModel._category);
-                                if (add)
-                                {
-                                    countAdd++;
-                                }
+                                 countAdd++;
                             }
                             Trace.WriteLine($"{name}");
                         }
