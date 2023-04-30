@@ -111,7 +111,7 @@
                         Name ="first_chart"
                         FontFamily="Sitka Subheading" 
                         ChartTitle="Sản phẩm bán chạy"
-                        ChartSubTitle="Số lượng từng sản phẩm bán được"
+                        ChartSubTitle="Số lượng từng sản phẩm bán chạy đã được bán"
                         ChartLegendVisibility="Hidden" Padding="0"
                         Background="Transparent"
                         Height="400"
@@ -130,7 +130,7 @@
                         Margin="20,20,20,30" Padding="0"
                         VerticalAlignment="Top"
                         ChartTitle="Sản phẩm bán chạy"
-                        ChartSubTitle="Phần trăm từng sản phẩm bán chạy"
+                        ChartSubTitle="Phần trăm từng sản phẩm bán chạy đã được bán"
                         SelectedBrush="Transparent"
                         Background="Transparent"
                         Height="400" >

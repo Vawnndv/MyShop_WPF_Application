@@ -1,9 +1,11 @@
 ﻿using MaterialDesignThemes.Wpf;
 using MyShop_WPF_Application.Commands;
 using MyShop_WPF_Application.Models;
+using MyShop_WPF_Application.UserControls;
 using MyShop_WPF_Application.ViewModels;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,7 +21,7 @@ namespace MyShop_WPF_Application.Views
     {
         int[] listYear = { 2024, 2023, 2022, 2021, 2020, 2019 };
         int[] listMonth = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
-        int[] listWeek = { 1, 2, 3, 4};
+        int[] listWeek = { 1, 2, 3, 4, 5, 6};
         TKSPViewModel _viewModel = new TKSPViewModel();
         DateTime _start;
         DateTime _end;
@@ -62,6 +64,30 @@ namespace MyShop_WPF_Application.Views
         {
             InitializeComponent();
 
+            for (int i = 0; i < Dashboard.menuBTN.Children.Count; i++)
+            {
+                if (Dashboard.menuBTN.Children[i] is MenuButton)
+                {
+                    var select = Dashboard.menuBTN.Children[i] as MenuButton;
+                    if (select.btn.IsFocused == true)
+                        select.isActive = true;
+                    else
+                        select.isActive = false;
+                }
+            }
+
+            for (int i = 0; i < Dashboard.subMenuBTN.Children.Count; i++)
+            {
+                if (Dashboard.subMenuBTN.Children[i] is MenuButton)
+                {
+                    var select_ = Dashboard.subMenuBTN.Children[i] as MenuButton;
+                    if (select_.btn.IsFocused == true)
+                        select_.isActive = true;
+                    else
+                        select_.isActive = false;
+                }
+            }
+
             chooseYear.ItemsSource = listYear;
             chooseMonth.ItemsSource = listMonth;
             chooseWeek.ItemsSource = listWeek;
@@ -101,8 +127,44 @@ namespace MyShop_WPF_Application.Views
             }
             else if (year == 0 && month == 0 && week > 0)
             {
-                startDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-                endDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays((week * 7) - 1);
+                int StartDayFirstWeek = (int)(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).DayOfWeek);
+                Debug.WriteLine(StartDayFirstWeek);
+                if (StartDayFirstWeek == 0)
+                {
+                    StartDayFirstWeek = 7;
+                }
+                int rangeFirstWeek = 7 - StartDayFirstWeek;
+                DateTime EndDateFirstWeek = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(rangeFirstWeek);
+
+
+                if (week == 1)
+                {
+                    startDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                    endDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(rangeFirstWeek);
+                }
+                else
+                {
+                    DateTime endDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1).AddDays(-1);
+
+                    int dayStart = (EndDateFirstWeek.Day + 1) + (week - 2) * 7;
+                    int endStart = (EndDateFirstWeek.Day + 1) + (week - 2) * 7 + 6;
+
+                    if (dayStart > endDayOfMonth.Day)
+                    {
+                        startDay = endDayOfMonth.AddDays(-6);
+                        endDay = endDayOfMonth;
+                    }
+                    else if (endStart > endDayOfMonth.Day)
+                    {
+                        startDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, (EndDateFirstWeek.Day + 1) + (week - 2) * 7);
+                        endDay = endDayOfMonth;
+                    }
+                    else
+                    {
+                        startDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, (EndDateFirstWeek.Day + 1) + (week - 2) * 7);
+                        endDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, (EndDateFirstWeek.Day + 1) + (week - 2) * 7).AddDays(6);
+                    }
+                }
             }
             else if (year > 0 && month > 0 && week == 0)
             {
@@ -111,26 +173,88 @@ namespace MyShop_WPF_Application.Views
             }
             else if (year == 0 && month > 0 && week > 0)
             {
-                startDay = new DateTime(DateTime.Now.Year, month, 1);
-                endDay = new DateTime(DateTime.Now.Year, month, 1).AddDays((week * 7) - 1);
+                int StartDayFirstWeek = (int)(new DateTime(DateTime.Now.Year, month, 1).DayOfWeek);
+                if (StartDayFirstWeek == 0)
+                {
+                    StartDayFirstWeek = 7;
+                }
+                int rangeFirstWeek = 7 - StartDayFirstWeek;
+                DateTime EndDateFirstWeek = new DateTime(DateTime.Now.Year, month, 1).AddDays(rangeFirstWeek);
+
+
+                if (week == 1)
+                {
+                    startDay = new DateTime(DateTime.Now.Year, month, 1);
+                    endDay = new DateTime(DateTime.Now.Year, month, 1).AddDays(rangeFirstWeek);
+                }
+                else
+                {
+                    DateTime endDayOfMonth = new DateTime(DateTime.Now.Year, month, 1).AddMonths(1).AddDays(-1);
+
+                    int dayStart = (EndDateFirstWeek.Day + 1) + (week - 2) * 7;
+                    int endStart = (EndDateFirstWeek.Day + 1) + (week - 2) * 7 + 6;
+
+                    if (dayStart > endDayOfMonth.Day)
+                    {
+                        startDay = endDayOfMonth.AddDays(-6);
+                        endDay = endDayOfMonth;
+                    }
+                    else if (endStart > endDayOfMonth.Day)
+                    {
+                        startDay = new DateTime(DateTime.Now.Year, month, (EndDateFirstWeek.Day + 1) + (week - 2) * 7);
+                        endDay = endDayOfMonth;
+                    }
+                    else
+                    {
+                        startDay = new DateTime(DateTime.Now.Year, month, (EndDateFirstWeek.Day + 1) + (week - 2) * 7);
+                        endDay = new DateTime(DateTime.Now.Year, month, (EndDateFirstWeek.Day + 1) + (week - 2) * 7).AddDays(6);
+                    }
+                }
             }
             else if (year > 0 && month == 0 && week > 0)
             {
-                startDay = new DateTime(year, DateTime.Now.Month, 1);
-                endDay = new DateTime(year, DateTime.Now.Month, 1).AddDays((week * 7) - 1);
+                startDay = new DateTime(year, month, 1);
+                endDay = new DateTime(year, month, 1).AddDays((week * 7) - 1);
             }
             else
             {
-                DateTime firstDayOfMonth = new DateTime(year, month, 1);
-                int firstDayOfWeek = (int)firstDayOfMonth.DayOfWeek;
-                int daysInFirstWeek = 7 - firstDayOfWeek;
-                int daysInMonth = DateTime.DaysInMonth(year, month);
-                int daysLeft = daysInMonth - daysInFirstWeek;
-                int weekOffset = (week - 2) * 7;
-                int startDayOffset = daysInFirstWeek + weekOffset;
-                int endDayOffset = startDayOffset + 6;
-                startDay = firstDayOfMonth.AddDays(startDayOffset);
-                endDay = firstDayOfMonth.AddDays(endDayOffset <= daysInMonth ? endDayOffset : daysLeft);
+                int StartDayFirstWeek = (int)(new DateTime(year, month, 1).DayOfWeek);
+                if (StartDayFirstWeek == 0)
+                {
+                    StartDayFirstWeek = 7;
+                }
+                int rangeFirstWeek = 7 - StartDayFirstWeek;
+                DateTime EndDateFirstWeek = new DateTime(year, month, 1).AddDays(rangeFirstWeek);
+
+
+                if (week == 1)
+                {
+                    startDay = new DateTime(year, month, 1);
+                    endDay = new DateTime(year, month, 1).AddDays(rangeFirstWeek);
+                }
+                else
+                {
+                    DateTime endDayOfMonth = new DateTime(year, month, 1).AddMonths(1).AddDays(-1);
+
+                    int dayStart = (EndDateFirstWeek.Day + 1) + (week - 2) * 7;
+                    int endStart = (EndDateFirstWeek.Day + 1) + (week - 2) * 7 + 6;
+
+                    if (dayStart > endDayOfMonth.Day)
+                    {
+                        startDay = endDayOfMonth.AddDays(-6);
+                        endDay = endDayOfMonth;
+                    }
+                    else if (endStart > endDayOfMonth.Day)
+                    {
+                        startDay = new DateTime(year, month, (EndDateFirstWeek.Day + 1) + (week - 2) * 7);
+                        endDay = endDayOfMonth;
+                    }
+                    else
+                    {
+                        startDay = new DateTime(year, month, (EndDateFirstWeek.Day + 1) + (week - 2) * 7);
+                        endDay = new DateTime(year, month, (EndDateFirstWeek.Day + 1) + (week - 2) * 7).AddDays(6);
+                    }
+                }
             }
 
             return Tuple.Create(startDay, endDay);

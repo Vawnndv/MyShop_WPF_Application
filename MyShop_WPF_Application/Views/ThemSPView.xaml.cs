@@ -163,6 +163,8 @@ namespace MyShop_WPF_Application.Views
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
+            var select = Dashboard.menuBTN.Children[3] as MenuButton;
+            select?.btn.Focus();
             Debug.WriteLine("123 ko bam dc");
             base.DataContext = new MainViewModel();
         }

@@ -44,17 +44,24 @@
                         <Setter Property="Tag" Value="Hidden"/>
                     </Trigger>
 
-                    <Trigger Property="IsFocused" Value="True">
+                    <!--<Trigger Property="IsFocused" Value="True">
                         <Setter Property="Tag" Value="Visible"/>
                         <Setter Property="Background" Value="#FFFFFF"/>
                         <Setter Property="Foreground" Value="#348F6C"/>
-                    </Trigger>
+                    </Trigger>-->
 
                     <DataTrigger Binding="{Binding ElementName=menuButton, Path=isActive}" Value="True">
                         <Setter Property="Tag" Value="Visible"/>
                         <Setter Property="Background" Value="#FFFFFF"/>
                         <Setter Property="Foreground" Value="#348F6C"/>
                     </DataTrigger>
+
+                    <!--<DataTrigger Binding="{Binding ElementName=menuButton, Path=isActive}" Value="False">
+                        <Setter Property="Tag" Value="Hidden"/>
+                        <Setter Property="Background" Value="#489A7A"/>
+                        <Setter Property="Foreground" Value="#ffffff"/>
+                    </DataTrigger>-->
+                    
                 </Style.Triggers>
             </Style>
 
@@ -106,9 +113,6 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:TK_DoanhThu_LoiNhuanViewModel}">
                 <views:TK_DoanhThu_LoiNhuanView/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:TMSPViewModel}">
-                <views:TMSPView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:TKBHViewModel}">
                 <views:TKBHView/>

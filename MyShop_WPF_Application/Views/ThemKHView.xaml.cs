@@ -1,4 +1,5 @@
-﻿using MyShop_WPF_Application.ViewModels;
+﻿using MyShop_WPF_Application.UserControls;
+using MyShop_WPF_Application.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -119,6 +120,8 @@ namespace MyShop_WPF_Application.Views
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
+            var select = Dashboard.menuBTN.Children[1] as MenuButton;
+            select?.btn.Focus();
             DataContext = new MainViewModel();
         }
     }

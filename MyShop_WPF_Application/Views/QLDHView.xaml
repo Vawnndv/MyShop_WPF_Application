@@ -40,7 +40,7 @@
             <Button Margin="10 10 0 0" Content="Bỏ Lọc" x:Name="removeFilterButton" Click="removeFilterButton_Click" Background="#348F6C" BorderThickness="0"/>
 
         </StackPanel>
-            <Button DockPanel.Dock="Left" Content="Thêm đơn hàng mới" x:Name="addNewOrderButton" Click="addNewOrderButton_Click" Width="200" HorizontalAlignment="Left" Margin="15 0 0 -20"/>
+                <Button DockPanel.Dock="Left" Content="Thêm đơn hàng mới" x:Name="addNewOrderButton" Click="addNewOrderButton_Click" Width="200" HorizontalAlignment="Left" Margin="15 0 0 -20" Background="#348F6C" BorderThickness="0"/>
         </DockPanel>
         <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0">
             <ListView.ItemContainerStyle>

@@ -1,4 +1,5 @@
 ﻿using MyShop_WPF_Application.Models;
+using MyShop_WPF_Application.UserControls;
 using MyShop_WPF_Application.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,30 @@ namespace MyShop_WPF_Application.Views
         public TKBHView()
         {
             InitializeComponent();
+
+            for (int i = 0; i < Dashboard.menuBTN.Children.Count; i++)
+            {
+                if (Dashboard.menuBTN.Children[i] is MenuButton)
+                {
+                    var select = Dashboard.menuBTN.Children[i] as MenuButton;
+                    if (select.btn.IsFocused == true)
+                        select.isActive = true;
+                    else
+                        select.isActive = false;
+                }
+            }
+
+            for (int i = 0; i < Dashboard.subMenuBTN.Children.Count; i++)
+            {
+                if (Dashboard.subMenuBTN.Children[i] is MenuButton)
+                {
+                    var select_ = Dashboard.subMenuBTN.Children[i] as MenuButton;
+                    if (select_.btn.IsFocused == true)
+                        select_.isActive = true;
+                    else
+                        select_.isActive = false;
+                }
+            }
 
             chooseYear.ItemsSource = listYear;
             chooseMonth.ItemsSource = listMonth;
@@ -199,19 +224,19 @@ namespace MyShop_WPF_Application.Views
             }
             else
             {
-                int StartDayFirstWeek = (int)(new DateTime(DateTime.Now.Year, month, 1).DayOfWeek);
+                int StartDayFirstWeek = (int)(new DateTime(year, month, 1).DayOfWeek);
                 if (StartDayFirstWeek == 0)
                 {
                     StartDayFirstWeek = 7;
                 }
                 int rangeFirstWeek = 7 - StartDayFirstWeek;
-                DateTime EndDateFirstWeek = new DateTime(DateTime.Now.Year, month, 1).AddDays(rangeFirstWeek);
+                DateTime EndDateFirstWeek = new DateTime(year, month, 1).AddDays(rangeFirstWeek);
 
 
                 if (week == 1)
                 {
-                    startDay = new DateTime(DateTime.Now.Year, month, 1);
-                    endDay = new DateTime(DateTime.Now.Year, month, 1).AddDays(rangeFirstWeek);
+                    startDay = new DateTime(year, month, 1);
+                    endDay = new DateTime(year, month, 1).AddDays(rangeFirstWeek);
                 }
                 else
                 {

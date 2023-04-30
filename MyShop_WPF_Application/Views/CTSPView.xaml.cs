@@ -22,7 +22,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
-
+using MyShop_WPF_Application.UserControls;
 
 namespace MyShop_WPF_Application.Views
 {
@@ -276,6 +276,8 @@ namespace MyShop_WPF_Application.Views
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
+            var select = Dashboard.menuBTN.Children[3] as MenuButton;
+            select?.btn.Focus();
             DataContext = new MainViewModel();
         }
     }
