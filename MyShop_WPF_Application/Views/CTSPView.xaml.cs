@@ -173,7 +173,7 @@ namespace MyShop_WPF_Application.Views
                 editProductName.Text = _viewModel._restoreProduct.ProductName;
                 editProductPrice.Text = _viewModel._restoreProduct.ProductPrice.ToString();
                 editProductPriceOriginal.Text = _viewModel._restoreProduct.ProductPriceOriginal.ToString();
-                editProductQuantity.Text = _viewModel._product.ProductQuantity.ToString();
+                editProductQuantity.Text = _viewModel._restoreProduct.ProductQuantity.ToString();
                 for (int i = 0; i < _viewModel._categoryList.Count; i++)
                 {
                     if (_viewModel._categoryList[i].CategoryID == _viewModel._restoreProduct.CategoryID)
@@ -193,6 +193,7 @@ namespace MyShop_WPF_Application.Views
                 string absolutePath = (string)absoluteConverter.Convert(imagePath, typeof(string), null, null);
                 // Set the absolute path as the source of the Image control
                 editProductAvatar.Source = new BitmapImage(new Uri(absolutePath));
+                _selected = false;
             }
             editProductName.IsReadOnly = true;
             editProductPrice.IsReadOnly = true;
