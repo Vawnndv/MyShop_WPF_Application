@@ -72,6 +72,14 @@ namespace MyShop_WPF_Application
             {
                 select?.btn.Command.Execute("TKSP");
             }
+            else if (_screen.Equals("TKBH"))
+            {
+                select?.btn.Command.Execute("TKBH");
+            }
+            else
+            {
+                select?.btn.Command.Execute("Dashboard");
+            }
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
