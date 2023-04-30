@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyShop_WPF_Application", "MyShop_WPF_Application\MyShop_WPF_Application.csproj", "{6FBC1D23-2A72-4CD5-AF78-B7E890F0BCE0}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{BD937436-1FF1-4BDE-8D79-A549349B399C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{6FBC1D23-2A72-4CD5-AF78-B7E890F0BCE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FBC1D23-2A72-4CD5-AF78-B7E890F0BCE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FBC1D23-2A72-4CD5-AF78-B7E890F0BCE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD937436-1FF1-4BDE-8D79-A549349B399C}.Debug|Any CPU.ActiveCfg = Debug
+		{BD937436-1FF1-4BDE-8D79-A549349B399C}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
