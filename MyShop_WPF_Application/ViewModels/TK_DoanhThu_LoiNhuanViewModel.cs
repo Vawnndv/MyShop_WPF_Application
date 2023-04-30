@@ -3,6 +3,7 @@ using MyShop_WPF_Application.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,8 +48,8 @@ namespace MyShop_WPF_Application.ViewModels
                 days[i] = i + 1;
                 if (index >= temp.Count)
                     continue;
-
-                if (curDate == temp[index].date)
+               
+                if (curDate.ToString("yyyy-MM-dd") == temp[index].date.ToString("yyyy-MM-dd"))
                 {
                     revenue[i] = temp[index].revenue;
                     profit[i] = temp[index].profit;
