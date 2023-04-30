@@ -72,13 +72,14 @@ namespace MyShop_WPF_Application
                     {
                         throw new Exception("Can't connect to DB");
                     }
+
+                    var screen = new Dashboard();
+                    screen.Show();
                 }
                 catch (Exception ex)
                 {
                     new Login().Show();
                 }
-                var screen = new Dashboard();
-                screen.Show();
             }
         }
     }
