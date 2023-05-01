@@ -14,7 +14,7 @@
             <!--Tiêu đề-->
             <ScrollViewer>
                 <StackPanel >
-                <Label Content="THỐNG KÊ LOẠI SẢN PHẨM "
+                <Label Content="THỐNG KÊ BÁN HÀNG"
                Grid.Row="0"
                Height="25" 
                FontSize="22"

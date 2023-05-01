@@ -32,6 +32,7 @@ namespace MyShop_WPF_Application
             else {
                 try
                 {
+                    Debug.WriteLine(_screen);
                     string username = System.Configuration.ConfigurationManager.AppSettings["Username"]!;
                     string passwordIn64 = System.Configuration.ConfigurationManager.AppSettings["Password"]!;
                     string entropyIn64 = System.Configuration.ConfigurationManager.AppSettings["Entropy"]!;
