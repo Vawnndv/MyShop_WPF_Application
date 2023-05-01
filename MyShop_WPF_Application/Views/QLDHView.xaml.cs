@@ -183,6 +183,23 @@ namespace MyShop_WPF_Application.Views
         {
             _currentPage = page;
 
+            if (_currentPage == 1)
+            {
+                prevButton.IsEnabled = false;
+                nextButton.IsEnabled = true;
+            }
+
+            else if (_currentPage == _totalPage)
+            {
+                prevButton.IsEnabled = true;
+                nextButton.IsEnabled = false;
+            }
+
+            else
+            {
+                prevButton.IsEnabled = true;
+                nextButton.IsEnabled = true;
+            }
 
             if (isFiltering)
             {

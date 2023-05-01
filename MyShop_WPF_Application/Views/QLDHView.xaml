@@ -6,9 +6,7 @@
         xmlns:local="clr-namespace:MyShop_WPF_Application.Views"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Converter="clr-namespace:MyShop_WPF_Application.Converters"
-        
         mc:Ignorable="d" 
-             
         Height="700" Width="1065"
         Loaded="Window_Loaded">
     
@@ -42,7 +40,7 @@
         </StackPanel>
                 <Button DockPanel.Dock="Left" Content="Thêm đơn hàng mới" x:Name="addNewOrderButton" Click="addNewOrderButton_Click" Width="200" HorizontalAlignment="Left" Margin="15 0 0 -20" Background="#348F6C" BorderThickness="0"/>
         </DockPanel>
-        <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0">
+            <ListView Height="480" x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

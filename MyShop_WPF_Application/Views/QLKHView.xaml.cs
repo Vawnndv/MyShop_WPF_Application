@@ -72,6 +72,23 @@ namespace MyShop_WPF_Application.Views
         private void updatePage(int page, string keyword = "")
         {
             _currentPage = page;
+            if (_currentPage == 1)
+            {
+                prevButton.IsEnabled = false;
+                nextButton.IsEnabled = true;
+            }
+
+            else if (_currentPage == _totalPage)
+            {
+                prevButton.IsEnabled = true;
+                nextButton.IsEnabled = false;
+            }
+
+            else
+            {
+                prevButton.IsEnabled = true;
+                nextButton.IsEnabled = true;
+            }
             _listSize = _viewModel.updateCusstomerList().Count;
 
             if (_viewModel.updateCusstomerList().Where(x => x.name.ToLower().Contains(keyword.ToLower())).ToList().Count == 0)

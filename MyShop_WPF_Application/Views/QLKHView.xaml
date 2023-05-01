@@ -33,7 +33,7 @@
 
             </StackPanel>
 
-            <ListView x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0" >
+            <ListView Height="500" x:Name="lst" d:ItemsSource="{d:SampleData ItemCount=10}" Margin="15 0 15 0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
