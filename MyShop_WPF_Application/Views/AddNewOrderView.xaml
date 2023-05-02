@@ -36,7 +36,7 @@
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="20 50 0 0">
                             <TextBlock Text="Số điện thoại: " FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
-                            <TextBox materialDesign:HintAssist.Hint="Nhập số điện thoại" d:Text="1234567890" Width="330" FontSize="20" Margin="32 0 0 0" x:Name="customerPhoneTextBlock"/>
+                            <TextBox PreviewTextInput="customerPhoneTextBlock_PreviewTextInput" materialDesign:HintAssist.Hint="Nhập số điện thoại" d:Text="1234567890" Width="330" FontSize="20" Margin="32 0 0 0" x:Name="customerPhoneTextBlock"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="20 20 0 0">

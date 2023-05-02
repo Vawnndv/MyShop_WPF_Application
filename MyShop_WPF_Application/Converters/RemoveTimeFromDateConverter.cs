@@ -14,7 +14,11 @@ namespace MyShop_WPF_Application.Converters
         {
             //DateTime date = (DateTime)value;
            // string res = date.ToShortDateString();
-            return value.ToString();
+
+            string temp = value.ToString();
+            string[]res = temp.Split(' ');
+
+            return res[0];
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

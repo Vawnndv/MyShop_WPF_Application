@@ -14,6 +14,7 @@
         <Converter:OrderStatusColorConverter x:Key="orderConverter"/>
         <Converter:ToDataRowStringConverter x:Key="toCellConverter"/>
         <Converter:RemoveTimeFromDateConverter x:Key="onlyDate"/>
+        <Converter:PriceConverter x:Key="priceWithComma"/>
 
         <Style TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -78,29 +79,50 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Width="180" DisplayMemberBinding="{Binding OrderDate, Converter={StaticResource onlyDate}}">
+                    <GridViewColumn Width="180">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Ngày tạo" FontSize="14" Width="180" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
+
+                        <GridViewColumn.CellTemplate >
+                            <DataTemplate>
+                                <TextBlock FontWeight="Medium" FontSize="13" TextAlignment="Center" Padding="0 3 0 3"
+                                        Text="{Binding OrderDate, Converter={StaticResource onlyDate}}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding CustomerPhone}">
+                    <GridViewColumn Width="150">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Số điện thoại" FontSize="14" Width="150" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
-                    </GridViewColumn>
 
-                    <GridViewColumn Width="200" DisplayMemberBinding="{Binding OrderTotal, Converter={StaticResource toCellConverter}}">
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate>
+                                    <TextBlock FontWeight="Medium" FontSize="13" TextAlignment="Center" Padding="0 3 0 3"
+                                            Text="{Binding CustomerPhone}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                    <GridViewColumn Width="200" >
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
                                 <TextBlock Text="Tổng giá trị" FontSize="14" Width="200" TextAlignment="Center" FontWeight="Medium" Foreground="#FAFF00" Background="#0F6041" Padding="0 5 0 5"/>
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
-                    </GridViewColumn>
+
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate>
+                                    <TextBlock FontWeight="Medium" FontSize="13" TextAlignment="Center" Padding="0 3 0 3"
+                                            Text="{Binding OrderTotal, Converter={StaticResource priceWithComma}}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
                     <GridViewColumn Width="235">
                         <GridViewColumn.HeaderTemplate>

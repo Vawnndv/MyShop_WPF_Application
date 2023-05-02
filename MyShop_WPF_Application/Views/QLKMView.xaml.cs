@@ -3,6 +3,7 @@ using MyShop_WPF_Application.UserControls;
 using MyShop_WPF_Application.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -176,6 +177,12 @@ namespace MyShop_WPF_Application.Views
             {
                 MessageBox.Show("Giá trị không hợp lệ, vui lòng kiểm tra lại");
                 return; 
+            }
+
+            if (selectedPromo._promotionPercentage > 100)
+            {
+                MessageBox.Show("Khuyến mãi không được lớn hơn 100%");
+                return;
             }
 
             double newPercentage = selectedPromo._promotionPercentage;

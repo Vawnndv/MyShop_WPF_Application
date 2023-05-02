@@ -4,8 +4,10 @@ using MyShop_WPF_Application.UserControls;
 using MyShop_WPF_Application.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -178,7 +180,7 @@ namespace MyShop_WPF_Application.Views
         private void updateMoneyTextBlock()
         {
             double newTotal = _viewModel.calculateTotalMoney(currentPromo!._promotionPercentage);
-            totalMoneyTextBlock.Text = newTotal.ToString();
+            totalMoneyTextBlock.Text = toVndCurrency(newTotal);
 
             _viewModel.updateTotal(currentOrderId, newTotal);
         }
@@ -188,6 +190,13 @@ namespace MyShop_WPF_Application.Views
             var select = Dashboard.menuBTN.Children[4] as MenuButton;
             select?.btn.Focus();
             DataContext = new MainViewModel();
+        }
+
+        private string toVndCurrency(double total)
+        {
+            CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");   // try with "en-US"
+
+            return total.ToString("N0", cul) + " VND";
         }
     }
 }

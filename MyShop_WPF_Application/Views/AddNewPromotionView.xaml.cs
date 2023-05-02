@@ -54,6 +54,12 @@ namespace MyShop_WPF_Application.Views
                 return;
             }
 
+            if (double.Parse(percentString) > 100)
+            {
+                MessageBox.Show("Khuyến mãi không được lớn hơn 100%");
+                return;
+            }
+
             PromotionModel newPromo = new PromotionModel()
             {
                 _promotionName = name,

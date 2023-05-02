@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,16 +44,21 @@ namespace MyShop_WPF_Application.Views
 
 
             int statusID = orderStatusComboBox.SelectedIndex;
-            PromotionModel promo = (PromotionModel)promotionCombobox.SelectedItem;
-            int promoID = promo._promotionId;
+            PromotionModel promo;
             string name = customerNameTextBlock.Text;
             string email = customerEmailTextBlock.Text;
             string address = customerAddressTextBlock.Text;
 
             DateTime? newDate = oderCreateDateTextBlock.SelectedDate;
 
+            if (promotionCombobox.SelectedItem != null)
+            {
+                promo = (PromotionModel)promotionCombobox.SelectedItem;
+            }
+            else
+                promo = null;
 
-            if(phone == null || statusID == -1 ||
+            if (phone == null || statusID == -1 ||
                 promotionCombobox.SelectedIndex == -1 || phone == "" || 
                 oderCreateDateTextBlock.Text == null || oderCreateDateTextBlock.Text == "" ||
                 name == null || name == "" || email == null || email == ""
@@ -61,6 +67,8 @@ namespace MyShop_WPF_Application.Views
                 MessageBox.Show("Xin vui lòng điền hết tất cả các thông tin của đơn hàng ");
                 return;
             }
+
+            int promoID = promo._promotionId;
 
             statusID++;
 
@@ -98,6 +106,12 @@ namespace MyShop_WPF_Application.Views
             var select = Dashboard.menuBTN.Children[4] as MenuButton;
             select?.btn.Focus();
             DataContext = new MainViewModel();
+        }
+
+        private void customerPhoneTextBlock_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

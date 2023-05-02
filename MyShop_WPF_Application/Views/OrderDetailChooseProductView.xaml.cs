@@ -3,6 +3,7 @@ using MyShop_WPF_Application.UserControls;
 using MyShop_WPF_Application.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -43,7 +44,7 @@ namespace MyShop_WPF_Application.Views
 
                 selectedProductImage.Source = new BitmapImage(new Uri(_viewmModel.convertToAbsolute(selectedProduct!.ProductAvatar)));
                 selectedProductName.Text = selectedProduct.ProductName;
-                selectedProductPrice.Text = selectedProduct.ProductPrice.ToString();
+                selectedProductPrice.Text = toVndCurrency(selectedProduct.ProductPrice);
                 selectedProductQuantity.Text = selectedProduct.ProductQuantity.ToString();
             }
         }
@@ -90,6 +91,13 @@ namespace MyShop_WPF_Application.Views
             var select = Dashboard.menuBTN.Children[4] as MenuButton;
             select?.btn.Focus();
             screen.Content = new OrderDetailsView();
+        }
+
+        private string toVndCurrency(double total)
+        {
+            CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");   // try with "en-US"
+
+            return total.ToString("N0", cul) + " VND";
         }
     }
 }
