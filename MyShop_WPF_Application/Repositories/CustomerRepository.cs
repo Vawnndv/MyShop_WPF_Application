@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.Data.SqlClient;
 using MyShop_WPF_Application.Models;
 using System;
 using System.Collections.Generic;
@@ -159,21 +160,43 @@ namespace MyShop_WPF_Application.Repositories
         }
 
 
-        public bool editCustomer(CustomerModel customer)
+        public bool editCustomer(CustomerModel customer, string oldCustomer)
         {
             bool result = false;
-
-            OrderRepository _repository = new OrderRepository();
-            bool add = addCustomer(customer);
-            _repository.editOrderWithPhone(customer.phone);
-            bool remove = removeCustomer(customer.phone);
-
-            if (add && remove)
+            
+            if (Global.Connection != null)
             {
-                return  true;
-            }
+                if(customer.phone.Equals(oldCustomer))
+                {
+                    var sql = "UPDATE Customer SET  Customer_Name = @name, Email = @email, Address = @address WHERE Tel = @phone";
 
-            return false;
+                    var command = new SqlCommand(sql, Global.Connection);
+
+                    command.Parameters.AddWithValue("@phone", customer.phone);
+                    command.Parameters.AddWithValue("@name", customer.name);
+                    command.Parameters.AddWithValue("@address", customer.address);
+                    command.Parameters.AddWithValue("@email", customer.email);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        result = true;
+                    }
+                } else
+                {
+                    OrderRepository _repository = new OrderRepository();
+                    bool add = addCustomer(customer);
+                    _repository.editOrderWithPhone(customer.phone, oldCustomer);
+                    bool remove = removeCustomer(oldCustomer);
+
+                    if (add && remove)
+                    {
+                        result = true;
+                    }
+                }  
+            }
+            return result;
         }
 
 

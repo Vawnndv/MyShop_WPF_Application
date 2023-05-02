@@ -4,6 +4,7 @@ using MyShop_WPF_Application.UserControls;
 using MyShop_WPF_Application.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -62,7 +63,7 @@ namespace MyShop_WPF_Application.Views
             }
             else
             {
-               if(!_viewModel.getCustomerPhone(editPhone.Text.Replace("-", "")))
+               if(!_viewModel.getCustomerPhone(editPhone.Text.Replace("-", ""), _viewModel._customerRestore.phone.Replace("-", "")))
                 {
                     if (MessageBox.Show("Bạn muốn hiệu chỉnh lại thông tin khách hàng này không?",
                        "Hiệu chỉnh",
@@ -75,13 +76,14 @@ namespace MyShop_WPF_Application.Views
                         _viewModel._customer.email = editEmail.Text;
                         _viewModel._customer.address = editAddress.Text;
 
-                        var edit = _viewModel.EditCustomer(_viewModel._customer);
-                        _viewModel._customerRestore = _viewModel._customer;
+                        Debug.WriteLine(_viewModel._customer.phone + ",,,," + _viewModel._customerRestore.phone.Replace("-", ""));
+                        var edit = _viewModel.EditCustomer(_viewModel._customer, _viewModel._customerRestore.phone.Replace("-", ""));
                         if (edit)
                         {
                             string title = "Hiệu chỉnh";
                             string message = "Đã cập nhật thông tin khách hàng thành công";
                             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+                            _viewModel._customerRestore = _viewModel._customer;
                             base.DataContext = new MainViewModel();
                         }
                     }
@@ -101,7 +103,7 @@ namespace MyShop_WPF_Application.Views
                     string title = "Hiệu chỉnh";
                     MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
                     editPhone.Clear();
-                    base.DataContext = new MainViewModel();
+                    //base.DataContext = new MainViewModel();
                 }
             }
         }

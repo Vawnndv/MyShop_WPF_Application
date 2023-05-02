@@ -67,7 +67,7 @@ namespace MyShop_WPF_Application.Repositories
             return result;
         }
 
-        public bool editOrderWithPhone(string? phone)
+        public bool editOrderWithPhone(string? phone, string? oldphone)
         {
             bool result = false;
 
@@ -76,12 +76,13 @@ namespace MyShop_WPF_Application.Repositories
 
             if (Global.Connection != null)
             {
-                var sql = "UPDATE Purchase SET Customer_Phone = @CustomerPhone WHERE Customer_Phone = @CustomerPhone";
+                var sql = "UPDATE Purchase SET Customer_Phone = @newPhone WHERE Customer_Phone = @oldPhone";
 
                 var command = new SqlCommand(sql, Global.Connection);
 
-                command.Parameters.AddWithValue("@CustomerPhone", phone);
-        
+                command.Parameters.AddWithValue("@newPhone", phone);
+                command.Parameters.AddWithValue("@oldPhone", oldphone);
+
 
                 int rowsAffected = command.ExecuteNonQuery();
 

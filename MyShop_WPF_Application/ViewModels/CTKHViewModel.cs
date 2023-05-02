@@ -23,16 +23,19 @@ namespace MyShop_WPF_Application.ViewModels
 
         }
 
-        public bool getCustomerPhone(string? tel)
+        public bool getCustomerPhone(string? tel, string? oldPhone)
         {
-            Debug.WriteLine("dộ dài:  " + _repository.getAllCustomer().Where(x => x.phone.Contains(tel)).Count());
+            if(tel.Equals(oldPhone))
+            {
+                return false;
+            }
             return _repository.getAllCustomer().Where(x => x.phone.Contains(tel)).Count() == 1;
         }
 
 
-        public bool EditCustomer(CustomerModel customer)
+        public bool EditCustomer(CustomerModel customer, String oldPhone)
         {
-            return _repository.editCustomer(customer);
+            return _repository.editCustomer(customer, oldPhone);
         }
 
         public bool RemoveCustomer(string? phone)
